@@ -47,6 +47,12 @@ if config_env() == :dev do
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 end
 
+if config_env() == :test do
+  if database_url = System.get_env("DATABASE_URL") do
+    config :daily_logos, DailyLogos.Repo, url: database_url
+  end
+end
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

@@ -6,7 +6,8 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 test_database_url =
-  System.get_env("TEST_DATABASE_URL") ||
+  System.get_env("DATABASE_URL") ||
+    System.get_env("TEST_DATABASE_URL") ||
     "ecto://#{System.get_env("POSTGRES_USER", "postgres")}:#{System.get_env("POSTGRES_PASSWORD", "postgres")}@localhost:#{System.get_env("DB_PORT", "5433")}/daily_logos_test#{System.get_env("MIX_TEST_PARTITION")}"
 
 config :daily_logos, DailyLogos.Repo,

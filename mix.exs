@@ -31,7 +31,6 @@ defmodule DailyLogos.MixProject do
         precommit: :test,
         test: :test,
         "test.unit": :test,
-        "test.db": :test,
         "test.integration": :test,
         "test.all": :test
       ]
@@ -58,6 +57,7 @@ defmodule DailyLogos.MixProject do
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.3", runtime: Mix.env() == :dev},
+      {:testcontainers, "~> 2.3", only: [:dev, :test]},
       {:heroicons,
        github: "tailwindlabs/heroicons",
        tag: "v2.2.0",
@@ -93,18 +93,12 @@ defmodule DailyLogos.MixProject do
       "test.unit": [
         "test test/unit --no-start"
       ],
-      "test.db": [
-        "ecto.create --quiet",
-        "ecto.migrate --quiet"
-      ],
       "test.integration": [
-        "test.db",
-        "test test/integration"
+        "cmd ./bin/test_integration.sh"
       ],
       "test.all": [
         "test.unit",
-        "test.db",
-        "test test/integration"
+        "test.integration"
       ],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["compile", "tailwind daily_logos", "esbuild daily_logos"],
