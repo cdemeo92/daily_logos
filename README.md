@@ -20,6 +20,7 @@ Users receive a daily quote aligned with their day of the year, creating a compl
 
 - Elixir 1.17+
 - Erlang/OTP 27+
+- Docker (Docker Desktop/Rancher Desktop) with `docker` and `docker compose` available
 - PostgreSQL 18+ (or run the provided Docker Compose service)
 - Node.js 20+ (for asset building)
 
@@ -72,6 +73,9 @@ Inside the container, `DATABASE_URL` points to `db:5432` automatically.
 ```bash
 # Run all tests
 mix test
+
+# Run integration tests (requires Docker running for testcontainers)
+mix test.integration
 
 # Run a specific test file
 mix test test/daily_logos_web/live/home_live_test.exs

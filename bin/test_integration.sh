@@ -9,11 +9,16 @@ port = uri.port || 5432
 IO.puts("#{host} #{port}")
 ')
 
-  until nc -z "$DB_HOST" "$DB_PORT" >/dev/null 2>&1; do
+  until (echo >"/dev/tcp/$DB_HOST/$DB_PORT") >/dev/null 2>&1; do
     sleep 0.2
   done
 
   exec mix test test/integration
+fi
+
+if ! command -v docker >/dev/null 2>&1; then
+  export DATABASE_URL="${DATABASE_URL:-${TEST_DATABASE_URL:-}}"
+  exec ./bin/test_integration.sh __run
 fi
 
 if [[ -z "${DOCKER_HOST:-}" ]]; then
