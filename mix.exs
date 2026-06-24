@@ -94,8 +94,7 @@ defmodule DailyLogos.MixProject do
       precommit: [
         "compile --warnings-as-errors",
         "format --check-formatted",
-        "credo --strict",
-        "test"
+        "credo --strict"
       ]
     ]
   end

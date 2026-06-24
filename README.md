@@ -52,6 +52,21 @@ The development database is configured at runtime via `DATABASE_URL`, matching t
 
 The app will be available at `http://localhost:4000`
 
+### Dev Container Setup
+
+If you want to develop without installing Elixir/Erlang/Node locally, use the provided [Dev Container](https://containers.dev/).
+
+1. Open the repository in VS Code
+2. Run `Dev Containers: Reopen in Container`
+3. Wait for the post-create steps (`mix deps.get`, `mix ecto.setup`, `mix assets.setup`)
+4. Start Phoenix inside the container:
+
+   ```bash
+   mix phx.server
+   ```
+
+Inside the container, `DATABASE_URL` points to `db:5432` automatically.
+
 ### Running Tests
 
 ```bash

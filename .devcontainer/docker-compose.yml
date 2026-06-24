@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    working_dir: /workspaces/daily_logos
+    environment:
+      DATABASE_URL: ecto://postgres:postgres@db:5432/daily_logos_dev
+      TEST_DATABASE_URL: ecto://postgres:postgres@db:5432/daily_logos_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: daily_logos_dev
+      DB_PORT: "5432"
+      PORT: "4000"
+      PHX_SERVER: "true"
+      PHX_BIND_ALL: "true"
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/workspaces/daily_logos:cached
+      - mix-deps:/workspaces/daily_logos/deps
+      - mix-build:/workspaces/daily_logos/_build
+      - hex-cache:/root/.hex
+      - rebar-cache:/root/.cache/rebar3
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mix-deps:
+  mix-build:
+  hex-cache:
+  rebar-cache:

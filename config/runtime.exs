@@ -3,7 +3,12 @@ import Config
 if config_env() == :dev do
   env_path = Path.expand("../.env", __DIR__)
 
-  Dotenvy.source([env_path, System.get_env()])
+  [env_path, System.get_env()]
+  |> Dotenvy.source()
+  |> then(fn
+    {:ok, vars} -> vars
+    vars -> vars
+  end)
   |> Enum.each(fn {key, value} -> System.put_env(key, value) end)
 end
 
