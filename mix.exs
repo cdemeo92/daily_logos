@@ -27,7 +27,14 @@ defmodule DailyLogos.MixProject do
 
   def cli do
     [
-      preferred_envs: [precommit: :test]
+      preferred_envs: [
+        precommit: :test,
+        test: :test,
+        "test.unit": :test,
+        "test.db": :test,
+        "test.integration": :test,
+        "test.all": :test
+      ]
     ]
   end
 
@@ -83,7 +90,22 @@ defmodule DailyLogos.MixProject do
       setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "test.unit": [
+        "test test/unit --no-start"
+      ],
+      "test.db": [
+        "ecto.create --quiet",
+        "ecto.migrate --quiet"
+      ],
+      "test.integration": [
+        "test.db",
+        "test test/integration"
+      ],
+      "test.all": [
+        "test.unit",
+        "test.db",
+        "test test/integration"
+      ],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["compile", "tailwind daily_logos", "esbuild daily_logos"],
       "assets.deploy": [
