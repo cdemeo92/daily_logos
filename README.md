@@ -18,10 +18,10 @@ Users receive a daily quote aligned with their day of the year, creating a compl
 
 ### Prerequisites
 
-- Elixir 1.14+
-- Erlang/OTP 25+
-- PostgreSQL 12+
-- Node.js 18+ (for asset building)
+- Elixir 1.17+
+- Erlang/OTP 27+
+- PostgreSQL 18+ (or run the provided Docker Compose service)
+- Node.js 20+ (for asset building)
 
 ### Local Development Setup
 
