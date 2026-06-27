@@ -19,6 +19,7 @@ defmodule DailyLogosWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    post "/locale/:locale", LocaleController, :set
   end
 
   # Other scopes may use custom stacks.

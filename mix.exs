@@ -31,7 +31,7 @@ defmodule DailyLogos.MixProject do
         precommit: :test,
         test: :test,
         "test.unit": :test,
-        "test.integration": :test,
+        "test.integ": :test,
         "test.all": :test
       ]
     ]
@@ -93,12 +93,12 @@ defmodule DailyLogos.MixProject do
       "test.unit": [
         "test test/unit --no-start"
       ],
-      "test.integration": [
+      "test.integ": [
         "cmd ./bin/test_integration.sh"
       ],
       "test.all": [
         "test.unit",
-        "test.integration"
+        "test.integ"
       ],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["compile", "tailwind daily_logos", "esbuild daily_logos"],
