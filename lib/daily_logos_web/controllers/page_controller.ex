@@ -2,6 +2,12 @@ defmodule DailyLogosWeb.PageController do
   use DailyLogosWeb, :controller
 
   def home(conn, _params) do
-    render(conn, :home)
+    quote = %{
+      text: "The virtue lies not in...",
+      author: "Marcus Aurelius",
+      source: "Meditations"
+    }
+
+    render(conn, :home, quote: quote)
   end
 end
