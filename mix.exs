@@ -94,7 +94,8 @@ defmodule DailyLogos.MixProject do
         "test test/unit --no-start"
       ],
       "test.integ": [
-        "cmd ./bin/test_integration.sh"
+        "cmd ./bin/test_integration.sh prepare",
+        "cmd ./bin/test_integration.sh test"
       ],
       "test.all": [
         "test.unit",
