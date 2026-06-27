@@ -13,7 +13,7 @@ defmodule DailyLogosWeb.Plugs.Locale do
 
   def call(conn, _opts) do
     locale =
-      get_session(conn, :locale) ||
+      detect_locale_from_session(conn) ||
         detect_locale(conn) ||
         @default_locale
 
@@ -22,6 +22,13 @@ defmodule DailyLogosWeb.Plugs.Locale do
     conn
     |> put_session(:locale, locale)
     |> assign(:locale, locale)
+  end
+
+  defp detect_locale_from_session(conn) do
+    case get_session(conn, :locale) do
+      locale when locale in @locales -> locale
+      _ -> nil
+    end
   end
 
   defp detect_locale(conn) do
