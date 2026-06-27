@@ -154,37 +154,47 @@ defmodule DailyLogosWeb.Layouts do
     assigns = assign(assigns, :current_locale, Gettext.get_locale(DailyLogosWeb.Gettext))
 
     ~H"""
-    <div class="card relative flex flex-row items-center overflow-hidden rounded-full border-2 border-base-300 bg-base-300">
-      <div class={[
-        "absolute h-full w-1/2 rounded-full border border-base-200 bg-base-100 brightness-200 transition-[left] duration-300 ease-out",
-        @current_locale == "it" && "left-1/2",
-        @current_locale != "it" && "left-0"
-      ]} />
+    <div
+      id="locale-toggle"
+      data-locale={@current_locale}
+      class="card relative flex flex-row items-center overflow-hidden rounded-full border-2 border-base-300 bg-base-300"
+    >
+      <div class="absolute h-full w-1/2 rounded-full border border-base-200 bg-base-100 brightness-200 left-0 [[data-locale=it]_&]:left-1/2 transition-[left] duration-300 ease-out" />
 
-      <.link
-        href={~p"/locale/en"}
-        method="post"
+      <button
+        type="button"
         class={[
           "relative z-10 flex w-1/2 cursor-pointer items-center justify-center px-3 py-2 text-base leading-none font-medium",
           @current_locale == "en" && "font-semibold opacity-100",
           @current_locale != "en" && "opacity-70 hover:opacity-100"
         ]}
+        phx-click={JS.dispatch("phx:set-locale")}
+        data-phx-locale="en"
       >
         EN
-      </.link>
+      </button>
 
-      <.link
-        href={~p"/locale/it"}
-        method="post"
+      <button
+        type="button"
         class={[
           "relative z-10 flex w-1/2 cursor-pointer items-center justify-center px-3 py-2 text-base leading-none font-medium",
           @current_locale == "it" && "font-semibold opacity-100",
           @current_locale != "it" && "opacity-70 hover:opacity-100"
         ]}
+        phx-click={JS.dispatch("phx:set-locale")}
+        data-phx-locale="it"
       >
         IT
-      </.link>
+      </button>
     </div>
+
+    <form id="locale-form-en" method="post" action={~p"/locale/en"} class="hidden">
+      <input type="hidden" name="_csrf_token" value={get_csrf_token()} />
+    </form>
+
+    <form id="locale-form-it" method="post" action={~p"/locale/it"} class="hidden">
+      <input type="hidden" name="_csrf_token" value={get_csrf_token()} />
+    </form>
     """
   end
 end

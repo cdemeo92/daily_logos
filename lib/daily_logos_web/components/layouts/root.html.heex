@@ -25,8 +25,25 @@
           setTheme(localStorage.getItem("phx:theme") || "system");
         }
         window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
-        
+
+        const setLocale = (locale) => {
+          const toggle = document.getElementById("locale-toggle");
+          if (!toggle || toggle.dataset.submitting === "true") return;
+
+          const current = toggle.getAttribute("data-locale");
+          if (current === locale) return;
+
+          toggle.setAttribute("data-locale", locale);
+          toggle.dataset.submitting = "true";
+
+          const form = document.getElementById(`locale-form-${locale}`);
+          if (form) {
+            window.setTimeout(() => form.submit(), 180);
+          }
+        };
+
         window.addEventListener("phx:set-theme", (e) => setTheme(e.target.dataset.phxTheme));
+        window.addEventListener("phx:set-locale", (e) => setLocale(e.target.dataset.phxLocale));
       })();
     </script>
   </head>
