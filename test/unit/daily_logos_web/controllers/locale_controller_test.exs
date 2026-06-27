@@ -6,14 +6,16 @@ defmodule DailyLogosWeb.LocaleControllerUnitTest do
 
   alias DailyLogosWeb.LocaleController
 
-  test "set/2 stores supported locale in session" do
-    conn =
-      conn(:post, "/locale/it")
-      |> init_test_session(%{})
-      |> LocaleController.set(%{"locale" => "it"})
+  for locale <- ["en", "it"] do
+    test "set/2 stores supported locale #{locale} in session" do
+      conn =
+        conn(:post, "/locale/#{unquote(locale)}")
+        |> init_test_session(%{})
+        |> LocaleController.set(%{"locale" => unquote(locale)})
 
-    assert get_session(conn, :locale) == "it"
-    assert get_resp_header(conn, "location") == ["/"]
+      assert get_session(conn, :locale) == unquote(locale)
+      assert get_resp_header(conn, "location") == ["/"]
+    end
   end
 
   test "set/2 does not overwrite session for unsupported locale" do
@@ -36,7 +38,7 @@ defmodule DailyLogosWeb.LocaleControllerUnitTest do
     assert get_resp_header(conn, "location") == ["/some-page"]
   end
 
-  test "set/2 rejects external referer and redirects to root" do
+  test "set/2 rejects external referer and falls back to root" do
     conn =
       conn(:post, "/locale/en")
       |> put_req_header("referer", "https://evil.example/somewhere")
