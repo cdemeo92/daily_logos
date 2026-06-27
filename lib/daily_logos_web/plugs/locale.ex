@@ -5,9 +5,8 @@ defmodule DailyLogosWeb.Plugs.Locale do
 
   import Plug.Conn
 
-  # Add your supported locales here
-  @locales ["en", "it"]
-  @default_locale "en"
+  @locales Gettext.known_locales(DailyLogosWeb.Gettext)
+  @default_locale Application.compile_env(:daily_logos, :i18n)[:default_locale]
 
   def init(default), do: default
 

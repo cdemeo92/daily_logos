@@ -11,6 +11,9 @@ config :daily_logos,
   ecto_repos: [DailyLogos.Repo],
   generators: [timestamp_type: :utc_datetime]
 
+# Configure internationalization
+config :daily_logos, :i18n, default_locale: "en"
+
 # Configure the endpoint
 config :daily_logos, DailyLogosWeb.Endpoint,
   url: [host: "localhost"],
