@@ -1,0 +1,22 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- White Circular Background, slightly larger than the inner black circle -->
+  <circle cx="100" cy="100" r="76" fill="#FFFFFF"/>
+  
+  <!-- Outer stroke/border very close to the inner circle -->
+  <circle cx="100" cy="100" r="75" fill="none" stroke="#DBDAD9" stroke-width="1"/>
+
+  <!-- Inner Logo Circle Border -->
+  <circle cx="100" cy="100" r="70" fill="none" stroke="#1A1A1A" stroke-width="4"/>
+  
+  <!-- Stylized Doric Column -->
+  <rect x="80" y="60" width="40" height="8" fill="#1A1A1A" rx="1.5"/>
+  <rect x="84" y="68" width="32" height="64" fill="#1A1A1A"/>
+  <rect x="80" y="132" width="40" height="8" fill="#1A1A1A" rx="1.5"/>
+  
+  <!-- Fluting details -->
+  <rect x="88" y="72" width="1.5" height="56" fill="#FFFFFF"/>
+  <rect x="94" y="72" width="1.5" height="56" fill="#FFFFFF"/>
+  <rect x="100" y="72" width="1.5" height="56" fill="#FFFFFF"/>
+  <rect x="106" y="72" width="1.5" height="56" fill="#FFFFFF"/>
+  <rect x="112" y="72" width="1.5" height="56" fill="#FFFFFF"/>
+</svg>
