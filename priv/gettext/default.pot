@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:91
-#: lib/daily_logos_web/components/layouts.ex:103
+#: lib/daily_logos_web/components/layouts.ex:82
+#: lib/daily_logos_web/components/layouts.ex:94
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:98
+#: lib/daily_logos_web/components/layouts.ex:89
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:86
+#: lib/daily_logos_web/components/layouts.ex:77
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr ""
@@ -37,7 +37,62 @@ msgstr ""
 msgid "close"
 msgstr ""
 
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "April"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:24
+#, elixir-autogen, elixir-format
+msgid "August"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "December"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:12
+#, elixir-autogen, elixir-format
+msgid "February"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:10
+#, elixir-autogen, elixir-format
+msgid "January"
+msgstr ""
+
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:22
 #, elixir-autogen, elixir-format
-msgid "Peace of mind from prototype to production."
+msgid "July"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:20
+#, elixir-autogen, elixir-format
+msgid "June"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "March"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:18
+#, elixir-autogen, elixir-format
+msgid "May"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "November"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:28
+#, elixir-autogen, elixir-format
+msgid "October"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:26
+#, elixir-autogen, elixir-format
+msgid "September"
 msgstr ""

@@ -2,6 +2,41 @@
   <%!-- Quote Box - Centered --%>
   <div class="min-h-[60vh] flex flex-col items-center justify-center py-12">
     <div class="w-full text-center space-y-6">
+      <%!-- Date --%>
+      <% months = [
+        gettext("January"),
+        gettext("February"),
+        gettext("March"),
+        gettext("April"),
+        gettext("May"),
+        gettext("June"),
+        gettext("July"),
+        gettext("August"),
+        gettext("September"),
+        gettext("October"),
+        gettext("November"),
+        gettext("December")
+      ] %>
+      <time
+        id="date-display"
+        phx-hook=".DateDisplay"
+        data-months={Jason.encode!(months)}
+        class="text-base font-semibold text-amber-600 dark:text-amber-400"
+      >
+      </time>
+      <script :type={Phoenix.LiveView.ColocatedHook} name=".DateDisplay">
+        export default {
+          mounted() {
+            const today = new Date();
+            const months = JSON.parse(this.el.dataset.months);
+            const month = months[today.getMonth()];
+            const day = today.getDate();
+            this.el.textContent = `${month} ${day}`;
+            this.el.dateTime = today.toISOString().split('T')[0];
+          }
+        }
+      </script>
+
       <%!-- Decorative opening quotation mark --%>
       <div class="flex justify-center text-6xl opacity-15">
         "
