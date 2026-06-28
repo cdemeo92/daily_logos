@@ -27,33 +27,44 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
 
     <div
       id="mobile-menu"
-      class="fixed top-0 right-0 h-screen w-64 bg-base-100 dark:bg-base-100 shadow-lg transform translate-x-full transition-transform duration-300 z-50 md:hidden overflow-y-auto"
+      class="fixed top-0 right-0 h-screen w-64 bg-base-100 dark:bg-base-100 shadow-lg transform translate-x-full transition-transform duration-300 z-50 md:hidden overflow-y-auto flex flex-col"
     >
-      <div class="p-4">
+      <div class="border-b border-base-300 dark:border-neutral-content/10 p-4 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2" aria-label="Home">
+          <img src="/images/logo.svg" width="32" alt="Logo" />
+          <span class="text-xs font-semibold">v{Application.spec(:daily_logos, :vsn)}</span>
+        </a>
         <button
           id="menu-close"
-          class="btn btn-ghost btn-circle ml-auto flex mb-4"
+          class="btn btn-ghost btn-circle !hover:bg-transparent !hover:shadow-none !active:bg-transparent !focus:bg-transparent !focus:shadow-none"
           phx-hook="MobileMenuClose"
+          aria-label="Close menu"
         >
           <.icon name="hero-x-mark" class="size-6" />
         </button>
+      </div>
 
-        <ul class="flex flex-col space-y-4">
-          <li>
-            <a
-              href="https://github.com/cdemeo92/daily_logos"
-              class="btn btn-ghost btn-block justify-start !hover:bg-transparent !hover:shadow-none !active:bg-transparent !focus:bg-transparent !focus:shadow-none !outline-none !ring-0 !border-0"
-            >
-              GitHub
-            </a>
-          </li>
-          <li>
-            <.theme_toggle />
-          </li>
-          <li>
-            <.locale_toggle id="locale-toggle-sidebar" />
-          </li>
-        </ul>
+      <div class="flex-1 p-4">
+        <nav aria-label="Menu">
+          <a
+            href="https://github.com/cdemeo92/daily_logos"
+            class="block text-base font-medium text-base-content/80 hover:text-base-content py-3 px-2 !hover:bg-transparent !active:bg-transparent !focus:bg-transparent"
+            aria-label="GitHub repository"
+          >
+            GitHub
+          </a>
+        </nav>
+      </div>
+
+      <div class="border-t border-base-300 dark:border-neutral-content/10 space-y-6 p-4">
+        <div>
+          <label class="text-xs font-semibold text-base-content/60 block mb-3">THEME</label>
+          <.theme_toggle />
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-base-content/60 block mb-3">LANGUAGE</label>
+          <.locale_toggle id="locale-toggle-sidebar" />
+        </div>
       </div>
     </div>
     """
