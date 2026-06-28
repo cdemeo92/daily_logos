@@ -35,30 +35,32 @@ defmodule DailyLogosWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <header class="navbar px-4 sm:px-6 lg:px-8">
-      <div class="flex-1">
-        <a href="/" class="flex-1 flex w-fit items-center gap-2">
-          <img src={~p"/images/logo.svg"} width="36" />
-          <span class="text-sm font-semibold">v{Application.spec(:daily_logos, :vsn)}</span>
-        </a>
-      </div>
-      <div class="flex-none">
-        <ul class="flex flex-column px-1 space-x-4 items-center">
-          <li>
-            <a href="https://github.com/cdemeo92/daily_logos" class="btn btn-ghost">GitHub</a>
-          </li>
-          <li>
-            <.theme_toggle />
-          </li>
-          <li>
-            <.locale_toggle />
-          </li>
-        </ul>
+    <header class="px-4 sm:px-6 lg:px-8 border-b border-base-300 dark:border-neutral-content/10">
+      <div class="navbar mx-auto max-w-7xl">
+        <div class="flex-1">
+          <a href="/" class="flex-1 flex w-fit items-center gap-2">
+            <img src={~p"/images/logo.svg"} width="36" />
+            <span class="text-sm font-semibold">v{Application.spec(:daily_logos, :vsn)}</span>
+          </a>
+        </div>
+        <div class="flex-none">
+          <ul class="flex flex-column px-1 space-x-4 items-center">
+            <li>
+              <a href="https://github.com/cdemeo92/daily_logos" class="btn btn-ghost">GitHub</a>
+            </li>
+            <li>
+              <.theme_toggle />
+            </li>
+            <li>
+              <.locale_toggle />
+            </li>
+          </ul>
+        </div>
       </div>
     </header>
 
     <main class="px-4 py-20 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl space-y-4">
+      <div class="mx-auto max-w-7xl space-y-4">
         {render_slot(@inner_block)}
       </div>
     </main>
