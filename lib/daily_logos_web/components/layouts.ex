@@ -19,16 +19,42 @@ defmodule DailyLogosWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <.app_header />
-    <DailyLogosWeb.Layouts.MainMenu.main_menu_sidebar />
+    <div class="flex flex-col min-h-screen">
+      <.app_header />
+      <DailyLogosWeb.Layouts.MainMenu.main_menu_sidebar />
 
-    <main class="px-4 py-20 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-7xl space-y-4">
-        {render_slot(@inner_block)}
-      </div>
-    </main>
+      <main class="flex-1 px-4 py-20 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl space-y-4">
+          {render_slot(@inner_block)}
+        </div>
+      </main>
 
-    <.flash_group flash={@flash} />
+      <footer class="border-t border-base-300 dark:border-neutral-content/10 dark:bg-[oklch(0.27_0.02_255.66)] px-4 py-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="font-semibold text-base-content">Daily Logos</span>
+            <a
+              href="https://github.com/claudio-demeo/daily_logos"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-base-content/70 hover:text-base-content transition-colors"
+            >
+              GitHub
+            </a>
+          </div>
+          <div>
+            <a
+              href="/LICENSE"
+              class="text-base-content/50 hover:text-base-content/70 transition-colors text-sm"
+            >
+              © Daily Logos
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      <.flash_group flash={@flash} />
+    </div>
     """
   end
 

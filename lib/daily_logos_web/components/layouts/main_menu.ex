@@ -48,7 +48,7 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
         <nav aria-label="Menu">
           <a
             href="https://github.com/cdemeo92/daily_logos"
-            class="block text-base font-medium text-base-content/80 hover:text-base-content py-3 px-2 !hover:bg-transparent !active:bg-transparent !focus:bg-transparent"
+            class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
             aria-label="GitHub repository"
           >
             GitHub

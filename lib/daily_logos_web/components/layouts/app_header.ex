@@ -31,7 +31,7 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
             <li>
               <a
                 href="https://github.com/cdemeo92/daily_logos"
-                class="btn btn-ghost !hover:bg-transparent !hover:shadow-none !active:bg-transparent !focus:bg-transparent !focus:shadow-none"
+                class="text-base-content/70 hover:text-base-content transition-colors"
               >
                 GitHub
               </a>
