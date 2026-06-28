@@ -8,6 +8,7 @@ defmodule DailyLogosWeb.Layouts do
   embed_templates "layouts/*"
 
   import DailyLogosWeb.Layouts.AppHeader
+  import DailyLogosWeb.Components.AdSlot
 
   attr :flash, :map, required: true, doc: "the map of flash messages"
 
@@ -31,8 +32,11 @@ defmodule DailyLogosWeb.Layouts do
 
       <footer class="border-t border-base-300 dark:border-neutral-content/10 dark:bg-[oklch(0.27_0.02_255.66)] px-4 py-4 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-7xl space-y-2">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center gap-4">
             <span class="font-semibold text-base-content">Daily Logos</span>
+            <div class="flex-1">
+              <.ad_slot position="footer_center" />
+            </div>
             <a
               href="https://github.com/claudio-demeo/daily_logos"
               target="_blank"
