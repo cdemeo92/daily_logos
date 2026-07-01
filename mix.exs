@@ -91,11 +91,14 @@ defmodule DailyLogos.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       "test.unit": [
-        "test test/unit --no-start"
+        "test test/unit --no-start --color"
+      ],
+      "test.integ.run": [
+        "ecto.migrate",
+        "test test/integration --color"
       ],
       "test.integ": [
-        "cmd ./bin/test_integration.sh prepare",
-        "cmd ./bin/test_integration.sh test"
+        "cmd MIX_ENV=test TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock mix testcontainers.run test.integ.run"
       ],
       "test.all": [
         "test.unit",

@@ -26,11 +26,13 @@ defmodule DailyLogos.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import DailyLogos.DataCase
+      import DailyLogos.QuotesFixtures
     end
   end
 
   setup tags do
-    DailyLogos.DataCase.setup_sandbox(tags)
+    Sandbox.mode(DailyLogos.Repo, :manual)
+    __MODULE__.setup_sandbox(tags)
     :ok
   end
 

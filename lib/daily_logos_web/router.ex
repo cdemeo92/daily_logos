@@ -22,10 +22,11 @@ defmodule DailyLogosWeb.Router do
     post "/locale/:locale", LocaleController, :set
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", DailyLogosWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", DailyLogosWeb do
+    pipe_through :api
+
+    get "/quotes", QuoteController, :show
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:daily_logos, :dev_routes) do
