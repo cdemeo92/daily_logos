@@ -2,26 +2,14 @@
 
 ## Architectural Principles
 
-Daily Logos follows two core architectural patterns:
+The system is organized into clear responsibilities:
 
-### 1. Hexagonal Architecture (Ports & Adapters)
+- **Core Domain**: Business rules and logic
+- **Application Contexts**: Use-case orchestration
+- **Web Layer**: HTTP routing, controllers, templates, and client hooks
+- **Infrastructure**: Database and external integrations
 
-The system is organized into clear layers that insulate the core business logic from external dependencies:
-
-- **Core Domain**: Business rules and logic (independent of framework/database)
-- **Application Contexts**: Orchestration of domain logic with adapters
-- **Ports**: Interfaces that define how the system interacts with the outside world
-- **Adapters**: Concrete implementations of ports (database, web, external services)
-
-This approach allows the core business logic to be tested and modified independently of infrastructure concerns.
-
-### 2. Screaming Architecture
-
-The project structure **screams** the business domain:
-
-- Folders are organized around **what the app does** (quotes, users, subscriptions)
-- Not around **technical layers** (models, views, controllers)
-- A new developer reading the structure immediately understands the business intent
+This structure keeps business logic explicit and limits coupling between layers.
 
 ## System Layers
 
@@ -32,7 +20,8 @@ The project structure **screams** the business domain:
 Entry points and presentation layer:
 
 - **Router** (`router.ex`) - HTTP routing and request handling
-- **LiveViews** (`live/`) - Real-time interactive pages
+- **Controllers & Templates** (`controllers/`) - Request handling and server-rendered pages
+- **Colocated Hooks** (inside HEEx templates) - Client-side interactivity and API fetches
 - **Components** (`components/`) - Reusable UI components
 
 The web layer communicates with application contexts, never directly accessing infrastructure.
@@ -90,10 +79,10 @@ lib/daily_logos/
 lib/daily_logos_web/
 ├── components/               # Reusable UI components
 │   └── core_components.ex
-├── live/
-│   ├── home_live.ex          # Home page LiveView
-│   ├── home_live.html.heex   # Home template
-│   └── ...
+├── controllers/              # HTTP controllers and templates
+│   ├── page_controller.ex
+│   ├── quote_controller.ex
+│   └── page_html/home.html.heex
 ├── layouts/                  # Shared layouts
 ├── router.ex                 # HTTP router
 └── ...
@@ -115,10 +104,12 @@ The core domain entity representing a Stoic quote.
 
 Properties:
 
-- `text` - The quote content
+- `text_en` - The quote content in English
+- `text_it` - The quote content in Italian
 - `author` - Original Stoic thinker (Marcus Aurelius, Epictetus, Seneca, etc.)
-- `day_of_year` - Corresponds to a specific day (1-365)
-- `month_theme` - Thematic category for the month
+- `day` - Day of month (1-31)
+- `month` - Month (1-12)
+- `topic` - Thematic category for the quote
 
 ## Data Flow
 
@@ -129,17 +120,21 @@ User Request
     ↓
 Router
     ↓
-Home LiveView
+PageController (`home`)
     ↓
-Quotes Context (get_daily_quote/1)
+HEEx Template + Colocated Hook (`.DailyQuote`)
+    ↓
+Quote API (`/api/v1/quotes?day=...&month=...`)
+    ↓
+QuoteController (`show`)
+    ↓
+Quotes Context (`get_quote_by_day_month/2`)
     ↓
 Ecto Queries
     ↓
 PostgreSQL Database
     ↓
-Quote returned & rendered
-    ↓
-HEEx Template
+JSON response returned
     ↓
 User sees daily quote
 ```
@@ -150,7 +145,7 @@ User sees daily quote
 
 1. **Web Layer → Application Context**
    - Web layer calls public functions from contexts
-   - Example: `Quotes.get_daily_quote()`
+   - Example: `Quotes.get_quote_by_day_month(day, month)`
 
 2. **Application Context → Domain/Infrastructure**
    - Contexts orchestrate between domain logic and adapters
@@ -209,7 +204,7 @@ Goal: verify critical user flows that cannot be fully validated at unit level.
 Example locations:
 
 ```
-test/daily_logos_web/live/home_live_test.exs
+test/integration/daily_logos_web/controllers/quote_controller_test.exs
 test/daily_logos_web/e2e/...
 ```
 
@@ -222,9 +217,8 @@ As the system evolves:
 3. **Caching** - Can be added as an adapter without affecting domain logic
 4. **Event System** - For communication between contexts (if needed)
 5. **API Layer** - GraphQL or REST API will follow the same hexagonal pattern
+6. **API Layer** - GraphQL or REST API can evolve using the same layered boundaries
 
 ## References
 
-- [Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture/)
-- [Screaming Architecture](https://blog.cleancoder.com/uncle-bob/2011/09/30/Screaming-Architecture.html)
 - [Elixir/Phoenix Best Practices](https://hexdocs.pm/phoenix/directory-structure.html)
