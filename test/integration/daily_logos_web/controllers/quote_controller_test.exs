@@ -27,6 +27,16 @@ defmodule DailyLogosWeb.QuoteControllerTest do
       assert "/month" in pointers
     end
 
+    test "returns bad_request when when day and month are out of range", %{conn: conn} do
+      conn = get(conn, ~p"/api/v1/quotes?day=32&month=13")
+      errors = json_response(conn, 422)["errors"]
+      assert is_list(errors)
+
+      pointers = Enum.map(errors, &get_in(&1, ["source", "pointer"]))
+      assert "/day" in pointers
+      assert "/month" in pointers
+    end
+
     test "returns not found when the quote does not exist", %{conn: conn} do
       conn = get(conn, ~p"/api/v1/quotes?day=1&month=1")
       assert json_response(conn, 404)["errors"]["detail"] == "Quote not found"

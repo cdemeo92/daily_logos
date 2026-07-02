@@ -24,8 +24,9 @@ defmodule DailyLogosWeb.QuoteController do
     ],
     responses: [
       ok: {"Quote response", "application/json", DailyLogosWeb.Schemas.QuoteResponse},
-      not_found: "Quote not found",
-      unprocessable_entity: "Invalid parameters"
+      not_found: {"Quote not found", "application/json", DailyLogosWeb.Schemas.ErrorResponse},
+      unprocessable_entity:
+        {"Invalid parameters", "application/json", DailyLogosWeb.Schemas.ValidationErrorResponse}
     ]
   )
 

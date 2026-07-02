@@ -20,11 +20,4 @@ defmodule DailyLogosWeb.FallbackController do
     |> put_view(html: DailyLogosWeb.ErrorHTML, json: DailyLogosWeb.ErrorJSON)
     |> render(:"404", message: message)
   end
-
-  def call(conn, {:error, :bad_request, message}) do
-    conn
-    |> put_status(:bad_request)
-    |> put_view(html: DailyLogosWeb.ErrorHTML, json: DailyLogosWeb.ErrorJSON)
-    |> render(:"400", message: message)
-  end
 end
