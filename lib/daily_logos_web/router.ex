@@ -13,6 +13,7 @@ defmodule DailyLogosWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug OpenApiSpex.Plug.PutApiSpec, module: DailyLogosWeb.ApiSpec
   end
 
   scope "/", DailyLogosWeb do
@@ -22,10 +23,12 @@ defmodule DailyLogosWeb.Router do
     post "/locale/:locale", LocaleController, :set
   end
 
-  scope "/api/v1", DailyLogosWeb do
+  scope "/api/v1" do
     pipe_through :api
 
-    get "/quotes", QuoteController, :show
+    get "/quotes", DailyLogosWeb.QuoteController, :show
+    get "/openapi", OpenApiSpex.Plug.RenderSpec, []
+    get "/docs", OpenApiSpex.Plug.SwaggerUI, path: "/api/v1/openapi"
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

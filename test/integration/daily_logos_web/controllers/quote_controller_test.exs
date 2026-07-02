@@ -16,5 +16,20 @@ defmodule DailyLogosWeb.QuoteControllerTest do
       assert json_response(conn, 200)["data"]["text_en"] == quote.text_en
       assert json_response(conn, 200)["data"]["text_it"] == quote.text_it
     end
+
+    test "returns bad_request when the request parameters are invalid", %{conn: conn} do
+      conn = get(conn, ~p"/api/v1/quotes?day=invalid&month=invalid")
+      errors = json_response(conn, 422)["errors"]
+      assert is_list(errors)
+
+      pointers = Enum.map(errors, &get_in(&1, ["source", "pointer"]))
+      assert "/day" in pointers
+      assert "/month" in pointers
+    end
+
+    test "returns not found when the quote does not exist", %{conn: conn} do
+      conn = get(conn, ~p"/api/v1/quotes?day=1&month=1")
+      assert json_response(conn, 404)["errors"]["detail"] == "Quote not found"
+    end
   end
 end
