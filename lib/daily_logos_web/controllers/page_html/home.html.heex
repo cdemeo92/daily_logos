@@ -36,33 +36,115 @@
           }
         }
       </script>
+      <script :type={Phoenix.LiveView.ColocatedHook} name=".DailyQuote">
+        export default {
+          mounted() {
+            this.quoteText = document.getElementById("quote-text");
+            this.quoteAuthor = document.getElementById("quote-author");
+            this.quoteSource = document.getElementById("quote-source");
+            this.reloadButton = document.getElementById("quote-reload");
+
+            this.loadingText = this.el.dataset.loadingText;
+            this.notFoundText = this.el.dataset.notFoundText;
+            this.errorText = this.el.dataset.errorText;
+
+            this.reloadHandler = (event) => {
+              event.preventDefault();
+              this.loadQuote();
+            };
+
+            this.reloadButton.addEventListener("click", this.reloadHandler);
+            this.loadQuote();
+          },
+
+          destroyed() {
+            this.reloadButton.removeEventListener("click", this.reloadHandler);
+          },
+
+          async loadQuote() {
+            this.quoteText.textContent = this.loadingText;
+            this.quoteAuthor.textContent = "";
+            this.quoteSource.textContent = "";
+            this.reloadButton.classList.add("hidden");
+
+            const locale = (document.documentElement.lang || "en").startsWith("it") ? "it" : "en";
+            const today = new Date();
+            const day = today.getDate();
+            const month = today.getMonth() + 1;
+            const endpoint = this.el.dataset.endpoint;
+
+            try {
+              const response = await fetch(`${endpoint}?day=${day}&month=${month}`, {
+                headers: { Accept: "application/json" }
+              });
+
+              if (response.status === 404) {
+                this.quoteText.textContent = this.notFoundText;
+                this.reloadButton.classList.remove("hidden");
+                return;
+              }
+
+              if (!response.ok) {
+                this.quoteText.textContent = this.errorText;
+                return;
+              }
+
+              const payload = await response.json();
+              const quote = payload.data;
+
+              this.quoteText.textContent =
+                locale === "it" ? quote.text_it || quote.text_en || "" : quote.text_en || quote.text_it || "";
+              this.quoteAuthor.textContent = quote.author || "";
+              this.quoteSource.textContent = quote.source || "";
+            } catch (_error) {
+              this.quoteText.textContent = this.errorText;
+            }
+          }
+        }
+      </script>
 
       <%!-- Decorative opening quotation mark --%>
       <div class="flex justify-center text-6xl opacity-15">
         "
       </div>
 
-      <%!-- Quote text --%>
-      <p class="text-2xl md:text-3xl font-serif italic leading-relaxed text-balance">
-        {@quote.text}
-      </p>
-
-      <%!-- Separator line --%>
-      <div class="flex justify-center">
-        <div class="w-12 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"></div>
-      </div>
-
-      <%!-- Author --%>
-      <div>
-        <p class="text-lg font-medium">
-          {@quote.author}
+      <div
+        id="daily-quote"
+        phx-hook=".DailyQuote"
+        data-endpoint={~p"/api/v1/quotes"}
+        data-loading-text={gettext("Loading today's quote...")}
+        data-not-found-text={gettext("No quote available for today.")}
+        data-error-text={gettext("Unable to load the quote. Please try again shortly.")}
+      >
+        <%!-- Quote text --%>
+        <p
+          id="quote-text"
+          class="text-2xl md:text-3xl font-serif italic leading-relaxed text-balance"
+        >
+          {gettext("Loading today's quote...")}
         </p>
 
-        <%= if @quote.source do %>
-          <p class="text-sm uppercase tracking-wide opacity-60 mt-1">
-            {@quote.source}
-          </p>
-        <% end %>
+        <%!-- Separator line --%>
+        <div class="flex justify-center">
+          <div class="w-12 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"></div>
+        </div>
+
+        <%!-- Author --%>
+        <div>
+          <p id="quote-author" class="text-lg font-medium"></p>
+
+          <p id="quote-source" class="text-sm uppercase tracking-wide opacity-60 mt-1"></p>
+
+          <button
+            id="quote-reload"
+            type="button"
+            class="hidden mx-auto mt-3 inline-flex items-center justify-center rounded-full p-2 text-amber-600 transition hover:bg-amber-100"
+            aria-label={gettext("Reload quote")}
+            title={gettext("Reload quote")}
+          >
+            <.icon name="hero-arrow-path" class="size-5" />
+          </button>
+        </div>
       </div>
     </div>
   </div>
