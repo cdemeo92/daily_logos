@@ -7,7 +7,8 @@ defmodule DailyLogos.Quotes.Quote do
     field :month, :integer
     field :author, :string
     field :source, :string
-    field :topic, :string
+    field :topic_en, :string
+    field :topic_it, :string
     field :text_en, :string
     field :text_it, :string
 
@@ -17,7 +18,16 @@ defmodule DailyLogos.Quotes.Quote do
   @doc false
   def changeset(quote, attrs) do
     quote
-    |> cast(attrs, [:day, :month, :author, :source, :topic, :text_en, :text_it])
-    |> validate_required([:day, :month, :author, :source, :topic, :text_en, :text_it])
+    |> cast(attrs, [:day, :month, :author, :source, :topic_en, :topic_it, :text_en, :text_it])
+    |> validate_required([
+      :day,
+      :month,
+      :author,
+      :source,
+      :topic_en,
+      :topic_it,
+      :text_en,
+      :text_it
+    ])
   end
 end

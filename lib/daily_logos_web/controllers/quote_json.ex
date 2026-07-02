@@ -22,7 +22,8 @@ defmodule DailyLogosWeb.QuoteJSON do
       month: quote.month,
       author: quote.author,
       source: quote.source,
-      topic: quote.topic,
+      topic_en: quote.topic_en,
+      topic_it: quote.topic_it,
       text_en: quote.text_en,
       text_it: quote.text_it
     }

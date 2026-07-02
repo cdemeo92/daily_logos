@@ -17,7 +17,8 @@ defmodule DailyLogosWeb.Schemas.QuoteResponse do
             month: %Schema{type: :integer},
             author: %Schema{type: :string},
             source: %Schema{type: :string},
-            topic: %Schema{type: :string},
+            topic_en: %Schema{type: :string},
+            topic_it: %Schema{type: :string},
             text_en: %Schema{type: :string},
             text_it: %Schema{type: :string}
           }

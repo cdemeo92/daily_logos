@@ -22,14 +22,15 @@ quotes_attrs =
   |> Stream.map(&String.trim/1)
   |> Enum.reject(&(&1 == ""))
   |> Enum.map(fn line ->
-    case String.split(line, ",", parts: 7) do
-      [day, month, author, source, topic, text_en, text_it] ->
+    case String.split(line, ",", parts: 8) do
+      [day, month, author, source, topic_en, topic_it, text_en, text_it] ->
         %{
           day: String.to_integer(day),
           month: String.to_integer(month),
           author: author,
           source: source,
-          topic: topic,
+          topic_en: topic_en,
+          topic_it: topic_it,
           text_en: text_en,
           text_it: text_it
         }

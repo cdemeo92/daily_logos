@@ -109,7 +109,8 @@ Properties:
 - `author` - Original Stoic thinker (Marcus Aurelius, Epictetus, Seneca, etc.)
 - `day` - Day of month (1-31)
 - `month` - Month (1-12)
-- `topic` - Thematic category for the quote
+- `topic_en` - Thematic category for the quote in English
+- `topic_it` - Thematic category for the quote in Italian
 
 ## Data Flow
 

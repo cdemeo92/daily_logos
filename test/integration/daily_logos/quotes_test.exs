@@ -12,7 +12,8 @@ defmodule DailyLogos.QuotesTest do
       month: nil,
       source: nil,
       day: nil,
-      topic: nil,
+      topic_en: nil,
+      topic_it: nil,
       text_en: nil,
       text_it: nil
     }
@@ -33,7 +34,8 @@ defmodule DailyLogos.QuotesTest do
         month: 42,
         source: "some source",
         day: 42,
-        topic: "some topic",
+        topic_en: "some topic_en",
+        topic_it: "some topic_it",
         text_en: "some text_en",
         text_it: "some text_it"
       }
@@ -43,7 +45,8 @@ defmodule DailyLogos.QuotesTest do
       assert quote.month == 42
       assert quote.source == "some source"
       assert quote.day == 42
-      assert quote.topic == "some topic"
+      assert quote.topic_en == "some topic_en"
+      assert quote.topic_it == "some topic_it"
       assert quote.text_en == "some text_en"
       assert quote.text_it == "some text_it"
     end
@@ -60,7 +63,8 @@ defmodule DailyLogos.QuotesTest do
         month: 43,
         source: "some updated source",
         day: 43,
-        topic: "some updated topic",
+        topic_en: "some updated topic_en",
+        topic_it: "some updated topic_it",
         text_en: "some updated text_en",
         text_it: "some updated text_it"
       }
@@ -70,7 +74,8 @@ defmodule DailyLogos.QuotesTest do
       assert quote.month == 43
       assert quote.source == "some updated source"
       assert quote.day == 43
-      assert quote.topic == "some updated topic"
+      assert quote.topic_en == "some updated topic_en"
+      assert quote.topic_it == "some updated topic_it"
       assert quote.text_en == "some updated text_en"
       assert quote.text_it == "some updated text_it"
     end

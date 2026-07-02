@@ -17,7 +17,8 @@ defmodule DailyLogos.QuotesFixtures do
         source: "some source",
         text_en: "some text_en",
         text_it: "some text_it",
-        topic: "some topic"
+        topic_en: "some topic_en",
+        topic_it: "some topic_it"
       })
       |> DailyLogos.Quotes.create_quote()
 

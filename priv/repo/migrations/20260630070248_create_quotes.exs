@@ -7,7 +7,8 @@ defmodule DailyLogos.Repo.Migrations.CreateQuotes do
       add :month, :integer
       add :author, :string
       add :source, :string
-      add :topic, :string
+      add :topic_en, :string
+      add :topic_it, :string
       add :text_en, :string
       add :text_it, :string
 
