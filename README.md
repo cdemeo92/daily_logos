@@ -75,13 +75,26 @@ Inside the container, `DATABASE_URL` points to `db:5432` automatically.
 mix test
 
 # Run integration tests (requires Docker running for testcontainers)
-mix test.integration
+mix test.integ
+
+# Run unit tests only
+mix test.unit
+
+# Run unit + integration aliases
+mix test.all
 
 # Run a specific test file
 mix test test/daily_logos_web/live/home_live_test.exs
 
 # Run failed tests only
 mix test --failed
+```
+
+### Seeding Data
+
+```bash
+# Seed quotes from CSV (priv/repo/seeds/quotes.csv)
+mix seed
 ```
 
 ### Code Quality
@@ -104,7 +117,7 @@ git config core.hooksPath githooks
 
 ### Local Quality Gates
 
-- `mix precommit` runs compilation with warnings as errors, formatting checks, Credo, and the test suite.
+- `mix precommit` runs compilation with warnings as errors, formatting checks, and Credo.
 - `MIX_ENV=dev mix dialyzer` is intentionally kept outside the Git pre-commit hook because it is slower and better suited for CI or explicit local runs.
 
 ### Environment Loading
