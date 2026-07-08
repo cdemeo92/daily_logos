@@ -9,8 +9,8 @@ defmodule DailyLogos.Repo.Migrations.CreateQuotes do
       add :source, :string
       add :topic_en, :string
       add :topic_it, :string
-      add :text_en, :string
-      add :text_it, :string
+      add :text_en, :text
+      add :text_it, :text
 
       timestamps(type: :utc_datetime)
     end
