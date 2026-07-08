@@ -29,14 +29,6 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
         <div class="hidden md:flex md:flex-none md:gap-4 items-center">
           <ul class="flex flex-row gap-2 items-center">
             <li>
-              <a
-                href="https://github.com/cdemeo92/daily_logos"
-                class="text-base-content/70 hover:text-base-content transition-colors"
-              >
-                GitHub
-              </a>
-            </li>
-            <li>
               <.theme_toggle />
             </li>
             <li>
@@ -45,11 +37,12 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
           </ul>
         </div>
 
-        <div class="md:hidden flex-none">
+        <div class="flex-none ml-2 md:ml-4">
           <button
             id="menu-toggle"
-            class="btn btn-ghost btn-circle !hover:bg-transparent !hover:shadow-none !active:bg-transparent !focus:bg-transparent !focus:shadow-none"
+            class="btn btn-ghost btn-circle "
             phx-hook="HamburgerMenu"
+            aria-label="Open menu"
           >
             <.icon name="hero-bars-3" class="size-6" />
           </button>

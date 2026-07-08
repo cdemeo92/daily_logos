@@ -58,6 +58,16 @@
             this.loadQuote();
           },
 
+          showReloadButton() {
+            this.reloadButton.classList.remove("hidden");
+            this.reloadButton.classList.add("inline-flex");
+          },
+
+          hideReloadButton() {
+            this.reloadButton.classList.add("hidden");
+            this.reloadButton.classList.remove("inline-flex");
+          },
+
           destroyed() {
             this.reloadButton.removeEventListener("click", this.reloadHandler);
           },
@@ -67,7 +77,7 @@
             this.quoteTopic.textContent = "";
             this.quoteAuthor.textContent = "";
             this.quoteSource.textContent = "";
-            this.reloadButton.classList.add("hidden");
+            this.hideReloadButton();
 
             const localeSource = this.el.dataset.locale || document.documentElement.lang || "en";
             const locale = localeSource.startsWith("it") ? "it" : "en";
@@ -84,13 +94,14 @@
               if (response.status === 404) {
                 this.quoteText.textContent = this.notFoundText;
                 this.quoteTopic.textContent = "";
-                this.reloadButton.classList.remove("hidden");
+                this.showReloadButton();
                 return;
               }
 
               if (!response.ok) {
                 this.quoteText.textContent = this.errorText;
                 this.quoteTopic.textContent = "";
+                this.showReloadButton();
                 return;
               }
 
@@ -110,6 +121,7 @@
             } catch (_error) {
               this.quoteText.textContent = this.errorText;
               this.quoteTopic.textContent = "";
+              this.showReloadButton();
             }
           }
         }
@@ -160,7 +172,7 @@
           <button
             id="quote-reload"
             type="button"
-            class="hidden mx-auto mt-3 inline-flex items-center justify-center rounded-full p-2 text-amber-600 transition hover:bg-amber-100"
+            class="hidden mx-auto mt-3 items-center justify-center rounded-full p-2 text-amber-600 transition hover:bg-amber-100"
             aria-label={gettext("Reload quote")}
             title={gettext("Reload quote")}
           >
