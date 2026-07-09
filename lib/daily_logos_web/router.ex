@@ -20,6 +20,7 @@ defmodule DailyLogosWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/feedback", PageController, :feedback
     post "/locale/:locale", LocaleController, :set
   end
 

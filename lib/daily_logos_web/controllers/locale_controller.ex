@@ -14,12 +14,27 @@ defmodule DailyLogosWeb.LocaleController do
   end
 
   defp safe_referer(conn) do
-    case List.first(get_req_header(conn, "referer")) do
-      <<"/", _::binary>> = path ->
-        if String.starts_with?(path, "//"), do: "/", else: path
+    conn
+    |> get_req_header("referer")
+    |> List.first()
+    |> extract_local_path(conn.host)
+  end
+
+  defp extract_local_path(nil, _host), do: "/"
+
+  defp extract_local_path(referer, request_host) do
+    case URI.parse(referer) do
+      %URI{host: host, path: path, query: query} when is_binary(path) ->
+        if same_host?(host, request_host), do: build_path(path, query), else: "/"
 
       _ ->
         "/"
     end
   end
+
+  defp same_host?(nil, _request_host), do: true
+  defp same_host?(host, request_host), do: host == request_host
+
+  defp build_path(path, nil), do: path
+  defp build_path(path, query), do: "#{path}?#{query}"
 end

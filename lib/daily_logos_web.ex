@@ -86,6 +86,7 @@ defmodule DailyLogosWeb do
       import Phoenix.HTML
       # Core UI components
       import DailyLogosWeb.CoreComponents
+      import DailyLogosWeb.Components.Placeholder
 
       # Common modules used in templates
       alias DailyLogosWeb.Layouts

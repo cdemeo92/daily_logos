@@ -1,0 +1,34 @@
+<Layouts.app flash={@flash}>
+  <div class="min-h-[60vh] flex flex-col items-center justify-start py-12">
+    <div class="w-full max-w-2xl space-y-6">
+      <%!-- Header --%>
+      <div class="text-center space-y-2">
+        <h1 id="feedback-title" class="text-2xl font-semibold">
+          {gettext("Send feedback")}
+        </h1>
+        <p class="text-base-content/60 text-sm">
+          {gettext("Share your thoughts.")}
+        </p>
+      </div>
+
+      <%!-- Form or placeholder --%>
+      <% locale = Gettext.get_locale(DailyLogosWeb.Gettext) %>
+      <% hl = if String.starts_with?(locale, "it"), do: "it", else: "en" %>
+
+      <%= if @feedback_form_url do %>
+        <iframe
+          id="feedback-form"
+          src={"#{@feedback_form_url}&hl=#{hl}"}
+          class="w-full min-h-[640px] border-0 rounded-xl"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+        >
+          {gettext("Loading...")}
+        </iframe>
+      <% else %>
+        <.placeholder id="feedback-placeholder" />
+      <% end %>
+    </div>
+  </div>
+</Layouts.app>

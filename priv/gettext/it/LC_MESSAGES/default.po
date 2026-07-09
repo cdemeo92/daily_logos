@@ -97,24 +97,51 @@ msgstr "Ottobre"
 msgid "September"
 msgstr "Settembre"
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:115
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:124
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:140
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:158
 #, elixir-autogen, elixir-format
 msgid "Loading today's quote..."
 msgstr "Caricamento della citazione di oggi..."
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:116
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:141
 #, elixir-autogen, elixir-format
 msgid "No quote available for today."
 msgstr "Nessuna citazione disponibile per oggi."
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:144
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:145
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:176
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:177
 #, elixir-autogen, elixir-format
 msgid "Reload quote"
 msgstr "Ricarica citazione"
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:117
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:142
 #, elixir-autogen, elixir-format
 msgid "Unable to load the quote. Please try again shortly."
 msgstr "Impossibile caricare la citazione. Riprova tra poco."
+
+#: lib/daily_logos_web/components/layouts/app_header.ex:37
+#: lib/daily_logos_web/components/layouts/main_menu.ex:54
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Send feedback"
+msgstr "Invia feedback"
+
+#: lib/daily_logos_web/components/common/placeholder.ex:19
+#, elixir-autogen, elixir-format
+msgid "Coming soon"
+msgstr "In arrivo"
+
+#: lib/daily_logos_web/components/common/placeholder.ex:10
+#, elixir-autogen, elixir-format
+msgid "Share your thoughts."
+msgstr "Condividi la tua opinione."
+
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Loading..."
+msgstr "Caricamento..."
+
+#: lib/daily_logos_web/components/common/placeholder.ex:20
+#, elixir-autogen, elixir-format
+msgid "This section is not available yet."
+msgstr "Questa sezione non è ancora disponibile."

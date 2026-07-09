@@ -6,6 +6,7 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
   Contains GitHub link, theme/locale toggles, and custom menu links.
   """
   use Phoenix.Component
+  use Gettext, backend: DailyLogosWeb.Gettext
 
   import DailyLogosWeb.CoreComponents
   import DailyLogosWeb.Components.ThemeToggle
@@ -20,14 +21,14 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
     ~H"""
     <div
       id="mobile-menu-overlay"
-      class="hidden fixed inset-0 bg-black/50 z-40"
+      class="hidden fixed inset-0 bg-black/50 z-40 md:hidden"
       phx-hook="MobileMenuOverlay"
     >
     </div>
 
     <div
       id="mobile-menu"
-      class="fixed top-0 right-0 h-screen w-64 bg-base-100 dark:bg-base-100 shadow-lg transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto flex flex-col"
+      class="fixed top-0 right-0 h-screen w-64 bg-base-100 dark:bg-base-100 shadow-lg transform translate-x-full transition-transform duration-300 z-50 md:hidden overflow-y-auto flex flex-col"
     >
       <div class="border-b border-base-300 dark:border-neutral-content/10 p-4 flex items-center justify-between">
         <a href="/" class="flex items-center gap-2" aria-label="Home">
@@ -46,6 +47,12 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
 
       <div class="flex-1 p-4">
         <nav aria-label="Menu">
+          <a
+            href="/feedback"
+            class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
+          >
+            {gettext("Send feedback")}
+          </a>
           <a
             href="https://github.com/cdemeo92/daily_logos"
             class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"

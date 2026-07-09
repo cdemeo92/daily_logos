@@ -97,24 +97,51 @@ msgstr ""
 msgid "September"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:115
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:124
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:140
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:158
 #, elixir-autogen, elixir-format
 msgid "Loading today's quote..."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:116
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:141
 #, elixir-autogen, elixir-format
 msgid "No quote available for today."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:144
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:145
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:176
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:177
 #, elixir-autogen, elixir-format
 msgid "Reload quote"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:117
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:142
 #, elixir-autogen, elixir-format
 msgid "Unable to load the quote. Please try again shortly."
+msgstr ""
+
+#: lib/daily_logos_web/components/layouts/app_header.ex:37
+#: lib/daily_logos_web/components/layouts/main_menu.ex:54
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Send feedback"
+msgstr ""
+
+#: lib/daily_logos_web/components/common/placeholder.ex:19
+#, elixir-autogen, elixir-format
+msgid "Coming soon"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:10
+#, elixir-autogen, elixir-format
+msgid "Help Daily Logos with your thoughts."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Loading..."
+msgstr ""
+
+#: lib/daily_logos_web/components/common/placeholder.ex:20
+#, elixir-autogen, elixir-format
+msgid "This section is not available yet."
 msgstr ""
