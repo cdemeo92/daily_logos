@@ -1,13 +1,12 @@
 defmodule DailyLogosWeb.Plugs.SeoMetaTest do
-  use ExUnit.Case, async: true
-
-  import Plug.Test
+  use DailyLogosWeb.ConnCase
 
   alias DailyLogosWeb.Plugs.SeoMeta
 
-  test "assigns default seo metadata" do
+  test "assigns default seo metadata", %{conn: conn} do
     conn =
-      conn(:get, "/about")
+      conn
+      |> Map.put(:request_path, "/about")
       |> Map.put(:query_string, "ref=menu")
       |> Plug.Conn.assign(:locale, "it")
 
@@ -46,9 +45,10 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
            end)
   end
 
-  test "merges page overrides and normalizes relative urls" do
+  test "merges page overrides and normalizes relative urls", %{conn: conn} do
     conn =
-      conn(:get, "/support")
+      conn
+      |> Map.put(:request_path, "/support")
       |> Plug.Conn.assign(:locale, "en")
       |> SeoMeta.call(SeoMeta.init([]))
 
