@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/cdemeo92/daily_logos/compare/v1.0.0...v1.0.1) (2026-07-10)
+
+
+### Bug Fixes
+
+* update Dependabot configuration to limit open pull requests and group dependencies; modify Dockerfile to use existing user ([320665b](https://github.com/cdemeo92/daily_logos/commit/320665ba341dc5c224ea3fbab11ac56f03bc4781))
+
 # 1.0.0 (2026-07-10)
 
 
