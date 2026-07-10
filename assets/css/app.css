@@ -2,6 +2,7 @@
    https://tailwindcss.com/docs/configuration */
 
 @import "tailwindcss" source(none);
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 @source "../css";
 @source "../js";
 @source "../../lib/daily_logos_web";

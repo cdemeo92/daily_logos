@@ -11,6 +11,7 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
   import DailyLogosWeb.CoreComponents
   import DailyLogosWeb.Components.ThemeToggle
   import DailyLogosWeb.Components.LocaleToggle
+  import DailyLogosWeb.Components.SocialIcon
 
   @doc """
   Renders the mobile sidebar menu.
@@ -31,29 +32,34 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
       class="fixed top-0 right-0 h-screen w-64 bg-base-100 dark:bg-base-100 shadow-lg transform translate-x-full transition-transform duration-300 z-50 md:hidden overflow-y-auto flex flex-col"
     >
       <div class="border-b border-base-300 dark:border-neutral-content/10 p-4 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2" aria-label="Home">
-          <img src="/images/logo.svg" width="32" alt="Logo" />
-          <span class="text-xs font-semibold">v{Application.spec(:daily_logos, :vsn)}</span>
-        </a>
-        <button
-          id="menu-close"
-          class="btn btn-ghost btn-circle !hover:bg-transparent !hover:shadow-none !active:bg-transparent !focus:bg-transparent !focus:shadow-none"
-          phx-hook="MobileMenuClose"
-          aria-label="Close menu"
-        >
-          <.icon name="hero-x-mark" class="size-6" />
-        </button>
+        <div class="flex items-center gap-3">
+          <a href="/" class="flex items-center gap-2" aria-label="Home">
+            <img src="/images/logo.svg" width="32" alt="Logo" />
+            <span class="text-xs font-semibold">v{Application.spec(:daily_logos, :vsn)}</span>
+          </a>
+          <a
+            href="https://github.com/cdemeo92/daily_logos"
+            class="flex items-center text-base-content/70 hover:text-base-content transition-colors"
+            aria-label="GitHub repository"
+          >
+            <.social_icon name="github" class="text-[1.5rem] leading-none" />
+            <span class="sr-only">GitHub</span>
+          </a>
+        </div>
+        <div class="flex items-center">
+          <button
+            id="menu-close"
+            class="btn btn-ghost btn-circle !hover:bg-transparent !hover:shadow-none !active:bg-transparent !focus:bg-transparent !focus:shadow-none"
+            phx-hook="MobileMenuClose"
+            aria-label="Close menu"
+          >
+            <.icon name="hero-x-mark" class="size-6" />
+          </button>
+        </div>
       </div>
 
       <div class="flex-1 p-4">
         <nav aria-label="Menu">
-          <a
-            href="https://github.com/cdemeo92/daily_logos"
-            class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
-            aria-label="GitHub repository"
-          >
-            GitHub
-          </a>
           <a
             href="/feedback"
             class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"

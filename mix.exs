@@ -106,9 +106,20 @@ defmodule DailyLogos.MixProject do
         "test.unit",
         "test.integ"
       ],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["compile", "tailwind daily_logos", "esbuild daily_logos"],
+      "assets.setup": [
+        "cmd --cd assets npm ci",
+        "assets.fonts",
+        "tailwind.install --if-missing",
+        "esbuild.install --if-missing"
+      ],
+      "assets.fonts": [
+        "cmd mkdir -p priv/static/assets/css/fonts",
+        "cmd cp assets/node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff priv/static/assets/css/fonts/bootstrap-icons.woff",
+        "cmd cp assets/node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2 priv/static/assets/css/fonts/bootstrap-icons.woff2"
+      ],
+      "assets.build": ["compile", "assets.fonts", "tailwind daily_logos", "esbuild daily_logos"],
       "assets.deploy": [
+        "assets.fonts",
         "tailwind daily_logos --minify",
         "esbuild daily_logos --minify",
         "phx.digest"
