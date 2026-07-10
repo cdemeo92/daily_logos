@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr "Azioni"
 
-#: lib/daily_logos_web/components/layouts.ex:82
-#: lib/daily_logos_web/components/layouts.ex:94
+#: lib/daily_logos_web/components/layouts.ex:78
+#: lib/daily_logos_web/components/layouts.ex:90
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr "Tentativo di riconnessione in corso"
 
-#: lib/daily_logos_web/components/layouts.ex:89
+#: lib/daily_logos_web/components/layouts.ex:85
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr "Qualcosa è andato storto!"
 
-#: lib/daily_logos_web/components/layouts.ex:77
+#: lib/daily_logos_web/components/layouts.ex:73
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr "Connessione non disponibile"
@@ -119,8 +119,8 @@ msgstr "Ricarica citazione"
 msgid "Unable to load the quote. Please try again shortly."
 msgstr "Impossibile caricare la citazione. Riprova tra poco."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:37
-#: lib/daily_logos_web/components/layouts/main_menu.ex:61
+#: lib/daily_logos_web/components/layouts/app_header.ex:38
+#: lib/daily_logos_web/components/layouts/main_menu.ex:67
 #: lib/daily_logos_web/controllers/page_html/feedback.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Send feedback"
@@ -131,7 +131,7 @@ msgstr "Invia un feedback"
 msgid "Coming soon"
 msgstr "In arrivo"
 
-#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:28
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Loading..."
 msgstr "Caricamento..."
@@ -146,8 +146,8 @@ msgstr "Questa sezione non è ancora disponibile."
 msgid "A quote a day, rooted in ancient wisdom."
 msgstr "Una citazione al giorno, radicata nella saggezza antica."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:53
-#: lib/daily_logos_web/components/layouts/main_menu.ex:73
+#: lib/daily_logos_web/components/layouts/app_header.ex:54
+#: lib/daily_logos_web/components/layouts/main_menu.ex:79
 #, elixir-autogen, elixir-format
 msgid "About"
 msgstr "Info"
@@ -177,18 +177,13 @@ msgstr "Ispirato a The Daily Stoic di Ryan Holiday e Stephen Hanselman. Questo s
 msgid "Read the quote slowly. Then read it again. If something in it catches your attention, hold onto it for the day and notice whether it changes how you handle a situation. That's it. There is no streak to maintain, no score to keep."
 msgstr "Leggi la citazione con calma. Poi rileggila. Se qualcosa ti colpisce, portala con te durante la giornata e osserva se cambia qualcosa nel tuo modo di affrontare le cose. Questo è tutto. Non c'è nessuna serie da mantenere, nessun punteggio da tenere."
 
-#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:10
-#, elixir-autogen, elixir-format
-msgid "Share your thoughts."
-msgstr "Condividi la tua opinione."
-
 #: lib/daily_logos_web/controllers/page_html/about.html.heex:61
 #, elixir-autogen, elixir-format
 msgid "Stoicism is practical. It does not ask you to withdraw from the world or adopt a particular lifestyle. It asks you to pay attention to what you can control, accept what you cannot, and act well in the space between. That advice has held up for roughly two thousand years, which suggests it might be onto something."
 msgstr "Lo stoicismo è pratico. Non chiede di ritirarsi dal mondo né di adottare uno stile di vita particolare. Chiede di prestare attenzione a ciò che si può controllare, di accettare ciò che non si può, e di agire bene in mezzo a tutto questo. Un consiglio che regge da circa duemila anni, il che fa pensare che ci sia qualcosa di vero."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:45
-#: lib/daily_logos_web/components/layouts/main_menu.ex:67
+#: lib/daily_logos_web/components/layouts/app_header.ex:46
+#: lib/daily_logos_web/components/layouts/main_menu.ex:73
 #, elixir-autogen, elixir-format
 msgid "Support"
 msgstr "Supporto"
@@ -197,11 +192,6 @@ msgstr "Supporto"
 #, elixir-autogen, elixir-format
 msgid "The 365 quotes are organized into monthly themes that follow a loose arc across the year, from clarity and focus in the early months to resilience and gratitude toward the end. The rhythm is intentional: returning day after day is the whole point."
 msgstr "Le 365 citazioni sono organizzate in temi mensili che seguono un arco lungo tutto l'anno, dalla chiarezza e la concentrazione nei primi mesi fino alla resilienza e alla gratitudine verso la fine. Il ritmo è intenzionale: tornare ogni giorno è il punto centrale."
-
-#: lib/daily_logos_web/controllers/page_html/about.html.heex:49
-#, elixir-autogen, elixir-format
-msgid "The classical Stoics form the backbone of the collection: Marcus Aurelius, Epictetus, and Seneca account for a large share of the quotes. But the collection also reaches further, drawing on modern writers and thinkers who have engaged seriously with Stoic ideas. Ancient or contemporary, the common thread is practical wisdom that actually holds up."
-msgstr "I tre classici dello stoicismo formano la colonna portante della raccolta: Marco Aurelio, Epitteto e Seneca coprono una parte consistente delle citazioni. Ma la raccolta va oltre, attingendo anche a scrittori e pensatori contemporanei che si sono confrontati seriamente con le idee stoiche. Antichi o moderni, il filo conduttore è una saggezza pratica che regge davvero."
 
 #: lib/daily_logos_web/controllers/page_html/about.html.heex:46
 #, elixir-autogen, elixir-format
@@ -217,3 +207,28 @@ msgstr "Cos'è Daily Logos?"
 #, elixir-autogen, elixir-format
 msgid "Why Stoicism?"
 msgstr "Perché lo stoicismo?"
+
+#: lib/daily_logos_web/controllers/page_html/support.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Buy Me a Coffee"
+msgstr "Offrimi un caffè"
+
+#: lib/daily_logos_web/controllers/page_html/support.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Support Daily Logos"
+msgstr "Sostieni Daily Logos"
+
+#: lib/daily_logos_web/controllers/page_html/about.html.heex:49
+#, elixir-autogen, elixir-format
+msgid "The classical Stoics form the backbone of the collection: Marcus Aurelius, Epictetus, and Seneca account for a large share of the quotes. But the collection also reaches further, drawing on modern writers and thinkers who have engaged seriously with Stoic ideas. Ancient or contemporary, the common thread is practical wisdom that actually holds up."
+msgstr "I tre classici dello stoicismo formano la colonna portante della raccolta: Marco Aurelio, Epitteto e Seneca coprono una parte consistente delle citazioni. Ma la raccolta va oltre, attingendo anche a scrittori e pensatori contemporanei che si sono confrontati seriamente con le idee stoiche. Antichi o moderni, il filo conduttore è una saggezza pratica che regge davvero."
+
+#: lib/daily_logos_web/controllers/page_html/support.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Daily Logos is a passion project bringing Stoic wisdom into your daily life. Your support helps keep this timeless wisdom accessible to everyone."
+msgstr "Daily Logos è un progetto realizzato con passione che porta la saggezza stoica nella tua vita quotidiana. Il tuo supporto aiuta a mantenere questa saggezza senza tempo accessibile a tutti."
+
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:10
+#, elixir-autogen, elixir-format
+msgid "Share anything: feedback, suggestions, bugs, improvements, or ideas to make Daily Logos better."
+msgstr "Condividi qualsiasi cosa: feedback, suggerimenti, bug, miglioramenti o idee per rendere Daily Logos migliore."

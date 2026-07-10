@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:82
-#: lib/daily_logos_web/components/layouts.ex:94
+#: lib/daily_logos_web/components/layouts.ex:78
+#: lib/daily_logos_web/components/layouts.ex:90
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:89
+#: lib/daily_logos_web/components/layouts.ex:85
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:77
+#: lib/daily_logos_web/components/layouts.ex:73
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr ""
@@ -119,8 +119,8 @@ msgstr ""
 msgid "Unable to load the quote. Please try again shortly."
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:37
-#: lib/daily_logos_web/components/layouts/main_menu.ex:61
+#: lib/daily_logos_web/components/layouts/app_header.ex:38
+#: lib/daily_logos_web/components/layouts/main_menu.ex:67
 #: lib/daily_logos_web/controllers/page_html/feedback.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Send feedback"
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Coming soon"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:28
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Loading..."
 msgstr ""
@@ -146,8 +146,8 @@ msgstr ""
 msgid "A quote a day, rooted in ancient wisdom."
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:53
-#: lib/daily_logos_web/components/layouts/main_menu.ex:73
+#: lib/daily_logos_web/components/layouts/app_header.ex:54
+#: lib/daily_logos_web/components/layouts/main_menu.ex:79
 #, elixir-autogen, elixir-format
 msgid "About"
 msgstr ""
@@ -177,18 +177,13 @@ msgstr ""
 msgid "Read the quote slowly. Then read it again. If something in it catches your attention, hold onto it for the day and notice whether it changes how you handle a situation. That's it. There is no streak to maintain, no score to keep."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:10
-#, elixir-autogen, elixir-format
-msgid "Share your thoughts."
-msgstr ""
-
 #: lib/daily_logos_web/controllers/page_html/about.html.heex:61
 #, elixir-autogen, elixir-format
 msgid "Stoicism is practical. It does not ask you to withdraw from the world or adopt a particular lifestyle. It asks you to pay attention to what you can control, accept what you cannot, and act well in the space between. That advice has held up for roughly two thousand years, which suggests it might be onto something."
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:45
-#: lib/daily_logos_web/components/layouts/main_menu.ex:67
+#: lib/daily_logos_web/components/layouts/app_header.ex:46
+#: lib/daily_logos_web/components/layouts/main_menu.ex:73
 #, elixir-autogen, elixir-format
 msgid "Support"
 msgstr ""
@@ -196,11 +191,6 @@ msgstr ""
 #: lib/daily_logos_web/controllers/page_html/about.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "The 365 quotes are organized into monthly themes that follow a loose arc across the year, from clarity and focus in the early months to resilience and gratitude toward the end. The rhythm is intentional: returning day after day is the whole point."
-msgstr ""
-
-#: lib/daily_logos_web/controllers/page_html/about.html.heex:49
-#, elixir-autogen, elixir-format
-msgid "The collection draws from the three writers who define the Stoic canon: Marcus Aurelius, who ruled an empire and still found time to remind himself that anger is a choice; Epictetus, the freed slave who taught that freedom is a state of mind; and Seneca, whose letters to a friend remain some of the most honest writing about how to actually live well. Together, they cover almost every situation a modern life can throw at you."
 msgstr ""
 
 #: lib/daily_logos_web/controllers/page_html/about.html.heex:46
@@ -216,4 +206,29 @@ msgstr ""
 #: lib/daily_logos_web/controllers/page_html/about.html.heex:58
 #, elixir-autogen, elixir-format
 msgid "Why Stoicism?"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/support.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Buy Me a Coffee"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/support.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Support Daily Logos"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/about.html.heex:49
+#, elixir-autogen, elixir-format
+msgid "The classical Stoics form the backbone of the collection: Marcus Aurelius, Epictetus, and Seneca account for a large share of the quotes. But the collection also reaches further, drawing on modern writers and thinkers who have engaged seriously with Stoic ideas. Ancient or contemporary, the common thread is practical wisdom that actually holds up."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/support.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Daily Logos is a passion project bringing Stoic wisdom into your daily life. Your support helps keep this timeless wisdom accessible to everyone."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:10
+#, elixir-autogen, elixir-format
+msgid "Share anything: feedback, suggestions, bugs, improvements, or ideas to make Daily Logos better."
 msgstr ""

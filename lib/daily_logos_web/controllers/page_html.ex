@@ -14,4 +14,11 @@ defmodule DailyLogosWeb.PageHTML do
       _ -> nil
     end
   end
+
+  def buy_me_coffee_url do
+    case Application.get_env(:daily_logos, :buy_me_coffee_url) do
+      url when is_binary(url) and url != "" -> url
+      _ -> nil
+    end
+  end
 end
