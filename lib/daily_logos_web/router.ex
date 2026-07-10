@@ -21,6 +21,8 @@ defmodule DailyLogosWeb.Router do
 
     get "/", PageController, :home
     get "/feedback", PageController, :feedback
+    get "/about", PageController, :about
+    get "/support", PageController, :support
     post "/locale/:locale", LocaleController, :set
   end
 

@@ -8,4 +8,12 @@ defmodule DailyLogosWeb.PageController do
   def feedback(conn, _params) do
     render(conn, :feedback)
   end
+
+  def support(conn, _params) do
+    render(conn, :support)
+  end
+
+  def about(conn, _params) do
+    render(conn, :about)
+  end
 end

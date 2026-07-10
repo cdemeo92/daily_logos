@@ -1,0 +1,83 @@
+<Layouts.app flash={@flash}>
+  <div class="min-h-[60vh] flex flex-col items-center justify-start py-12">
+    <article class="w-full max-w-2xl space-y-10" aria-labelledby="about-title">
+      <%!-- Header --%>
+      <header class="text-center space-y-3">
+        <h1 id="about-title" class="text-3xl font-semibold tracking-tight text-balance">
+          {gettext("About Daily Logos")}
+        </h1>
+        <p class="text-base-content/60 text-base leading-relaxed text-balance">
+          {gettext("A quote a day, rooted in ancient wisdom.")}
+        </p>
+        <p class="text-base-content/40 text-xs leading-relaxed text-pretty">
+          {gettext(
+            "Inspired by The Daily Stoic by Ryan Holiday and Stephen Hanselman. Not affiliated with or endorsed by the authors or their publisher."
+          )}
+        </p>
+      </header>
+
+      <%!-- Divider --%>
+      <div class="flex justify-center" aria-hidden="true">
+        <div class="w-12 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"></div>
+      </div>
+
+      <%!-- What it is --%>
+      <section class="space-y-4" aria-labelledby="what-section">
+        <h2 id="what-section" class="text-xl font-semibold text-balance">
+          {gettext("What is Daily Logos?")}
+        </h2>
+        <div class="space-y-3 text-base-content/80 leading-relaxed text-justify">
+          <p>
+            {gettext(
+              "Daily Logos pairs every day of the year with a carefully chosen quote from the Stoic tradition. Open the app on any given day and you'll find a single passage worth sitting with. Nothing more, nothing less."
+            )}
+          </p>
+          <p>
+            {gettext(
+              "The 365 quotes are organized into monthly themes that follow a loose arc across the year, from clarity and focus in the early months to resilience and gratitude toward the end. The rhythm is intentional: returning day after day is the whole point."
+            )}
+          </p>
+        </div>
+      </section>
+
+      <%!-- The voices --%>
+      <section class="space-y-4" aria-labelledby="voices-section">
+        <h2 id="voices-section" class="text-xl font-semibold text-balance">
+          {gettext("The voices behind the quotes")}
+        </h2>
+        <p class="text-base-content/80 leading-relaxed text-justify">
+          {gettext(
+            "The classical Stoics form the backbone of the collection: Marcus Aurelius, Epictetus, and Seneca account for a large share of the quotes. But the collection also reaches further, drawing on modern writers and thinkers who have engaged seriously with Stoic ideas. Ancient or contemporary, the common thread is practical wisdom that actually holds up."
+          )}
+        </p>
+      </section>
+
+      <%!-- Why Stoicism --%>
+      <section class="space-y-4" aria-labelledby="why-section">
+        <h2 id="why-section" class="text-xl font-semibold text-balance">
+          {gettext("Why Stoicism?")}
+        </h2>
+        <p class="text-base-content/80 leading-relaxed text-justify">
+          {gettext(
+            "Stoicism is practical. It does not ask you to withdraw from the world or adopt a particular lifestyle. It asks you to pay attention to what you can control, accept what you cannot, and act well in the space between. That advice has held up for roughly two thousand years, which suggests it might be onto something."
+          )}
+        </p>
+      </section>
+
+      <%!-- How to use --%>
+      <section
+        class="rounded-xl border border-amber-300/30 bg-amber-500/5 px-6 py-5 space-y-3"
+        aria-labelledby="howto-section"
+      >
+        <h2 id="howto-section" class="text-xl font-semibold text-balance">
+          {gettext("How to get the most out of it")}
+        </h2>
+        <p class="text-base-content/80 leading-relaxed text-justify">
+          {gettext(
+            "Read the quote slowly. Then read it again. If something in it catches your attention, hold onto it for the day and notice whether it changes how you handle a situation. That's it. There is no streak to maintain, no score to keep."
+          )}
+        </p>
+      </section>
+    </article>
+  </div>
+</Layouts.app>

@@ -39,6 +39,22 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
             </li>
             <li>
               <a
+                href="/support"
+                class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
+              >
+                {gettext("Support")}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/about"
+                class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
+              >
+                {gettext("About")}
+              </a>
+            </li>
+            <li>
+              <a
                 href="https://github.com/cdemeo92/daily_logos"
                 class="text-base-content/70 hover:text-base-content transition-colors"
                 aria-label="GitHub repository"
