@@ -7,9 +7,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY _build/prod/rel/daily_logos/*.tar.gz .
-
-RUN tar -xzf *.tar.gz && rm *.tar.gz
+COPY _build/prod/rel/daily_logos .
 
 RUN useradd -m -u 1000 app && chown -R app:app /app
 USER app
