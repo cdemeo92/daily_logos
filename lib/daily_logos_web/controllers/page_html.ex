@@ -7,4 +7,11 @@ defmodule DailyLogosWeb.PageHTML do
   use DailyLogosWeb, :html
 
   embed_templates "page_html/*"
+
+  def feedback_form_url do
+    case Application.get_env(:daily_logos, :feedback_form_url) do
+      url when is_binary(url) and url != "" -> url
+      _ -> nil
+    end
+  end
 end
