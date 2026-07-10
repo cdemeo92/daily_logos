@@ -9,8 +9,8 @@ WORKDIR /app
 
 COPY _build/prod/rel/daily_logos .
 
-RUN useradd -m -u 1000 app && chown -R app:app /app
-USER app
+RUN chown -R ubuntu:ubuntu /app
+USER ubuntu
 
 EXPOSE 4000
 
