@@ -1,32 +1,17 @@
 name: CI
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  test:
+  install:
+    name: Install Dependencies
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:18
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: daily_logos_dev
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d daily_logos_dev"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    env:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      DB_PORT: 5432
-      TEST_DATABASE_URL: ecto://postgres:postgres@localhost:5432/daily_logos_test
 
     steps:
       - name: Check out repository
@@ -34,9 +19,11 @@ jobs:
 
       - name: Set up Erlang/Elixir
         uses: erlef/setup-beam@v1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          otp-version: '27'
-          elixir-version: '1.18.4'
+          node-version-file: '.tool-versions'
 
       - name: Restore Mix cache
         uses: actions/cache@v4
@@ -44,7 +31,6 @@ jobs:
           path: |
             deps
             _build
-            priv/plts
           key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-mix-
@@ -52,14 +38,178 @@ jobs:
       - name: Install dependencies
         run: mix deps.get
 
-      - name: Check formatting
-        run: mix format --check-formatted
+  unit-test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: install
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Erlang/Elixir
+        uses: erlef/setup-beam@v1
+
+      - name: Restore Mix cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+
+      - name: Run unit tests
+        run: mix test.unit
+
+  integration-test:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: install
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Erlang/Elixir
+        uses: erlef/setup-beam@v1
+
+      - name: Restore Mix cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+
+      - name: Run integration tests
+        run: mix test.integ
+        env:
+          TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE: /var/run/docker.sock
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    needs: install
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Erlang/Elixir
+        uses: erlef/setup-beam@v1
+
+      - name: Restore Mix cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
 
       - name: Run Credo
         run: mix credo --strict
 
-      - name: Run test suite
-        run: mix test
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: install
+    env:
+      MIX_ENV: prod
 
-      - name: Run Dialyzer
-        run: MIX_ENV=dev mix dialyzer
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Erlang/Elixir
+        uses: erlef/setup-beam@v1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.tool-versions'
+
+      - name: Restore Mix cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+
+      - name: Build release
+        run: |
+          mix assets.deploy
+          mix release
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release
+          path: _build/prod/rel/daily_logos/*.tar.gz
+          retention-days: 1
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [unit-test, integration-test, lint, build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Download release artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release
+          path: _build/prod/rel/daily_logos/
+
+      - name: Release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          extra_plugins: |
+            @semantic-release/changelog
+            @semantic-release/git
+            @semantic-release/exec
+            @semantic-release/github
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract version
+        id: version
+        run: echo "version=$(git describe --tags --abbrev=0 | sed 's/^v//')" >> $GITHUB_OUTPUT
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
