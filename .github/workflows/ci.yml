@@ -17,6 +17,9 @@ jobs:
     name: Install Dependencies
     runs-on: ubuntu-latest
 
+    env:
+      MIX_ENV: test
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -32,18 +35,25 @@ jobs:
         with:
           node-version-file: '.tool-versions'
 
-      - name: Restore Mix cache
+      - name: Restore cache
         uses: actions/cache@v4
         with:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
+            assets/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('mix.lock', 'assets/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-mix-
+            ${{ runner.os }}-
 
       - name: Install dependencies
         run: mix deps.get
+
+      - name: Setup assets
+        run: mix assets.setup
+
+      - name: Compile
+        run: mix compile
 
   unit-test:
     name: Unit Tests
@@ -60,15 +70,14 @@ jobs:
           otp-version: ${{ env.OTP_VERSION }}
           elixir-version: ${{ env.ELIXIR_VERSION }}
 
-      - name: Restore Mix cache
+      - name: Restore cache
         uses: actions/cache@v4
         with:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-mix-
+            assets/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('mix.lock', 'assets/package-lock.json') }}
 
       - name: Run unit tests
         run: mix test.unit
@@ -88,15 +97,14 @@ jobs:
           otp-version: ${{ env.OTP_VERSION }}
           elixir-version: ${{ env.ELIXIR_VERSION }}
 
-      - name: Restore Mix cache
+      - name: Restore cache
         uses: actions/cache@v4
         with:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-mix-
+            assets/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('mix.lock', 'assets/package-lock.json') }}
 
       - name: Run integration tests
         run: mix test.integ
@@ -118,15 +126,14 @@ jobs:
           otp-version: ${{ env.OTP_VERSION }}
           elixir-version: ${{ env.ELIXIR_VERSION }}
 
-      - name: Restore Mix cache
+      - name: Restore cache
         uses: actions/cache@v4
         with:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-mix-
+            assets/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('mix.lock', 'assets/package-lock.json') }}
 
       - name: Run Credo
         run: mix credo --strict
@@ -153,15 +160,17 @@ jobs:
         with:
           node-version-file: '.tool-versions'
 
-      - name: Restore Mix cache
+      - name: Restore cache
         uses: actions/cache@v4
         with:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-mix-
+            assets/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('mix.lock', 'assets/package-lock.json') }}
+
+      - name: Install dependencies
+        run: mix deps.get
 
       - name: Build release
         run: |
