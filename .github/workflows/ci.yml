@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+env:
+  OTP_VERSION: '27.1.2'
+  ELIXIR_VERSION: '1.17.3'
+
 jobs:
   install:
     name: Install Dependencies
@@ -19,6 +23,9 @@ jobs:
 
       - name: Set up Erlang/Elixir
         uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ env.OTP_VERSION }}
+          elixir-version: ${{ env.ELIXIR_VERSION }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -49,6 +56,9 @@ jobs:
 
       - name: Set up Erlang/Elixir
         uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ env.OTP_VERSION }}
+          elixir-version: ${{ env.ELIXIR_VERSION }}
 
       - name: Restore Mix cache
         uses: actions/cache@v4
@@ -74,6 +84,9 @@ jobs:
 
       - name: Set up Erlang/Elixir
         uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ env.OTP_VERSION }}
+          elixir-version: ${{ env.ELIXIR_VERSION }}
 
       - name: Restore Mix cache
         uses: actions/cache@v4
@@ -101,6 +114,9 @@ jobs:
 
       - name: Set up Erlang/Elixir
         uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ env.OTP_VERSION }}
+          elixir-version: ${{ env.ELIXIR_VERSION }}
 
       - name: Restore Mix cache
         uses: actions/cache@v4
@@ -128,6 +144,9 @@ jobs:
 
       - name: Set up Erlang/Elixir
         uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ env.OTP_VERSION }}
+          elixir-version: ${{ env.ELIXIR_VERSION }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
