@@ -4,9 +4,32 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
+    <meta name="description" content={@seo_meta.description} />
+    <meta name="robots" content={@seo_meta.robots} />
+    <link rel="canonical" href={@seo_meta.canonical} />
+
+    <meta property="og:type" content={@seo_meta.type} />
+    <meta property="og:site_name" content={@seo_meta.site_name} />
+    <meta property="og:locale" content={@seo_meta.og_locale} />
+    <meta property="og:title" content={@seo_meta.title} />
+    <meta property="og:description" content={@seo_meta.description} />
+    <meta property="og:url" content={@seo_meta.canonical} />
+    <meta property="og:image" content={@seo_meta.image} />
+    <meta property="og:image:alt" content={@seo_meta.image_alt} />
+
+    <meta name="twitter:card" content={@seo_meta.twitter_card} />
+    <meta name="twitter:title" content={@seo_meta.title} />
+    <meta name="twitter:description" content={@seo_meta.description} />
+    <meta name="twitter:image" content={@seo_meta.image} />
+    <meta name="twitter:image:alt" content={@seo_meta.image_alt} />
+
+    <script type="application/ld+json">
+      {raw(Jason.encode!(@seo_meta.structured_data))}
+    </script>
+
     <link rel="icon" type="image/svg+xml" href={~p"/images/logo_white.svg"} />
     <link rel="alternate icon" href={~p"/favicon.ico"} />
-    <.live_title default="DailyLogos" phx-no-format>{assigns[:page_title]}</.live_title>
+    <.live_title default="DailyLogos" phx-no-format>{@seo_meta.title}</.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>

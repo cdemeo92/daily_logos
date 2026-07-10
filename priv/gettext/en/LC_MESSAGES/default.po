@@ -152,6 +152,7 @@ msgstr ""
 msgid "About"
 msgstr ""
 
+#: lib/daily_logos_web/controllers/page_controller.ex:44
 #: lib/daily_logos_web/controllers/page_html/about.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "About Daily Logos"
@@ -213,6 +214,7 @@ msgstr ""
 msgid "Buy Me a Coffee"
 msgstr ""
 
+#: lib/daily_logos_web/controllers/page_controller.ex:34
 #: lib/daily_logos_web/controllers/page_html/support.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "Support Daily Logos"
@@ -231,4 +233,46 @@ msgstr ""
 #: lib/daily_logos_web/controllers/page_html/feedback.html.heex:10
 #, elixir-autogen, elixir-format
 msgid "Share anything: feedback, suggestions, bugs, improvements, or ideas to make Daily Logos better."
+msgstr ""
+
+#: lib/daily_logos_web/plugs/seo_meta.ex:35
+#, elixir-autogen, elixir-format
+msgid "A daily Stoic quote to reflect, act better, and live with intention."
+msgstr ""
+
+#: lib/daily_logos_web/plugs/seo_meta.ex:32
+#: lib/daily_logos_web/plugs/seo_meta.ex:42
+#: lib/daily_logos_web/plugs/seo_meta.ex:46
+#, elixir-autogen, elixir-format
+msgid "Daily Logos"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_controller.ex:9
+#, elixir-autogen, elixir-format
+msgid "Daily Stoic Quote of the Day | Daily Logos"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_controller.ex:46
+#, elixir-autogen, elixir-format
+msgid "Learn what Daily Logos is, why Stoicism matters, and how to get the most from one quote per day."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_controller.ex:11
+#, elixir-autogen, elixir-format
+msgid "Read one Stoic quote every day, aligned with the calendar, and build a consistent reflection habit."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_controller.ex:21
+#, elixir-autogen, elixir-format
+msgid "Send Feedback | Daily Logos"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_controller.ex:23
+#, elixir-autogen, elixir-format
+msgid "Share feedback, ideas, bug reports, and suggestions to help improve Daily Logos."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/page_controller.ex:36
+#, elixir-autogen, elixir-format
+msgid "Support Daily Logos and help keep Stoic wisdom freely accessible every day."
 msgstr ""

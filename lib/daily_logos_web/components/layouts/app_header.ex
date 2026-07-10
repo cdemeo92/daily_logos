@@ -23,7 +23,7 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
       <div class="navbar mx-auto max-w-7xl">
         <div class="flex-1 md:flex-none">
           <a href="/" class="flex-1 flex w-fit items-center gap-2">
-            <img src="/images/logo.svg" width="36" />
+            <img src="/images/logo.svg" width="36" alt="Daily Logos" />
             <span class="text-sm font-semibold">v{Application.spec(:daily_logos, :vsn)}</span>
           </a>
         </div>

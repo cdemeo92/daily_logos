@@ -5,6 +5,7 @@ defmodule DailyLogosWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug DailyLogosWeb.Plugs.Locale
+    plug DailyLogosWeb.Plugs.SeoMeta
     plug :fetch_live_flash
     plug :put_root_layout, html: {DailyLogosWeb.Layouts, :root}
     plug :protect_from_forgery
@@ -29,8 +30,10 @@ defmodule DailyLogosWeb.Router do
   scope "/api" do
     pipe_through :api
 
-    get "/docs", OpenApiSpex.Plug.SwaggerUI, path: "/api/openapi"
-    get "/openapi", OpenApiSpex.Plug.RenderSpec, []
+    if Application.compile_env(:daily_logos, :dev_routes) do
+      get "/docs", OpenApiSpex.Plug.SwaggerUI, path: "/api/openapi"
+      get "/openapi", OpenApiSpex.Plug.RenderSpec, []
+    end
 
     scope "/v1", DailyLogosWeb do
       get "/quotes", QuoteController, :show

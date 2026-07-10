@@ -152,6 +152,7 @@ msgstr "Una citazione al giorno, radicata nella saggezza antica."
 msgid "About"
 msgstr "Info"
 
+#: lib/daily_logos_web/controllers/page_controller.ex:44
 #: lib/daily_logos_web/controllers/page_html/about.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "About Daily Logos"
@@ -213,6 +214,7 @@ msgstr "Perché lo stoicismo?"
 msgid "Buy Me a Coffee"
 msgstr "Offrimi un caffè"
 
+#: lib/daily_logos_web/controllers/page_controller.ex:34
 #: lib/daily_logos_web/controllers/page_html/support.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "Support Daily Logos"
@@ -232,3 +234,45 @@ msgstr "Daily Logos è un progetto realizzato con passione che porta la saggezza
 #, elixir-autogen, elixir-format
 msgid "Share anything: feedback, suggestions, bugs, improvements, or ideas to make Daily Logos better."
 msgstr "Condividi qualsiasi cosa: feedback, suggerimenti, bug, miglioramenti o idee per rendere Daily Logos migliore."
+
+#: lib/daily_logos_web/plugs/seo_meta.ex:35
+#, elixir-autogen, elixir-format
+msgid "A daily Stoic quote to reflect, act better, and live with intention."
+msgstr "Una citazione stoica al giorno per riflettere, agire meglio e vivere con intenzione."
+
+#: lib/daily_logos_web/plugs/seo_meta.ex:32
+#: lib/daily_logos_web/plugs/seo_meta.ex:42
+#: lib/daily_logos_web/plugs/seo_meta.ex:46
+#, elixir-autogen, elixir-format
+msgid "Daily Logos"
+msgstr "Daily Logos"
+
+#: lib/daily_logos_web/controllers/page_controller.ex:9
+#, elixir-autogen, elixir-format
+msgid "Daily Stoic Quote of the Day | Daily Logos"
+msgstr "Citazione stoica del giorno | Daily Logos"
+
+#: lib/daily_logos_web/controllers/page_controller.ex:46
+#, elixir-autogen, elixir-format
+msgid "Learn what Daily Logos is, why Stoicism matters, and how to get the most from one quote per day."
+msgstr "Scopri cos'è Daily Logos, perché lo stoicismo è importante e come ottenere il massimo da una citazione al giorno."
+
+#: lib/daily_logos_web/controllers/page_controller.ex:11
+#, elixir-autogen, elixir-format
+msgid "Read one Stoic quote every day, aligned with the calendar, and build a consistent reflection habit."
+msgstr "Leggi ogni giorno una citazione stoica, allineata al calendario, e costruisci un'abitudine costante alla riflessione."
+
+#: lib/daily_logos_web/controllers/page_controller.ex:21
+#, elixir-autogen, elixir-format
+msgid "Send Feedback | Daily Logos"
+msgstr "Invia feedback | Daily Logos"
+
+#: lib/daily_logos_web/controllers/page_controller.ex:23
+#, elixir-autogen, elixir-format
+msgid "Share feedback, ideas, bug reports, and suggestions to help improve Daily Logos."
+msgstr "Condividi feedback, idee, segnalazioni di bug e suggerimenti per aiutare a migliorare Daily Logos."
+
+#: lib/daily_logos_web/controllers/page_controller.ex:36
+#, elixir-autogen, elixir-format
+msgid "Support Daily Logos and help keep Stoic wisdom freely accessible every day."
+msgstr "Sostieni Daily Logos e aiuta a mantenere la saggezza stoica liberamente accessibile ogni giorno."
