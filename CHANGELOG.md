@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/cdemeo92/daily_logos/compare/v1.3.0...v1.4.0) (2026-07-11)
+
+
+### Features
+
+* add render_owner_id variable and update Terraform configuration ([f666486](https://github.com/cdemeo92/daily_logos/commit/f6664867b4f8ae8c5837aa30681289060ccba298))
+
 # [1.3.0](https://github.com/cdemeo92/daily_logos/compare/v1.2.3...v1.3.0) (2026-07-11)
 
 
