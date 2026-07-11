@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/cdemeo92/daily_logos/compare/v1.6.0...v1.6.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* update render plan from hobby to starter in CI workflow ([886a317](https://github.com/cdemeo92/daily_logos/commit/886a317aa9af320153a11fe89523790839131d3b))
+
 # [1.6.0](https://github.com/cdemeo92/daily_logos/compare/v1.5.1...v1.6.0) (2026-07-11)
 
 
