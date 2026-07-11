@@ -80,7 +80,7 @@ resource "cloudflare_dns_record" "www" {
   zone_id = cloudflare_zone.domain[0].id
   name    = "www"
   type    = "CNAME"
-  content = cloudflare_dns_record.app[0].fqdn
+  content = var.cloudflare_zone_name
   ttl     = 1
   proxied = true
 }
@@ -88,7 +88,7 @@ resource "cloudflare_dns_record" "www" {
 resource "cloudflare_page_rule" "cache_assets" {
   count    = var.cloudflare_zone_name != "" ? 1 : 0
   zone_id  = cloudflare_zone.domain[0].id
-  target   = "${cloudflare_dns_record.app[0].fqdn}/assets/*"
+  target   = "${var.cloudflare_zone_name}/assets/*"
   priority = 1
   actions {
     cache_level       = "cache_everything"
@@ -100,7 +100,7 @@ resource "cloudflare_page_rule" "cache_assets" {
 resource "cloudflare_page_rule" "cache_api" {
   count    = var.cloudflare_zone_name != "" ? 1 : 0
   zone_id  = cloudflare_zone.domain[0].id
-  target   = "${cloudflare_dns_record.app[0].fqdn}/api/*"
+  target   = "${var.cloudflare_zone_name}/api/*"
   priority = 2
   actions {
     cache_level    = "cache_on_cookie"
@@ -111,7 +111,7 @@ resource "cloudflare_page_rule" "cache_api" {
 resource "cloudflare_page_rule" "no_cache_live" {
   count    = var.cloudflare_zone_name != "" ? 1 : 0
   zone_id  = cloudflare_zone.domain[0].id
-  target   = "${cloudflare_dns_record.app[0].fqdn}/live/*"
+  target   = "${var.cloudflare_zone_name}/live/*"
   priority = 3
   actions {
     cache_level = "bypass"
@@ -201,7 +201,7 @@ resource "cloudflare_ruleset" "rate_limit_api" {
 }
 
 output "app_url" {
-  value = var.cloudflare_zone_name != "" ? "https://${cloudflare_dns_record.app[0].fqdn}" : null
+  value = var.cloudflare_zone_name != "" ? "https://${var.cloudflare_zone_name}" : null
 }
 
 output "app_render_url" {
