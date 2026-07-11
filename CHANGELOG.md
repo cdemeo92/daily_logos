@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/cdemeo92/daily_logos/compare/v1.2.2...v1.2.3) (2026-07-11)
+
+
+### Bug Fixes
+
+* update Cloudflare DNS records and page rules to use variable for zone name ([c2e9514](https://github.com/cdemeo92/daily_logos/commit/c2e95147c1a055f11e378bb60b719efcff597ba4))
+
 ## [1.2.2](https://github.com/cdemeo92/daily_logos/compare/v1.2.1...v1.2.2) (2026-07-11)
 
 
