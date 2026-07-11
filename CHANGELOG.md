@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/cdemeo92/daily_logos/compare/v1.2.3...v1.3.0) (2026-07-11)
+
+
+### Features
+
+* enhance CI workflow with Terraform state management and update Cloudflare page rule actions ([14722c3](https://github.com/cdemeo92/daily_logos/commit/14722c3f80ff3a986ac77198b835290d13ce4f63))
+
 ## [1.2.3](https://github.com/cdemeo92/daily_logos/compare/v1.2.2...v1.2.3) (2026-07-11)
 
 
