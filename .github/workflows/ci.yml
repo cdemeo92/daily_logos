@@ -181,7 +181,7 @@ jobs:
           retention-days: 1
 
       - name: Save cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: |
             deps
@@ -351,7 +351,7 @@ jobs:
           TF_VAR_cloudflare_zone_name: ${{ vars.CLOUDFLARE_ZONE_NAME }}
           TF_VAR_render_owner_id: ${{ vars.RENDER_OWNER_ID }}
           TF_VAR_render_api_key: ${{ secrets.RENDER_API_KEY }}
-          TF_VAR_render_plan: starter
+          TF_VAR_render_plan: free
           TF_VAR_render_region: frankfurt
           TF_VAR_supabase_access_token: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           TF_VAR_supabase_organization_id: ${{ vars.SUPABASE_ORGANIZATION_ID }}
