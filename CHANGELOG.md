@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/cdemeo92/daily_logos/compare/v1.4.2...v1.4.3) (2026-07-11)
+
+
+### Bug Fixes
+
+* update retention days for terraform state and modify example render credentials ([d335b19](https://github.com/cdemeo92/daily_logos/commit/d335b1960c73a5f9a42d83828f1b2abfd4089f97))
+
 ## [1.4.2](https://github.com/cdemeo92/daily_logos/compare/v1.4.1...v1.4.2) (2026-07-11)
 
 
