@@ -298,5 +298,5 @@ jobs:
         with:
           name: terraform-state
           path: ./terraform/terraform.tfstate
-          retention-days: 400
+          retention-days: 90
           overwrite: true

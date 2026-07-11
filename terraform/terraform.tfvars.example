@@ -1,6 +1,6 @@
 app_name               = "daily-logos"
-render_owner_id        = "usr_xxxxxxxxxxxx"
-render_api_key         = "tre_xxxxxxxxxxxx"
+render_owner_id        = "tea_xxxxxxxxxxxx"
+render_api_key         = "rnd_xxxxxxxxxxxx"
 render_plan            = "hobby"
 render_region          = "frankfurt"
 secret_key_base        = "output from: mix phx.gen.secret"
