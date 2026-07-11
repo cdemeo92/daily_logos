@@ -58,7 +58,7 @@ variable "buy_me_coffee_url" {
 variable "cloudflare_api_token" {
   type      = string
   sensitive = true
-  default   = "placeholder"
+  default   = "0000000000000000"
 }
 
 variable "cloudflare_account_id" {

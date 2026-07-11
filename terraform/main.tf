@@ -46,7 +46,8 @@ resource "render_web_service" "app" {
 
   runtime_source = {
     image = {
-      image_url = "ghcr.io/cdemeo92/daily_logos:${var.image_tag}"
+      image_url = "ghcr.io/cdemeo92/daily_logos"
+      tag       = var.image_tag
     }
   }
 
