@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/cdemeo92/daily_logos/compare/v1.4.0...v1.4.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* update image URL structure in render_web_service and set default Cloudflare API token ([fae0494](https://github.com/cdemeo92/daily_logos/commit/fae04947899db91baaa9c71a72a39fdd04c4e6c4))
+
 # [1.4.0](https://github.com/cdemeo92/daily_logos/compare/v1.3.0...v1.4.0) (2026-07-11)
 
 
