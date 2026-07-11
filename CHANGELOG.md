@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/cdemeo92/daily_logos/compare/v1.5.0...v1.5.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* update migrations job dependencies and add SECRET_KEY_BASE to environment ([a668790](https://github.com/cdemeo92/daily_logos/commit/a668790fc18fdee22b11eb3421e6a466baa89ddd))
+
 # [1.5.0](https://github.com/cdemeo92/daily_logos/compare/v1.4.3...v1.5.0) (2026-07-11)
 
 
