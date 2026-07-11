@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/cdemeo92/daily_logos/compare/v1.4.1...v1.4.2) (2026-07-11)
+
+
+### Bug Fixes
+
+* remove default value for cloudflare_api_token in variables.tf ([e1efab4](https://github.com/cdemeo92/daily_logos/commit/e1efab4a91d00a5bcd9fdbdda72d75b4f81bb8aa))
+
 ## [1.4.1](https://github.com/cdemeo92/daily_logos/compare/v1.4.0...v1.4.1) (2026-07-11)
 
 
