@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/cdemeo92/daily_logos/compare/v1.2.1...v1.2.2) (2026-07-11)
+
+
+### Bug Fixes
+
+* update DATABASE_URL in render_web_service env_vars to use dynamic Supabase connection string ([c4e9e9b](https://github.com/cdemeo92/daily_logos/commit/c4e9e9b0f8e017f4c651c905d2e1c3622fbefdc1))
+
 ## [1.2.1](https://github.com/cdemeo92/daily_logos/compare/v1.2.0...v1.2.1) (2026-07-11)
 
 
