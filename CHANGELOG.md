@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/cdemeo92/daily_logos/compare/v1.2.0...v1.2.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* rename deploy job in CI workflow and remove unnecessary dependency in Terraform configuration ([9fae8ed](https://github.com/cdemeo92/daily_logos/commit/9fae8eda35a4f788eede24db81acaffabfe98f48))
+
 # [1.2.0](https://github.com/cdemeo92/daily_logos/compare/v1.1.0...v1.2.0) (2026-07-11)
 
 
