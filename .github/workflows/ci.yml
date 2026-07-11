@@ -188,6 +188,8 @@ jobs:
     permissions:
       contents: write
       packages: write
+    outputs:
+      image_tag: ${{ steps.version.outputs.version }}
 
     steps:
       - name: Check out repository
@@ -260,17 +262,17 @@ jobs:
         run: terraform init && terraform apply -auto-approve -input=false
         env:
           TF_VAR_app_name: daily-logos
-          TF_VAR_render_api_key: ${{ secrets.RENDER_API_KEY }}
-          TF_VAR_render_plan: ${{ vars.RENDER_PLAN }}
-          TF_VAR_render_region: ${{ vars.RENDER_REGION }}
+          TF_VAR_image_tag: ${{ needs.release.outputs.image_tag }}
           TF_VAR_secret_key_base: ${{ secrets.SECRET_KEY_BASE }}
-          TF_VAR_feedback_form_url: ${{ vars.FEEDBACK_FORM_URL }}
-          TF_VAR_buy_me_coffee_url: ${{ vars.BUY_ME_COFFEE_URL }}
-          TF_VAR_supabase_access_token: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          TF_VAR_supabase_organization_id: ${{ vars.SUPABASE_ORGANIZATION_ID }}
-          TF_VAR_supabase_db_password: ${{ secrets.SUPABASE_DB_PASSWORD }}
-          TF_VAR_supabase_region: ${{ vars.SUPABASE_REGION }}
-          TF_VAR_supabase_plan_id: ${{ vars.SUPABASE_PLAN_ID }}
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           TF_VAR_cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           TF_VAR_cloudflare_zone_name: ${{ vars.CLOUDFLARE_ZONE_NAME }}
+          TF_VAR_render_api_key: ${{ secrets.RENDER_API_KEY }}
+          TF_VAR_render_plan: hobby
+          TF_VAR_render_region: frankfurt
+          TF_VAR_supabase_access_token: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          TF_VAR_supabase_organization_id: ${{ vars.SUPABASE_ORGANIZATION_ID }}
+          TF_VAR_supabase_db_password: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          TF_VAR_supabase_region: eu-central-1
+          TF_VAR_feedback_form_url: ${{ vars.FEEDBACK_FORM_URL }}
+          TF_VAR_buy_me_coffee_url: ${{ vars.BUY_ME_COFFEE_URL }}

@@ -3,6 +3,11 @@ variable "render_api_key" {
   sensitive = true
 }
 
+variable "image_tag" {
+  type    = string
+  default = "latest"
+}
+
 variable "app_name" {
   type = string
 }
@@ -33,10 +38,6 @@ variable "supabase_region" {
   type = string
 }
 
-variable "supabase_plan_id" {
-  type = string
-}
-
 variable "secret_key_base" {
   type      = string
   sensitive = true
@@ -53,6 +54,7 @@ variable "buy_me_coffee_url" {
 variable "cloudflare_api_token" {
   type      = string
   sensitive = true
+  default   = ""
 }
 
 variable "cloudflare_account_id" {
@@ -61,4 +63,5 @@ variable "cloudflare_account_id" {
 
 variable "cloudflare_zone_name" {
   type = string
+  default = ""
 }

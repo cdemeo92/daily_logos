@@ -36,56 +36,61 @@ resource "supabase_project" "app" {
   organization_id     = var.supabase_organization_id
   database_password   = var.supabase_db_password
   region              = var.supabase_region
-  plan_id             = var.supabase_plan_id
 }
 
 resource "render_web_service" "app" {
-  name       = var.app_name
-  plan       = var.render_plan
-  runtime_id = "image"
-  region     = var.render_region
-  auto_deploy = true
-  image_url  = "ghcr.io/cdemeo92/daily_logos:latest"
+  name   = var.app_name
+  plan   = var.render_plan
+  region = var.render_region
 
-  envs = [
-    { key = "FEEDBACK_FORM_URL", value = var.feedback_form_url },
-    { key = "BUY_ME_COFFEE_URL", value = var.buy_me_coffee_url },
-  ]
+  runtime_source = {
+    image = {
+      image_url = "ghcr.io/cdemeo92/daily_logos:${var.image_tag}"
+    }
+  }
 
-  secret_envs = [
-    { key = "DATABASE_URL", value = supabase_project.app.database_url },
-    { key = "SECRET_KEY_BASE", value = var.secret_key_base },
-  ]
+  env_vars = {
+    "FEEDBACK_FORM_URL" = { value = var.feedback_form_url }
+    "BUY_ME_COFFEE_URL" = { value = var.buy_me_coffee_url }
+    "DATABASE_URL"      = { value = supabase_project.app.database_url }
+    "SECRET_KEY_BASE"   = { value = var.secret_key_base }
+  }
 
   depends_on = [cloudflare_dns_record.app]
 }
 
 resource "cloudflare_zone" "domain" {
-  account_id = var.cloudflare_account_id
-  zone       = var.cloudflare_zone_name
+  count = var.cloudflare_zone_name != "" ? 1 : 0
+  account = {
+    id = var.cloudflare_account_id
+  }
+  name = var.cloudflare_zone_name
 }
 
 resource "cloudflare_dns_record" "app" {
-  zone_id = cloudflare_zone.domain.id
+  count   = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id = cloudflare_zone.domain[0].id
   name    = "@"
   type    = "CNAME"
-  content = render_web_service.app.service_url
+  content = render_web_service.app.url
   ttl     = 1
   proxied = true
 }
 
 resource "cloudflare_dns_record" "www" {
-  zone_id = cloudflare_zone.domain.id
+  count   = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id = cloudflare_zone.domain[0].id
   name    = "www"
   type    = "CNAME"
-  content = cloudflare_dns_record.app.fqdn
+  content = cloudflare_dns_record.app[0].fqdn
   ttl     = 1
   proxied = true
 }
 
 resource "cloudflare_page_rule" "cache_assets" {
-  zone_id  = cloudflare_zone.domain.id
-  target   = "${cloudflare_dns_record.app.fqdn}/assets/*"
+  count    = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id  = cloudflare_zone.domain[0].id
+  target   = "${cloudflare_dns_record.app[0].fqdn}/assets/*"
   priority = 1
   actions {
     cache_level       = "cache_everything"
@@ -95,8 +100,9 @@ resource "cloudflare_page_rule" "cache_assets" {
 }
 
 resource "cloudflare_page_rule" "cache_api" {
-  zone_id  = cloudflare_zone.domain.id
-  target   = "${cloudflare_dns_record.app.fqdn}/api/*"
+  count    = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id  = cloudflare_zone.domain[0].id
+  target   = "${cloudflare_dns_record.app[0].fqdn}/api/*"
   priority = 2
   actions {
     cache_level    = "cache_on_cookie"
@@ -105,52 +111,105 @@ resource "cloudflare_page_rule" "cache_api" {
 }
 
 resource "cloudflare_page_rule" "no_cache_live" {
-  zone_id  = cloudflare_zone.domain.id
-  target   = "${cloudflare_dns_record.app.fqdn}/live/*"
+  count    = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id  = cloudflare_zone.domain[0].id
+  target   = "${cloudflare_dns_record.app[0].fqdn}/live/*"
   priority = 3
   actions {
     cache_level = "bypass"
   }
 }
 
-resource "cloudflare_zone_settings_override" "settings" {
-  zone_id = cloudflare_zone.domain.id
-  settings {
-    minify           = { css = true; html = true; js = true }
-    polish           = "lossless"
-    rocket_loader    = "on"
-    brotli           = "on"
-    security_level   = "medium"
-    ssl              = "flexible"
-  }
+resource "cloudflare_zone_setting" "polish" {
+  count      = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id    = cloudflare_zone.domain[0].id
+  setting_id = "polish"
+  value      = "lossless"
 }
 
-resource "cloudflare_rate_limit" "api" {
-  count   = 1
-  zone_id = cloudflare_zone.domain.id
-  match {
-    request {
-      url {
-        path { matches = "/api/*" }
+resource "cloudflare_zone_setting" "rocket_loader" {
+  count      = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id    = cloudflare_zone.domain[0].id
+  setting_id = "rocket_loader"
+  value      = "on"
+}
+
+resource "cloudflare_zone_setting" "brotli" {
+  count      = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id    = cloudflare_zone.domain[0].id
+  setting_id = "brotli"
+  value      = "on"
+}
+
+resource "cloudflare_zone_setting" "security_level" {
+  count      = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id    = cloudflare_zone.domain[0].id
+  setting_id = "security_level"
+  value      = "medium"
+}
+
+resource "cloudflare_zone_setting" "ssl" {
+  count      = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id    = cloudflare_zone.domain[0].id
+  setting_id = "ssl"
+  value      = "flexible"
+}
+
+resource "cloudflare_ruleset" "minify" {
+  count   = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id = cloudflare_zone.domain[0].id
+  name    = "Minify assets"
+  kind    = "zone"
+  phase   = "http_config_settings"
+
+  rules = [
+    {
+      action      = "set_config"
+      expression  = "true"
+      description = "Minify CSS, HTML and JS"
+      enabled     = true
+      action_parameters = {
+        autominify = {
+          css  = true
+          html = true
+          js   = true
+        }
       }
     }
-  }
-  threshold = 100
-  period    = 60
-  action {
-    mode    = "challenge"
-    timeout = 86400
-  }
+  ]
+}
+
+resource "cloudflare_ruleset" "rate_limit_api" {
+  count   = var.cloudflare_zone_name != "" ? 1 : 0
+  zone_id = cloudflare_zone.domain[0].id
+  name    = "Rate limit API"
+  kind    = "zone"
+  phase   = "http_ratelimit"
+
+  rules = [
+    {
+      action      = "challenge"
+      expression  = "(http.request.uri.path matches \"^/api/\")"
+      description = "Rate limit /api/* - 100 req/60s"
+      enabled     = true
+      ratelimit = {
+        characteristics     = ["cf.colo.id", "ip.src"]
+        period              = 60
+        requests_per_period = 100
+        mitigation_timeout  = 86400
+      }
+    }
+  ]
 }
 
 output "app_url" {
-  value = "https://${cloudflare_dns_record.app.fqdn}"
+  value = var.cloudflare_zone_name != "" ? "https://${cloudflare_dns_record.app[0].fqdn}" : null
 }
 
 output "app_render_url" {
-  value = render_web_service.app.service_url
+  value = render_web_service.app.url
 }
 
 output "nameservers" {
-  value = cloudflare_zone.domain.name_servers
+  value = var.cloudflare_zone_name != "" ? cloudflare_zone.domain[0].name_servers : null
 }
