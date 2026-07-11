@@ -155,11 +155,6 @@ jobs:
           otp-version: ${{ env.OTP_VERSION }}
           elixir-version: ${{ env.ELIXIR_VERSION }}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.tool-versions'
-
       - name: Restore cache
         uses: actions/cache@v4
         with:

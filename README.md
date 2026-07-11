@@ -22,7 +22,7 @@ Users receive a daily quote aligned with their day of the year, creating a compl
 - Erlang/OTP 27+
 - Docker (Docker Desktop/Rancher Desktop) with `docker` and `docker compose` available
 - PostgreSQL 18+ (or run the provided Docker Compose service)
-- Node.js 20+ (for asset building)
+- Node.js 24+ (for asset building)
 
 ### Local Development Setup
 
