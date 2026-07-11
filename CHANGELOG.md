@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/cdemeo92/daily_logos/compare/v1.5.1...v1.6.0) (2026-07-11)
+
+
+### Bug Fixes
+
+* remove migrations dependency from deploy job in CI workflow ([e987f28](https://github.com/cdemeo92/daily_logos/commit/e987f282e81013da38ebfd152f9126e30e8e5fa4))
+
+
+### Features
+
+* add caching step to CI workflow and output app_database_url in Terraform ([f44493f](https://github.com/cdemeo92/daily_logos/commit/f44493f3cefd963bfe93e3b671ab932859d92886))
+
 ## [1.5.1](https://github.com/cdemeo92/daily_logos/compare/v1.5.0...v1.5.1) (2026-07-11)
 
 
