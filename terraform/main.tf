@@ -213,3 +213,9 @@ output "app_render_url" {
 output "nameservers" {
   value = var.cloudflare_zone_name != "" ? cloudflare_zone.domain[0].name_servers : null
 }
+
+output "app_database_url" {
+  value       = "postgresql://postgres.${supabase_project.app.id}:${var.supabase_db_password}@aws-0-${var.supabase_region}.pooler.supabase.com:6543/postgres"
+  sensitive   = true
+  description = "Database URL for migrations"
+}
