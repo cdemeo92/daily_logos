@@ -1,0 +1,13 @@
+# Terraform state and variables (sensitive)
+terraform.tfstate
+terraform.tfstate.*
+terraform.tfvars
+.terraform/
+.terraform.lock.hcl
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.DS_Store
