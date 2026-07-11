@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/cdemeo92/daily_logos/compare/v1.0.1...v1.1.0) (2026-07-11)
+
+
+### Features
+
+* add Terraform configuration and GitHub Actions workflows for deployment ([cf94e0b](https://github.com/cdemeo92/daily_logos/commit/cf94e0b0c20806c562c924beaba526660d918ac6))
+
 ## [1.0.1](https://github.com/cdemeo92/daily_logos/compare/v1.0.0...v1.0.1) (2026-07-10)
 
 
