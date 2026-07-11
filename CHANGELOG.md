@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/cdemeo92/daily_logos/compare/v1.1.0...v1.2.0) (2026-07-11)
+
+
+### Features
+
+* update Terraform configuration for Render and Cloudflare settings; add image_tag variable ([441f0ea](https://github.com/cdemeo92/daily_logos/commit/441f0eadcbc4c1efef0b680ec5f4c52615d76b40))
+
 # [1.1.0](https://github.com/cdemeo92/daily_logos/compare/v1.0.1...v1.1.0) (2026-07-11)
 
 
