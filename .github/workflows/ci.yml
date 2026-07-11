@@ -281,6 +281,7 @@ jobs:
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           TF_VAR_cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           TF_VAR_cloudflare_zone_name: ${{ vars.CLOUDFLARE_ZONE_NAME }}
+          TF_VAR_render_owner_id: ${{ vars.RENDER_OWNER_ID }}
           TF_VAR_render_api_key: ${{ secrets.RENDER_API_KEY }}
           TF_VAR_render_plan: hobby
           TF_VAR_render_region: frankfurt

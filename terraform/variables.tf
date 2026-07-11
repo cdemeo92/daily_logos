@@ -3,6 +3,10 @@ variable "render_api_key" {
   sensitive = true
 }
 
+variable "render_owner_id" {
+  type = string
+}
+
 variable "image_tag" {
   type    = string
   default = "latest"
@@ -54,7 +58,7 @@ variable "buy_me_coffee_url" {
 variable "cloudflare_api_token" {
   type      = string
   sensitive = true
-  default   = ""
+  default   = "placeholder"
 }
 
 variable "cloudflare_account_id" {

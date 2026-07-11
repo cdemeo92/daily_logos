@@ -1,4 +1,5 @@
 app_name               = "daily-logos"
+render_owner_id        = "usr_xxxxxxxxxxxx"
 render_api_key         = "tre_xxxxxxxxxxxx"
 render_plan            = "hobby"
 render_region          = "frankfurt"
