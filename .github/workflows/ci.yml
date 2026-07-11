@@ -243,7 +243,7 @@ jobs:
   migrations:
     name: Migrations
     runs-on: ubuntu-latest
-    needs: [build, release]
+    needs: release
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: read
@@ -298,6 +298,7 @@ jobs:
         run: mix ecto.migrate
         env:
           DATABASE_URL: ${{ steps.db_url.outputs.url }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
 
   deploy:
     name: Deploy
