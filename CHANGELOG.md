@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/cdemeo92/daily_logos/compare/v1.6.1...v1.6.2) (2026-07-11)
+
+
+### Bug Fixes
+
+* update cache action version to v6 and change render plan to free ([53e259e](https://github.com/cdemeo92/daily_logos/commit/53e259e7334303aee39ffa4ac17858e649154845))
+
 ## [1.6.1](https://github.com/cdemeo92/daily_logos/compare/v1.6.0...v1.6.1) (2026-07-11)
 
 
