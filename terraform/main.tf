@@ -90,7 +90,7 @@ resource "cloudflare_page_rule" "cache_assets" {
   zone_id  = cloudflare_zone.domain[0].id
   target   = "${var.cloudflare_zone_name}/assets/*"
   priority = 1
-  actions {
+  actions = {
     cache_level       = "cache_everything"
     browser_cache_ttl = 14400
     edge_cache_ttl    = 604800
@@ -102,8 +102,8 @@ resource "cloudflare_page_rule" "cache_api" {
   zone_id  = cloudflare_zone.domain[0].id
   target   = "${var.cloudflare_zone_name}/api/*"
   priority = 2
-  actions {
-    cache_level    = "cache_on_cookie"
+  actions = {
+    cache_level    = "cache_everything"
     edge_cache_ttl = 300
   }
 }
@@ -113,7 +113,7 @@ resource "cloudflare_page_rule" "no_cache_live" {
   zone_id  = cloudflare_zone.domain[0].id
   target   = "${var.cloudflare_zone_name}/live/*"
   priority = 3
-  actions {
+  actions = {
     cache_level = "bypass"
   }
 }
