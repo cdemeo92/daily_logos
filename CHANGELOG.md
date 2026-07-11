@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/cdemeo92/daily_logos/compare/v1.6.2...v1.7.0) (2026-07-11)
+
+
+### Features
+
+* implement migrations job in CI workflow with Terraform integration ([6a298d1](https://github.com/cdemeo92/daily_logos/commit/6a298d142abb61dd3e931a1a111eafac8bc3714e))
+
 ## [1.6.2](https://github.com/cdemeo92/daily_logos/compare/v1.6.1...v1.6.2) (2026-07-11)
 
 
