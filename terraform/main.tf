@@ -55,8 +55,6 @@ resource "render_web_service" "app" {
     "DATABASE_URL"      = { value = supabase_project.app.database_url }
     "SECRET_KEY_BASE"   = { value = var.secret_key_base }
   }
-
-  depends_on = [cloudflare_dns_record.app]
 }
 
 resource "cloudflare_zone" "domain" {
