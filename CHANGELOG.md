@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/cdemeo92/daily_logos/compare/v1.4.3...v1.5.0) (2026-07-11)
+
+
+### Features
+
+* add migrations job to CI workflow for running Ecto migrations ([2dc45a6](https://github.com/cdemeo92/daily_logos/commit/2dc45a6500f3c7fd090156dba7ca3666292ea897))
+
 ## [1.4.3](https://github.com/cdemeo92/daily_logos/compare/v1.4.2...v1.4.3) (2026-07-11)
 
 
