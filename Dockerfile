@@ -1,19 +1,21 @@
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
+    libncurses6 \
     libstdc++6 \
-    libssl3 \
-    && rm -rf /var/lib/apt/lists/*
+    libtinfo6 \
+    openssl \
+    tzdata \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system --gid 10001 app && \
+    useradd --system --uid 10001 --gid app --home-dir /app --create-home --shell /usr/sbin/nologin app
 
 WORKDIR /app
 
-COPY _build/prod/rel/daily_logos .
+COPY --chown=app:app _build/prod/rel/daily_logos ./
 
-RUN groupadd --system app && \
-    useradd --system --gid app --home-dir /app --shell /usr/sbin/nologin app && \
-    chown -R app:app /app && \
-    chmod -R +x /app
+RUN chmod +x /app/bin/*
 
 USER app
 
