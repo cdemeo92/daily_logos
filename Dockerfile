@@ -10,7 +10,7 @@ WORKDIR /app
 COPY _build/prod/rel/daily_logos .
 
 RUN chown -R ubuntu:ubuntu /app && \
-    chmod -R +x /app/releases /app/bin
+    chmod -R +x /app
 
 USER ubuntu
 
