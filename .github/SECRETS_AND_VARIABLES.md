@@ -1,104 +1,135 @@
 # GitHub Secrets and Variables
 
-## Setup
+## Overview
 
-### Secrets
+With Render Deploy Hook deployment, GitHub Secrets are **minimal** - only 1 secret needed!
 
-Go to **Settings → Secrets and variables → Actions** (Secrets tab)
-
-### Variables
-
-Go to **Settings → Secrets and variables → Actions** (Variables tab)
+All other configuration (DATABASE_URL, SECRET_KEY_BASE, etc) is set directly on **Render dashboard**, not in GitHub.
 
 ---
 
-## Required Secrets (Sensitive Data)
+## GitHub Secrets (Sensitive Data)
 
-Store in **Secrets** - always masked in logs, never exposed
+Go to **Settings → Secrets and variables → Actions** → **Secrets** tab
 
-| Secret                  | Source                                         | Type           |
-| ----------------------- | ---------------------------------------------- | -------------- |
-| `RENDER_API_KEY`        | https://dashboard.render.com/api-tokens        | API Key        |
-| `SECRET_KEY_BASE`       | Generated: `mix phx.gen.secret`                | Encryption Key |
-| `SUPABASE_ACCESS_TOKEN` | https://supabase.com/dashboard/account/tokens  | API Token      |
-| `SUPABASE_DB_PASSWORD`  | Set when creating Supabase project             | DB Password    |
-| `CLOUDFLARE_API_TOKEN`  | https://dash.cloudflare.com/profile/api-tokens | API Token      |
+| Secret               | Source                                                   | Purpose                   |
+| -------------------- | -------------------------------------------------------- | ------------------------- |
+| `RENDER_DEPLOY_HOOK` | https://dashboard.render.com → Web Service → Deploy Hook | Trigger Render deployment |
+
+**That's it.** Only 1 secret needed!
 
 ---
 
-## Configuration Variables (Non-Sensitive)
+## Render Dashboard Configuration
 
-Store in **Variables** - visible in logs but safe to expose
+All sensitive data and environment variables go directly on **Render Dashboard**:
 
-| Variable                   | Value                                                                          | Type              |
-| -------------------------- | ------------------------------------------------------------------------------ | ----------------- |
-| `RENDER_OWNER_ID`          | From https://dashboard.render.com/account (format: usr-xxxx)                   | Owner ID          |
-| `RENDER_PLAN`              | `starter`, `standard`, or `pro`                                                | Compute Tier      |
-| `RENDER_REGION`            | `oregon`, `singapore`, or `frankfurt`                                          | Geographic Region |
-| `SUPABASE_ORGANIZATION_ID` | From https://supabase.com/dashboard/settings/organizations                     | Org ID            |
-| `SUPABASE_REGION`          | `us-east-1`, `eu-west-1`, etc.                                                 | Database Region   |
-| `DATABASE_URL_TEMPLATE`    | `postgresql://postgres:${DB_PASSWORD}@db.PROJECT_ID.supabase.co:5432/postgres` | DB URL Template   |
-| `CLOUDFLARE_ACCOUNT_ID`    | From https://dash.cloudflare.com/ (bottom left)                                | Account ID        |
-| `CLOUDFLARE_ZONE_NAME`     | Your domain (e.g., example.com)                                                | DNS Zone          |
-| `FEEDBACK_FORM_URL`        | e.g., https://forms.example.com/feedback                                       | URL               |
-| `BUY_ME_COFFEE_URL`        | e.g., https://buymeacoffee.com/yourname                                        | URL               |
+1. Go to https://dashboard.render.com
+2. Select your **Web Service**
+3. Go to **Environment**
+4. Add these variables:
 
----
-
-## Why the distinction?
-
-**Secrets** (in GitHub Secrets):
-
-- ✅ Always masked in logs and web UI
-- ✅ Can't be accessed by pull requests from forks
-- ✅ If leaked, full compromise (API keys, credentials)
-
-**Variables** (in GitHub Variables):
-
-- ✅ Simplifies pull request testing
-- ✅ Non-sensitive configuration visible for debugging
-- ✅ If leaked, only exposes configuration (no keys or passwords)
-
----
-
-## Supabase Setup
-
-Il `DATABASE_URL` viene costruito dinamicamente nel CI/CD dalla combinazione di:
-
-- `DATABASE_URL_TEMPLATE` (variabile non-sensibile)
-- `SUPABASE_DB_PASSWORD` (secret sensibile)
-
-**Setup:**
-
-1. Go to https://supabase.com/dashboard → select your project
-2. Settings → Database → copy `db.PROJECT_ID.supabase.co`
-3. Create GitHub Variable `DATABASE_URL_TEMPLATE`:
-   ```
-   postgresql://postgres:${DB_PASSWORD}@db.PROJECT_ID.supabase.co:5432/postgres
-   ```
-4. The `SUPABASE_DB_PASSWORD` secret is used to replace `${DB_PASSWORD}` at deployment time
-
-⚠️ **Important:**
-
-- Use **port 5432** (direct connection) for migrations and deployments
-- Use **port 6543** (pooler) only for long-lived app connections
-- The template never contains the actual password (only in the secret)
+| Variable          | Value                                                | Sensitive? |
+| ----------------- | ---------------------------------------------------- | ---------- |
+| `DATABASE_URL`    | `postgresql://postgres:PASSWORD@HOST:6543/postgres`  | 🔒 Yes     |
+| `SECRET_KEY_BASE` | Output from: `mix phx.gen.secret`                    | 🔒 Yes     |
+| `PHX_SERVER`      | `true`                                               | ❌ No      |
+| `PHX_HOST`        | Your domain (e.g., `daily-logos-xxxxx.onrender.com`) | ❌ No      |
 
 ---
 
 ## Generating SECRET_KEY_BASE
 
-⚠️ **Do this ONCE, before first deploy:**
+Run once, locally:
 
 ```bash
 mix phx.gen.secret
 # Output: abc123def456...
 ```
 
-Copy the output and save it as `SECRET_KEY_BASE` in GitHub Secrets. **Keep this value forever - never change it.**
+Copy the output to Render **Environment** as `SECRET_KEY_BASE`.
 
-❌ **Do NOT:**
+⚠️ **Important:**
 
-- Regenerate it (logs out all users, breaks encrypted data)
-- Commit it to `.env` or code
-- Change it between deploys
+- Generate once and keep forever
+- Don't change it (logs out all users, breaks encrypted data)
+- Keep it safe in Render (sensitive field)
+
+---
+
+## Supabase DATABASE_URL
+
+Format:
+
+```
+postgresql://postgres:PASSWORD@HOST:PORT/postgres
+```
+
+For Supabase:
+
+- **HOST**: `db.PROJECT_ID.supabase.co` (from Supabase dashboard)
+- **PORT**: `6543` (connection pooler)
+- **PASSWORD**: Your Supabase database password (set when creating project)
+
+Example:
+
+```
+postgresql://postgres:my_super_secret@db.abcxyz123456.supabase.co:6543/postgres
+```
+
+Find yours:
+
+1. Go to https://supabase.com/dashboard
+2. Select project
+3. Settings → Database → Connection string (Drizzle/Pooler)
+4. Copy and paste into Render
+
+---
+
+## Why GitHub Secrets Are Minimal Now
+
+**Before (with Terraform):**
+
+- Terraform needed API keys for Render, Supabase, Cloudflare
+- GitHub Actions had to create/update all infrastructure
+- Many secrets and variables required
+
+**Now (with Render Deploy Hook):**
+
+- Infrastructure is created manually on Render (one-time setup)
+- GitHub Actions only builds Docker image and triggers redeploy
+- Only need the Deploy Hook URL (which is a secret)
+- Everything else is Render-specific configuration
+
+---
+
+## Setup Checklist
+
+- [ ] Create Render web service manually (https://dashboard.render.com)
+- [ ] Set **DATABASE_URL** on Render → Environment
+- [ ] Set **SECRET_KEY_BASE** on Render → Environment
+- [ ] Set **PHX_SERVER=true** on Render → Environment
+- [ ] Copy **Deploy Hook** URL from Render
+- [ ] Add `RENDER_DEPLOY_HOOK` as GitHub Secret
+- [ ] Push to main branch → GitHub Actions tests → Deploy → Done ✅
+
+---
+
+## Troubleshooting
+
+**"RENDER_DEPLOY_HOOK not set"**
+
+- GitHub Actions skips deploy step if secret is missing (safe fallback)
+- Add the secret to GitHub repo settings
+
+**"Database connection error at startup"**
+
+- Check Render logs: dashboard → Web Service → Logs
+- Verify `DATABASE_URL` is correct and connection is working
+- Test locally: `psql "postgresql://..."`
+
+**"Migrations failed"**
+
+- Check Render logs
+- DATABASE_URL might be wrong
+- Database might be offline or not accessible from Render region
