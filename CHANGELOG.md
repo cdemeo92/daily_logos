@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/cdemeo92/daily_logos/compare/v1.13.9...v1.14.0) (2026-07-12)
+
+
+### Features
+
+* add localized feedback form URLs and update related configurations ([3cae612](https://github.com/cdemeo92/daily_logos/commit/3cae61234690e95b33fae5b07b84d4717e0525ad))
+
 ## [1.13.9](https://github.com/cdemeo92/daily_logos/compare/v1.13.8...v1.13.9) (2026-07-12)
 
 
