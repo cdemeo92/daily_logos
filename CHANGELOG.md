@@ -1,3 +1,10 @@
+## [1.13.7](https://github.com/cdemeo92/daily_logos/compare/v1.13.6...v1.13.7) (2026-07-12)
+
+
+### Bug Fixes
+
+* update Dockerfile to ensure proper execution of daily_logos with error handling ([6ac05b5](https://github.com/cdemeo92/daily_logos/commit/6ac05b55e9f84db81d54541e42fcb2d942175b8f))
+
 ## [1.13.6](https://github.com/cdemeo92/daily_logos/compare/v1.13.5...v1.13.6) (2026-07-12)
 
 
