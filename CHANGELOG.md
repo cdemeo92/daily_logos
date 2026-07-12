@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/cdemeo92/daily_logos/compare/v1.16.0...v1.16.1) (2026-07-12)
+
+
+### Bug Fixes
+
+* correct syntax for rendering structured data in JSON-LD script ([6126859](https://github.com/cdemeo92/daily_logos/commit/6126859cac666ee26ea9a0ea9c050a9be945074d))
+
 # [1.16.0](https://github.com/cdemeo92/daily_logos/compare/v1.15.1...v1.16.0) (2026-07-12)
 
 
