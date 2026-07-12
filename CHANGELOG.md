@@ -1,3 +1,10 @@
+## [1.13.4](https://github.com/cdemeo92/daily_logos/compare/v1.13.3...v1.13.4) (2026-07-12)
+
+
+### Bug Fixes
+
+* remove migrations job from CI workflow and update deploy job dependencies ([5942162](https://github.com/cdemeo92/daily_logos/commit/5942162d9d75e5b896e337089f3bab57098e054b))
+
 ## [1.13.3](https://github.com/cdemeo92/daily_logos/compare/v1.13.2...v1.13.3) (2026-07-12)
 
 
