@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/cdemeo92/daily_logos/compare/v1.14.2...v1.15.0) (2026-07-12)
+
+
+### Features
+
+* add Google Analytics 4 support ([81bf146](https://github.com/cdemeo92/daily_logos/commit/81bf1460ada48fc578e7184615e38c55204fb68b))
+
 ## [1.14.2](https://github.com/cdemeo92/daily_logos/compare/v1.14.1...v1.14.2) (2026-07-12)
 
 
