@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/cdemeo92/daily_logos/compare/v1.9.0...v1.10.0) (2026-07-12)
+
+
+### Features
+
+* update lifecycle block in render_web_service to ignore all changes ([48ef1d5](https://github.com/cdemeo92/daily_logos/commit/48ef1d58304ddb0ddfbf3785f1cd367171d829b8))
+
 # [1.9.0](https://github.com/cdemeo92/daily_logos/compare/v1.8.0...v1.9.0) (2026-07-12)
 
 
