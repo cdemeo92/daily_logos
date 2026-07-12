@@ -1,3 +1,10 @@
+## [1.13.9](https://github.com/cdemeo92/daily_logos/compare/v1.13.8...v1.13.9) (2026-07-12)
+
+
+### Bug Fixes
+
+* update Dockerfile to set executable permissions for the entire app directory ([0fd11ec](https://github.com/cdemeo92/daily_logos/commit/0fd11ec52b39ad761d9cf953af4df77b67abfb7d))
+
 ## [1.13.8](https://github.com/cdemeo92/daily_logos/compare/v1.13.7...v1.13.8) (2026-07-12)
 
 
