@@ -1,5 +1,7 @@
 # Daily Logos
 
+Live site: [https://daily-logos.com/](https://daily-logos.com/)
+
 ## What is Daily Logos?
 
 Daily Logos is a SaaS platform that delivers carefully curated Stoic philosophy quotes daily. Each day of the year corresponds to a specific quote from the great Stoic thinkers, organized by monthly themes. Inspired by the structure of _The Daily Stoic_ but with a distinct voice, Daily Logos provides a moment of philosophical reflection and practical wisdom for modern life.
