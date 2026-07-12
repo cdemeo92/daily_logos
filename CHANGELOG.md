@@ -1,3 +1,10 @@
+## [1.13.3](https://github.com/cdemeo92/daily_logos/compare/v1.13.2...v1.13.3) (2026-07-12)
+
+
+### Bug Fixes
+
+* restore and configure migrations job in CI workflow ([8037fba](https://github.com/cdemeo92/daily_logos/commit/8037fba64900b23367e43c9068a3663844074799))
+
 ## [1.13.2](https://github.com/cdemeo92/daily_logos/compare/v1.13.1...v1.13.2) (2026-07-12)
 
 
