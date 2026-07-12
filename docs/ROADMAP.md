@@ -10,14 +10,14 @@ Daily Logos aims to become a comprehensive Stoic wisdom platform that meets user
 
 ### Features
 
-- [ ] **Quote Repository**
-  - [ ] 365 daily quotes (one per day of year)
+- [x] **Quote Repository**
+  - [x] 365 daily quotes (one per day of year)
   - [x] Organized by monthly themes
-  - [ ] Sourced from major Stoic thinkers (Marcus Aurelius, Epictetus, Seneca, etc.)
+  - [x] Sourced from major Stoic thinkers (Marcus Aurelius, Epictetus, Seneca, etc.)
 
-- [ ] **Home Page**
-  - [ ] Display only today's Stoic quote
-  - [ ] Show quote author and month theme
+- [x] **Home Page**
+  - [x] Display only today's Stoic quote
+  - [x] Show quote author and month theme
   - [x] Maintain a clean, minimalist UI aligned with Stoic philosophy
 
 - [x] **Responsive Design**
