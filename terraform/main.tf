@@ -51,10 +51,12 @@ resource "render_web_service" "app" {
     }
   }
 
+  pre_deploy_command = "bin/daily_logos eval DailyLogos.Release.migrate"
+
   env_vars = {
     "FEEDBACK_FORM_URL" = { value = var.feedback_form_url }
     "BUY_ME_COFFEE_URL" = { value = var.buy_me_coffee_url }
-    "DATABASE_URL" = { value = "postgresql://postgres.${supabase_project.app.id}:${var.supabase_db_password}@aws-0-${var.supabase_region}.pooler.supabase.com:6543/postgres" }
+    "DATABASE_URL"      = { value = "postgresql://postgres.${supabase_project.app.id}:${var.supabase_db_password}@aws-0-${var.supabase_region}.pooler.supabase.com:6543/postgres" }
     "SECRET_KEY_BASE"   = { value = var.secret_key_base }
   }
 }
