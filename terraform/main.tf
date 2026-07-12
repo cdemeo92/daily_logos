@@ -57,6 +57,10 @@ resource "render_web_service" "app" {
     "DATABASE_URL"      = { value = var.database_url }
     "SECRET_KEY_BASE"   = { value = var.secret_key_base }
   }
+
+  lifecycle {
+    ignore_changes = [maintenance_mode]
+  }
 }
 
 resource "cloudflare_zone" "domain" {
