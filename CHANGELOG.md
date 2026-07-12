@@ -1,3 +1,11 @@
+## [1.13.2](https://github.com/cdemeo92/daily_logos/compare/v1.13.1...v1.13.2) (2026-07-12)
+
+
+### Bug Fixes
+
+* update CI workflow by commenting out migrations job and removing build artifact upload ([eb1e784](https://github.com/cdemeo92/daily_logos/commit/eb1e784dae13c89068bdf3e74ad9e5a738ba7240))
+* update deploy job dependencies by removing migrations requirement ([fb4b7b5](https://github.com/cdemeo92/daily_logos/commit/fb4b7b5ffad84af5aaf6a29b022861a16050aa00))
+
 ## [1.13.1](https://github.com/cdemeo92/daily_logos/compare/v1.13.0...v1.13.1) (2026-07-12)
 
 
