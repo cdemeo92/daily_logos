@@ -256,37 +256,12 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: read
-      actions: read
     env:
       MIX_ENV: prod
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
-
-      - name: Download Terraform state
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ARTIFACT_ID=$(gh api "repos/${{ github.repository }}/actions/artifacts?name=terraform-state&per_page=1" \
-            --jq '.artifacts[0].id // empty' 2>/dev/null)
-          if [ -n "$ARTIFACT_ID" ]; then
-            gh api "repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip" > state.zip
-            unzip -o state.zip -d ./terraform/
-            rm state.zip
-          fi
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v4
-        with:
-          terraform_version: "~> 1.15"
-
-      - name: Extract DATABASE_URL from state
-        id: db_url
-        working-directory: ./terraform
-        run: |
-          terraform init -backend=false
-          echo "url=$(terraform output -raw app_database_url 2>/dev/null || echo '')" >> $GITHUB_OUTPUT
 
       - name: Set up Erlang/Elixir
         uses: erlef/setup-beam@v1
@@ -306,7 +281,7 @@ jobs:
       - name: Run Ecto Migrations
         run: mix ecto.migrate
         env:
-          DATABASE_URL: ${{ steps.db_url.outputs.url }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
 
   deploy:
@@ -345,6 +320,7 @@ jobs:
         env:
           TF_VAR_app_name: daily-logos
           TF_VAR_image_tag: ${{ needs.release.outputs.image_tag }}
+          TF_VAR_database_url: ${{ secrets.DATABASE_URL }}
           TF_VAR_secret_key_base: ${{ secrets.SECRET_KEY_BASE }}
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           TF_VAR_cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}

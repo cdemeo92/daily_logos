@@ -38,6 +38,11 @@ variable "supabase_db_password" {
   sensitive = true
 }
 
+variable "database_url" {
+  type      = string
+  sensitive = true
+}
+
 variable "supabase_region" {
   type = string
 }
