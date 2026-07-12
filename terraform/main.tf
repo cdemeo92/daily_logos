@@ -33,11 +33,10 @@ provider "supabase" {
 }
 
 resource "supabase_project" "app" {
-  name                   = var.app_name
-  organization_id        = var.supabase_organization_id
-  database_password      = var.supabase_db_password
-  region                 = var.supabase_region
-  ipv4_address_enabled   = true
+  name                = var.app_name
+  organization_id     = var.supabase_organization_id
+  database_password   = var.supabase_db_password
+  region              = var.supabase_region
 }
 
 resource "render_web_service" "app" {
