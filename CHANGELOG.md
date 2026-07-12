@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/cdemeo92/daily_logos/compare/v1.15.1...v1.16.0) (2026-07-12)
+
+
+### Features
+
+* update homepage with daily stoic quote and reflection, adjust environment host ([c9f7373](https://github.com/cdemeo92/daily_logos/commit/c9f7373cbd864c2e1d0cdc16f5e142813a09563f))
+
 ## [1.15.1](https://github.com/cdemeo92/daily_logos/compare/v1.15.0...v1.15.1) (2026-07-12)
 
 
