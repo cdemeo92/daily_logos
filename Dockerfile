@@ -16,5 +16,5 @@ EXPOSE 4000
 
 ENV PHX_SERVER=true
 
-CMD ["bin/daily_logos", "start"]
+CMD ["sh", "-c", "bin/daily_logos eval 'DailyLogos.Release.migrate' && bin/daily_logos start"]
 
