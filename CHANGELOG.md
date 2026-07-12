@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/cdemeo92/daily_logos/compare/v1.11.0...v1.12.0) (2026-07-12)
+
+
+### Features
+
+* update CI workflow and Terraform configuration to use DATABASE_URL from secrets ([4c5da10](https://github.com/cdemeo92/daily_logos/commit/4c5da10ddc824504e6c5902a19838a53ad1e3db9))
+
 # [1.11.0](https://github.com/cdemeo92/daily_logos/compare/v1.10.0...v1.11.0) (2026-07-12)
 
 
