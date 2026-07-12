@@ -15,7 +15,7 @@ WORKDIR /app
 
 COPY --chown=app:app _build/prod/rel/daily_logos ./
 
-RUN chmod +x /app/bin/*
+RUN chmod -R +x /app
 
 USER app
 
