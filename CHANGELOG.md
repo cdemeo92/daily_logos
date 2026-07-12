@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/cdemeo92/daily_logos/compare/v1.13.0...v1.13.1) (2026-07-12)
+
+
+### Bug Fixes
+
+* enhance CI workflow by adding build artifact upload for migrations and adjusting job dependencies ([927479d](https://github.com/cdemeo92/daily_logos/commit/927479d01cfca08be787a3d946062047acb5729a))
+
 # [1.13.0](https://github.com/cdemeo92/daily_logos/compare/v1.12.0...v1.13.0) (2026-07-12)
 
 
