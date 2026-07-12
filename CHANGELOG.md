@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/cdemeo92/daily_logos/compare/v1.10.0...v1.11.0) (2026-07-12)
+
+
+### Features
+
+* add migrations job to CI workflow and update deployment dependencies ([96b4b53](https://github.com/cdemeo92/daily_logos/commit/96b4b535d2fccb6cf7c20608f8ac2b50039f14a8))
+
 # [1.10.0](https://github.com/cdemeo92/daily_logos/compare/v1.9.0...v1.10.0) (2026-07-12)
 
 
