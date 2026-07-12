@@ -1,3 +1,10 @@
+## [1.13.8](https://github.com/cdemeo92/daily_logos/compare/v1.13.7...v1.13.8) (2026-07-12)
+
+
+### Bug Fixes
+
+* update Dockerfile to set executable permissions for all binaries in releases and bin directories ([1a490ae](https://github.com/cdemeo92/daily_logos/commit/1a490ae65e6a360e409621e95dc4db4711740ad0))
+
 ## [1.13.7](https://github.com/cdemeo92/daily_logos/compare/v1.13.6...v1.13.7) (2026-07-12)
 
 
