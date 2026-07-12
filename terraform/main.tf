@@ -61,16 +61,7 @@ resource "render_web_service" "app" {
   }
 
   lifecycle {
-    ignore_changes = [
-      notification_override,
-      log_stream_override,
-      max_shutdown_delay_seconds,
-      previews,
-      pull_request_previews_enabled,
-      root_directory,
-      num_instances,
-      active_custom_domains
-    ]
+    ignore_changes = all
   }
 }
 
