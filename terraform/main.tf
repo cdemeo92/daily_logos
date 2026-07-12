@@ -59,6 +59,19 @@ resource "render_web_service" "app" {
     "DATABASE_URL"      = { value = "postgresql://postgres.${supabase_project.app.id}:${var.supabase_db_password}@aws-0-${var.supabase_region}.pooler.supabase.com:6543/postgres" }
     "SECRET_KEY_BASE"   = { value = var.secret_key_base }
   }
+
+  lifecycle {
+    ignore_changes = [
+      notification_override,
+      log_stream_override,
+      max_shutdown_delay_seconds,
+      previews,
+      pull_request_previews_enabled,
+      root_directory,
+      num_instances,
+      active_custom_domains
+    ]
+  }
 }
 
 resource "cloudflare_zone" "domain" {
