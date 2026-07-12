@@ -1,3 +1,10 @@
+## [1.13.6](https://github.com/cdemeo92/daily_logos/compare/v1.13.5...v1.13.6) (2026-07-12)
+
+
+### Bug Fixes
+
+* update deploy job to use environment variable for Render deployment hook ([5fa11b8](https://github.com/cdemeo92/daily_logos/commit/5fa11b8f2009347190051f309d183a7cc8ac7cfb))
+
 ## [1.13.5](https://github.com/cdemeo92/daily_logos/compare/v1.13.4...v1.13.5) (2026-07-12)
 
 
