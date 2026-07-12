@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/cdemeo92/daily_logos/compare/v1.12.0...v1.13.0) (2026-07-12)
+
+
+### Features
+
+* update CI workflow to build DATABASE_URL dynamically and modify migration job dependencies ([b7470df](https://github.com/cdemeo92/daily_logos/commit/b7470df46a65e9d6de0f5bacb6c9ad348de44bf0))
+
 # [1.12.0](https://github.com/cdemeo92/daily_logos/compare/v1.11.0...v1.12.0) (2026-07-12)
 
 
