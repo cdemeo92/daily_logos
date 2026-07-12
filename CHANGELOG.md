@@ -1,3 +1,10 @@
+## [1.13.5](https://github.com/cdemeo92/daily_logos/compare/v1.13.4...v1.13.5) (2026-07-12)
+
+
+### Bug Fixes
+
+* add lifecycle block to ignore changes for maintenance_mode in render_web_service resource ([2729a0d](https://github.com/cdemeo92/daily_logos/commit/2729a0dc4d5278760eeb6723fd103a42a88810f3))
+
 ## [1.13.4](https://github.com/cdemeo92/daily_logos/compare/v1.13.3...v1.13.4) (2026-07-12)
 
 
