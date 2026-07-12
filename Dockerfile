@@ -9,12 +9,14 @@ WORKDIR /app
 
 COPY _build/prod/rel/daily_logos .
 
-RUN chown -R ubuntu:ubuntu /app
+RUN chown -R ubuntu:ubuntu /app && \
+    chmod +x bin/daily_logos
+
 USER ubuntu
 
 EXPOSE 4000
 
 ENV PHX_SERVER=true
 
-CMD ["sh", "-c", "bin/daily_logos eval 'DailyLogos.Release.migrate' && bin/daily_logos start"]
+CMD ["sh", "-c", "set -e; bin/daily_logos eval 'DailyLogos.Release.migrate'; exec bin/daily_logos start"]
 
