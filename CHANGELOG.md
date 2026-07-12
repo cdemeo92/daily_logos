@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/cdemeo92/daily_logos/compare/v1.7.0...v1.8.0) (2026-07-12)
+
+
+### Features
+
+* implement database migration functionality and update CI workflow ([f4eb066](https://github.com/cdemeo92/daily_logos/commit/f4eb066644943a654fa50f79db4fb503838ad823))
+
 # [1.7.0](https://github.com/cdemeo92/daily_logos/compare/v1.6.2...v1.7.0) (2026-07-11)
 
 
