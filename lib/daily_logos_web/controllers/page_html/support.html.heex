@@ -15,24 +15,13 @@
       <% buy_me_coffee_url = buy_me_coffee_url() %>
 
       <%= if buy_me_coffee_url do %>
-        <div>
-          <a
-            href={buy_me_coffee_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class={[
-              "inline-flex items-center justify-center gap-2",
-              "px-8 py-4 rounded-lg",
-              "bg-gradient-to-r from-amber-400 to-yellow-400",
-              "hover:from-amber-500 hover:to-yellow-500",
-              "text-slate-900 font-semibold text-lg",
-              "transition-all duration-200",
-              "shadow-lg hover:shadow-xl",
-              "no-underline"
-            ]}
-          >
-            <.icon name="hero-heart" class="w-5 h-5" />
-            {gettext("Buy Me a Coffee")}
+        <div class="flex justify-center">
+          <a href={buy_me_coffee_url} target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+              alt="Buy Me a Coffee"
+              style="height: 44px !important;width: 160px !important;"
+            />
           </a>
         </div>
       <% else %>
