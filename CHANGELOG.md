@@ -1,3 +1,10 @@
+## [1.14.2](https://github.com/cdemeo92/daily_logos/compare/v1.14.1...v1.14.2) (2026-07-12)
+
+
+### Bug Fixes
+
+* update Dockerfile to set executable permissions recursively for the app directory ([bc76d0f](https://github.com/cdemeo92/daily_logos/commit/bc76d0f686c87fa3c550d9998c351d78c459cc0b))
+
 ## [1.14.1](https://github.com/cdemeo92/daily_logos/compare/v1.14.0...v1.14.1) (2026-07-12)
 
 
