@@ -1,3 +1,10 @@
+## [1.15.1](https://github.com/cdemeo92/daily_logos/compare/v1.15.0...v1.15.1) (2026-07-12)
+
+
+### Bug Fixes
+
+* update sitemap URLs to use the correct domain ([2241ad9](https://github.com/cdemeo92/daily_logos/commit/2241ad95f400f9a162933eabe022161f60e7d35d))
+
 # [1.15.0](https://github.com/cdemeo92/daily_logos/compare/v1.14.2...v1.15.0) (2026-07-12)
 
 
