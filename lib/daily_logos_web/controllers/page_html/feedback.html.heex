@@ -15,13 +15,12 @@
 
       <%!-- Form or placeholder --%>
       <% locale = Gettext.get_locale(DailyLogosWeb.Gettext) %>
-      <% hl = if String.starts_with?(locale, "it"), do: "it", else: "en" %>
-      <% feedback_form_url = feedback_form_url() %>
+      <% feedback_form_url = feedback_form_url(locale) %>
 
       <%= if feedback_form_url do %>
         <iframe
           id="feedback-form"
-          src={"#{feedback_form_url}&hl=#{hl}"}
+          src={feedback_form_url}
           class="w-full min-h-[640px] border-0 rounded-xl"
           frameborder="0"
           marginheight="0"

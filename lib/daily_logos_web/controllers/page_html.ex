@@ -8,15 +8,18 @@ defmodule DailyLogosWeb.PageHTML do
 
   embed_templates "page_html/*"
 
-  def feedback_form_url do
-    case Application.get_env(:daily_logos, :feedback_form_url) do
+  def feedback_form_url("it"), do: configured_url(:feedback_form_url_it)
+  def feedback_form_url(_locale), do: configured_url(:feedback_form_url_en)
+
+  def buy_me_coffee_url do
+    case Application.get_env(:daily_logos, :buy_me_coffee_url) do
       url when is_binary(url) and url != "" -> url
       _ -> nil
     end
   end
 
-  def buy_me_coffee_url do
-    case Application.get_env(:daily_logos, :buy_me_coffee_url) do
+  defp configured_url(key) do
+    case Application.get_env(:daily_logos, key) do
       url when is_binary(url) and url != "" -> url
       _ -> nil
     end

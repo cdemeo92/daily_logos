@@ -35,7 +35,10 @@ end
 config :daily_logos, DailyLogosWeb.Endpoint,
   http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
-config :daily_logos, feedback_form_url: System.get_env("FEEDBACK_FORM_URL")
+config :daily_logos,
+  feedback_form_url_it: System.get_env("FEEDBACK_FORM_URL_IT"),
+  feedback_form_url_en: System.get_env("FEEDBACK_FORM_URL_EN")
+
 config :daily_logos, buy_me_coffee_url: System.get_env("BUY_ME_COFFEE_URL")
 
 if config_env() == :dev do
