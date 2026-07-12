@@ -30,6 +30,21 @@
     <link rel="icon" type="image/svg+xml" href={~p"/images/logo_white.svg"} />
     <link rel="alternate icon" href={~p"/favicon.ico"} />
     <.live_title default="DailyLogos" phx-no-format>{@seo_meta.title}</.live_title>
+    <% ga_measurement_id = Application.get_env(:daily_logos, :google_analytics_measurement_id) %>
+
+    <%= if ga_measurement_id && ga_measurement_id != "" do %>
+      <script async src={"https://www.googletagmanager.com/gtag/js?id=" <> ga_measurement_id}>
+      </script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "<%= ga_measurement_id %>");
+      </script>
+    <% end %>
+
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>

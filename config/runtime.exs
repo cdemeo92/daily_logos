@@ -41,6 +41,9 @@ config :daily_logos,
 
 config :daily_logos, buy_me_coffee_url: System.get_env("BUY_ME_COFFEE_URL")
 
+config :daily_logos,
+  google_analytics_measurement_id: System.get_env("GOOGLE_ANALYTICS_MEASUREMENT_ID")
+
 if config_env() == :dev do
   database_url =
     System.get_env("DATABASE_URL") ||
