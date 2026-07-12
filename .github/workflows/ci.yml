@@ -254,10 +254,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: release
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    env:
+      RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
 
     steps:
       - name: Trigger Render deployment
-        if: secrets.RENDER_DEPLOY_HOOK != ''
         run: |
-          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}" \
+          curl -X POST "$RENDER_DEPLOY_HOOK" \
             -H "Content-Type: application/json"
