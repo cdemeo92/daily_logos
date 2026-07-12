@@ -1,3 +1,10 @@
+## [1.14.1](https://github.com/cdemeo92/daily_logos/compare/v1.14.0...v1.14.1) (2026-07-12)
+
+
+### Bug Fixes
+
+* update Dockerfile to use debian:trixie-slim and optimize package installation ([fdd5d97](https://github.com/cdemeo92/daily_logos/commit/fdd5d972685c1603ba78505ab714ccfb073c05c9))
+
 # [1.14.0](https://github.com/cdemeo92/daily_logos/compare/v1.13.9...v1.14.0) (2026-07-12)
 
 
