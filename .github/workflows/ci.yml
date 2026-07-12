@@ -180,6 +180,13 @@ jobs:
           path: _build/prod/rel/daily_logos
           retention-days: 1
 
+      - name: Upload build artifact for migrations
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-prod
+          path: _build/prod
+          retention-days: 1
+
       - name: Save cache
         uses: actions/cache/save@v6
         with:
@@ -252,7 +259,7 @@ jobs:
   migrations:
     name: Migrations
     runs-on: ubuntu-latest
-    needs: [build, release]
+    needs: release
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: read
@@ -278,12 +285,19 @@ jobs:
             assets/node_modules
           key: ${{ runner.os }}-${{ hashFiles('mix.lock', 'assets/package-lock.json') }}
 
+      - name: Download build artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: build-prod
+          path: _build/prod
+
       - name: Build DATABASE_URL
         id: db_url
         run: |
-          DATABASE_URL="${{ vars.DATABASE_URL }}"
-          DATABASE_URL="${DATABASE_URL//\${DB_PASSWORD}/${{ secrets.SUPABASE_DB_PASSWORD }}}"
-          echo "url=$DATABASE_URL" >> $GITHUB_OUTPUT
+          {
+            DATABASE_URL=$(echo "${{ vars.DATABASE_URL }}" | sed "s|\${DB_PASSWORD}|${{ secrets.SUPABASE_DB_PASSWORD }}|g")
+            echo "url=$DATABASE_URL"
+          } >> $GITHUB_OUTPUT
 
       - name: Run Ecto Migrations
         run: mix ecto.migrate
@@ -324,9 +338,10 @@ jobs:
       - name: Build DATABASE_URL
         id: db_url
         run: |
-          DATABASE_URL="${{ vars.DATABASE_URL_TEMPLATE }}"
-          DATABASE_URL="${DATABASE_URL//\${DB_PASSWORD}/${{ secrets.SUPABASE_DB_PASSWORD }}}"
-          echo "url=$DATABASE_URL" >> $GITHUB_OUTPUT
+          {
+            DATABASE_URL=$(echo "${{ vars.DATABASE_URL }}" | sed "s|\${DB_PASSWORD}|${{ secrets.SUPABASE_DB_PASSWORD }}|g")
+            echo "url=$DATABASE_URL"
+          } >> $GITHUB_OUTPUT
 
       - name: Terraform Apply
         working-directory: ./terraform
