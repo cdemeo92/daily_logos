@@ -50,13 +50,13 @@ defmodule DailyLogosWeb.LocaleIntegrationTest do
     assert get_session(conn1, :locale) == "it"
   end
 
-  test "italian locale persists in subsequent request", %{conn: conn} do
+  test "italian locale in session redirects canonical path to localized path", %{conn: conn} do
     conn =
       conn
       |> init_test_session(%{locale: "it"})
       |> get("/")
 
-    assert conn.assigns.locale == "it"
+    assert redirected_to(conn) == "/it"
   end
 
   test "italian session switches to english", %{conn: conn} do
