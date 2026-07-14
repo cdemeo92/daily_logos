@@ -3,8 +3,4 @@ Allow: /
 Disallow: /api/docs
 Disallow: /api/openapi
 
-# Pages not meant for public indexing (internal/coming soon)
-Disallow: /feedback
-Disallow: /it/feedback
-
 Sitemap: https://daily-logos.com/sitemap.xml
