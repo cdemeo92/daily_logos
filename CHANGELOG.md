@@ -1,3 +1,10 @@
+## [1.16.6](https://github.com/cdemeo92/daily_logos/compare/v1.16.5...v1.16.6) (2026-07-14)
+
+
+### Bug Fixes
+
+* update Content Security Policy to include stats.g.doubleclick.net for enhanced tracking ([a10255e](https://github.com/cdemeo92/daily_logos/commit/a10255e977aa4e09edb87393cfd9d5eaabd60f8f))
+
 ## [1.16.5](https://github.com/cdemeo92/daily_logos/compare/v1.16.4...v1.16.5) (2026-07-14)
 
 
