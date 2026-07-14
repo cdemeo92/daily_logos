@@ -1,3 +1,11 @@
+## [1.16.8](https://github.com/cdemeo92/daily_logos/compare/v1.16.7...v1.16.8) (2026-07-14)
+
+
+### Bug Fixes
+
+* enhance locale handling with session locale redirection and query string preservation ([581f9a9](https://github.com/cdemeo92/daily_logos/commit/581f9a9fc3ef2deddb603533e2a9bd36f4fe9697))
+* update italian locale test to assert redirection to localized path ([8068e00](https://github.com/cdemeo92/daily_logos/commit/8068e00ccc70154edfba0a5f3ed6b0522fa43cf5))
+
 ## [1.16.7](https://github.com/cdemeo92/daily_logos/compare/v1.16.6...v1.16.7) (2026-07-14)
 
 
