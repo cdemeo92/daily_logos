@@ -1,3 +1,10 @@
+## [1.16.5](https://github.com/cdemeo92/daily_logos/compare/v1.16.4...v1.16.5) (2026-07-14)
+
+
+### Bug Fixes
+
+* update Content Security Policy to enhance security measures ([27d1424](https://github.com/cdemeo92/daily_logos/commit/27d1424973665e452fa3df70e2c1e01fc9cd1ae3))
+
 ## [1.16.4](https://github.com/cdemeo92/daily_logos/compare/v1.16.3...v1.16.4) (2026-07-14)
 
 
