@@ -22,8 +22,7 @@ defmodule DailyLogosWeb.PageController do
       description:
         gettext(
           "Share feedback, ideas, bug reports, and suggestions to help improve Daily Logos."
-        ),
-      robots: "noindex,nofollow"
+        )
     })
     |> render(:feedback)
   end
