@@ -1,3 +1,10 @@
+## [1.16.11](https://github.com/cdemeo92/daily_logos/compare/v1.16.10...v1.16.11) (2026-07-14)
+
+
+### Bug Fixes
+
+* remove robots meta tag from feedback page ([d74dfac](https://github.com/cdemeo92/daily_logos/commit/d74dfaced8d0eb785e37725fa7190ac9c686f21f))
+
 ## [1.16.10](https://github.com/cdemeo92/daily_logos/compare/v1.16.9...v1.16.10) (2026-07-14)
 
 
