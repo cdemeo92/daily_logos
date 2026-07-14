@@ -1,3 +1,10 @@
+## [1.16.4](https://github.com/cdemeo92/daily_logos/compare/v1.16.3...v1.16.4) (2026-07-14)
+
+
+### Bug Fixes
+
+* enhance mobile web app capabilities and update CSP for improved security ([14a0781](https://github.com/cdemeo92/daily_logos/commit/14a07811e86f98accb9b6f677040d21534a44cee))
+
 ## [1.16.3](https://github.com/cdemeo92/daily_logos/compare/v1.16.2...v1.16.3) (2026-07-14)
 
 
