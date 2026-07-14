@@ -17,7 +17,7 @@ defmodule DailyLogosWeb do
   those modules here.
   """
 
-  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt sitemap.xml)
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt sitemap.xml manifest.json)
 
   def router do
     quote do
