@@ -35,14 +35,22 @@ defmodule DailyLogosWeb.Plugs.Locale do
   end
 
   defp handle_locale(conn, session_locale) when is_binary(session_locale) do
-    set_locale(conn, session_locale)
+    if session_locale in @non_default_locales do
+      localized = localized_path(conn.request_path, conn.query_string, session_locale)
+
+      conn
+      |> Phoenix.Controller.redirect(to: localized)
+      |> halt()
+    else
+      set_locale(conn, session_locale)
+    end
   end
 
   defp handle_locale(conn, nil) do
     locale = detect_locale_from_header(conn) || @default_locale
 
     if locale in @non_default_locales do
-      localized = "/#{locale}#{conn.request_path}" |> String.trim_trailing("/")
+      localized = localized_path(conn.request_path, conn.query_string, locale)
 
       conn
       |> Phoenix.Controller.redirect(to: localized)
@@ -71,6 +79,16 @@ defmodule DailyLogosWeb.Plugs.Locale do
       path == prefix -> "/"
       String.starts_with?(path, prefix <> "/") -> String.replace_prefix(path, prefix, "")
       true -> "/"
+    end
+  end
+
+  defp localized_path(path, query_string, locale) do
+    base = "/#{locale}#{path}" |> String.trim_trailing("/")
+
+    case query_string do
+      "" -> base
+      nil -> base
+      query -> "#{base}?#{query}"
     end
   end
 

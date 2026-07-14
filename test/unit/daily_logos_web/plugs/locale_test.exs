@@ -54,7 +54,7 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
 
   # canonical route locale tests (no path prefix)
 
-  test "uses session locale when present" do
+  test "redirects to localized path when non-default session locale is present" do
     conn =
       conn(:get, "/")
       |> put_req_header("accept-language", "en-US,en;q=0.9")
@@ -62,8 +62,19 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
 
     conn = Locale.call(conn, Locale.init([]))
 
-    assert conn.assigns.locale == "it"
-    assert Gettext.get_locale(DailyLogosWeb.Gettext) == "it"
+    assert conn.halted
+    assert get_resp_header(conn, "location") == ["/it"]
+  end
+
+  test "preserves query string when redirecting from session locale" do
+    conn =
+      conn(:get, "/support?utm_source=test")
+      |> init_test_session(%{locale: "it"})
+
+    conn = Locale.call(conn, Locale.init([]))
+
+    assert conn.halted
+    assert get_resp_header(conn, "location") == ["/it/support?utm_source=test"]
   end
 
   test "session overrides accept-language header" do
