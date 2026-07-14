@@ -1,3 +1,10 @@
+## [1.16.7](https://github.com/cdemeo92/daily_logos/compare/v1.16.6...v1.16.7) (2026-07-14)
+
+
+### Bug Fixes
+
+* improve layout structure and styling for better responsiveness ([c24acc2](https://github.com/cdemeo92/daily_logos/commit/c24acc22cc442b71f996843f82b3e0dd0f7604f6))
+
 ## [1.16.6](https://github.com/cdemeo92/daily_logos/compare/v1.16.5...v1.16.6) (2026-07-14)
 
 
