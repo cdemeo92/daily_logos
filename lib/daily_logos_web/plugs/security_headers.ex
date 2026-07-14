@@ -16,7 +16,7 @@ defmodule DailyLogosWeb.Plugs.SecurityHeaders do
 
   @csp Enum.join(
          if(Mix.env() == :prod,
-           do: @base_csp ++ ["upgrade-insecure-requests"],
+           do: ["upgrade-insecure-requests"] ++ @base_csp,
            else: @base_csp
          ),
          "; "
