@@ -1,3 +1,10 @@
+## [1.16.10](https://github.com/cdemeo92/daily_logos/compare/v1.16.9...v1.16.10) (2026-07-14)
+
+
+### Bug Fixes
+
+* remove disallowed paths for internal feedback from robots.txt ([9bedda1](https://github.com/cdemeo92/daily_logos/commit/9bedda19395eecf8d728a43c29bd1f7e0807d21c))
+
 ## [1.16.9](https://github.com/cdemeo92/daily_logos/compare/v1.16.8...v1.16.9) (2026-07-14)
 
 
