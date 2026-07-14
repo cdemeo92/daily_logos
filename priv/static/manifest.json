@@ -1,0 +1,16 @@
+{
+  "name": "Daily Logos",
+  "short_name": "Daily Logos",
+  "description": "A daily Stoic quote",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2a2e4a",
+  "theme_color": "#2a2e4a",
+  "icons": [
+    {
+      "src": "/images/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
