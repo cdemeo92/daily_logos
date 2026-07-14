@@ -19,39 +19,41 @@ defmodule DailyLogosWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <div class="flex flex-col min-h-screen">
+    <div class="h-screen overflow-hidden">
       <.app_header />
       <DailyLogosWeb.Layouts.MainMenu.main_menu_sidebar />
 
-      <main class="flex-1 px-4 py-20 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-7xl space-y-4">
-          {render_slot(@inner_block)}
-        </div>
-      </main>
+      <div class="mt-16 flex h-[calc(100vh-4rem)] flex-col overflow-y-auto">
+        <main class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+          <div class="mx-auto max-w-7xl space-y-4">
+            {render_slot(@inner_block)}
+          </div>
+        </main>
 
-      <footer class="border-t border-base-300 dark:border-neutral-content/10 dark:bg-[oklch(0.27_0.02_255.66)] px-4 py-4 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-7xl space-y-2">
-          <div class="flex justify-between items-center gap-4">
-            <span class="font-semibold text-base-content">Daily Logos</span>
-            <div class="flex-1">
-              <%!-- <.ad_slot id="footer" /> --%>
+        <footer class="border-t border-base-300 dark:border-neutral-content/10 dark:bg-[oklch(0.27_0.02_255.66)] px-4 py-4 sm:px-6 lg:px-8">
+          <div class="mx-auto max-w-7xl space-y-2">
+            <div class="flex justify-between items-center gap-4">
+              <span class="font-semibold text-base-content">Daily Logos</span>
+              <div class="flex-1">
+                <%!-- <.ad_slot id="footer" /> --%>
+              </div>
+              <a
+                href="https://github.com/claudio-demeo/daily_logos"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-base-content/70 hover:text-base-content transition-colors"
+              >
+                GitHub
+              </a>
             </div>
-            <a
-              href="https://github.com/claudio-demeo/daily_logos"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-base-content/70 hover:text-base-content transition-colors"
-            >
-              GitHub
-            </a>
+            <div>
+              <span class="text-sm text-base-content/70">
+                © Daily Logos
+              </span>
+            </div>
           </div>
-          <div>
-            <span class="text-sm text-base-content/70">
-              © Daily Logos
-            </span>
-          </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
 
       <.flash_group flash={@flash} />
     </div>

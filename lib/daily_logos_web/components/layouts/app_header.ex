@@ -19,7 +19,7 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
   """
   def app_header(assigns) do
     ~H"""
-    <header class="px-4 sm:px-6 lg:px-8 border-b border-base-300 dark:border-neutral-content/10">
+    <header class="fixed inset-x-0 top-0 z-30 h-16 bg-base-100/95 backdrop-blur px-4 sm:px-6 lg:px-8 border-b border-base-300 dark:border-neutral-content/10">
       <div class="navbar mx-auto max-w-7xl">
         <div class="flex-1 md:flex-none">
           <a href="./" class="flex-1 flex w-fit items-center gap-2">
