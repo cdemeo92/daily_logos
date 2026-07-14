@@ -1,3 +1,10 @@
+## [1.16.3](https://github.com/cdemeo92/daily_logos/compare/v1.16.2...v1.16.3) (2026-07-14)
+
+
+### Bug Fixes
+
+* add manifest.json to static paths for improved asset management ([e69f639](https://github.com/cdemeo92/daily_logos/commit/e69f639d407e8f3416a9a4ae10856286668709b7))
+
 ## [1.16.2](https://github.com/cdemeo92/daily_logos/compare/v1.16.1...v1.16.2) (2026-07-14)
 
 
