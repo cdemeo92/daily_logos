@@ -1,3 +1,10 @@
+## [1.16.9](https://github.com/cdemeo92/daily_logos/compare/v1.16.8...v1.16.9) (2026-07-14)
+
+
+### Performance Improvements
+
+* correct order of CSP directives for production environment ([908dcca](https://github.com/cdemeo92/daily_logos/commit/908dccaafe17fa71eca99c1930ba749536dbf9a3))
+
 ## [1.16.8](https://github.com/cdemeo92/daily_logos/compare/v1.16.7...v1.16.8) (2026-07-14)
 
 
