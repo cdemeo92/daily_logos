@@ -12,6 +12,13 @@ defmodule DailyLogosWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :locale_set do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
     plug OpenApiSpex.Plug.PutApiSpec, module: DailyLogosWeb.ApiSpec
@@ -24,7 +31,21 @@ defmodule DailyLogosWeb.Router do
     get "/feedback", PageController, :feedback
     get "/about", PageController, :about
     get "/support", PageController, :support
-    post "/locale/:locale", LocaleController, :set
+  end
+
+  scope "/locale", DailyLogosWeb do
+    pipe_through :locale_set
+
+    post "/:locale", LocaleController, :set
+  end
+
+  scope "/:locale_prefix", DailyLogosWeb do
+    pipe_through :browser
+
+    get "/", PageController, :home
+    get "/about", PageController, :about
+    get "/support", PageController, :support
+    get "/feedback", PageController, :feedback
   end
 
   scope "/api" do

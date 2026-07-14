@@ -33,7 +33,7 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
     >
       <div class="border-b border-base-300 dark:border-neutral-content/10 p-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <a href="/" class="flex items-center gap-2" aria-label="Home">
+          <a href="./" class="flex items-center gap-2" aria-label="Home">
             <img src="/images/logo.svg" width="32" alt="Logo" />
             <span class="text-xs font-semibold">v{Application.spec(:daily_logos, :vsn)}</span>
           </a>
@@ -61,19 +61,19 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
       <div class="flex-1 p-4">
         <nav aria-label="Menu">
           <a
-            href="/feedback"
+            href="./feedback"
             class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
           >
             {gettext("Send feedback")}
           </a>
           <a
-            href="/support"
+            href="./support"
             class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
           >
             {gettext("Support")}
           </a>
           <a
-            href="/about"
+            href="./about"
             class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
           >
             {gettext("About")}

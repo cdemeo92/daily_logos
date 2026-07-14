@@ -6,7 +6,55 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
 
   alias DailyLogosWeb.Plugs.Locale
 
-  test "uses locale from session when present" do
+  # path-based locale tests
+
+  test "sets locale from path when it is a supported non-default locale" do
+    conn =
+      conn(:get, "/it/about")
+      |> Map.put(:path_params, %{"locale_prefix" => "it"})
+
+    conn = Locale.call(conn, Locale.init([]))
+
+    assert conn.assigns.locale == "it"
+    assert Gettext.get_locale(DailyLogosWeb.Gettext) == "it"
+  end
+
+  test "redirects to canonical when path locale is the default locale" do
+    conn =
+      conn(:get, "/en/about")
+      |> Map.put(:path_params, %{"locale_prefix" => "en"})
+
+    conn = Locale.call(conn, Locale.init([]))
+
+    assert conn.halted
+    assert get_resp_header(conn, "location") == ["/about"]
+  end
+
+  test "redirects to canonical root when path locale prefix is the only segment" do
+    conn =
+      conn(:get, "/en")
+      |> Map.put(:path_params, %{"locale_prefix" => "en"})
+
+    conn = Locale.call(conn, Locale.init([]))
+
+    assert conn.halted
+    assert get_resp_header(conn, "location") == ["/"]
+  end
+
+  test "redirects to canonical when path locale is unsupported" do
+    conn =
+      conn(:get, "/fr/about")
+      |> Map.put(:path_params, %{"locale_prefix" => "fr"})
+
+    conn = Locale.call(conn, Locale.init([]))
+
+    assert conn.halted
+    assert get_resp_header(conn, "location") == ["/about"]
+  end
+
+  # canonical route locale tests (no path prefix)
+
+  test "uses session locale when present" do
     conn =
       conn(:get, "/")
       |> put_req_header("accept-language", "en-US,en;q=0.9")
@@ -15,11 +63,21 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
     conn = Locale.call(conn, Locale.init([]))
 
     assert conn.assigns.locale == "it"
-    assert get_session(conn, :locale) == "it"
     assert Gettext.get_locale(DailyLogosWeb.Gettext) == "it"
   end
 
-  test "detects locale from accept-language header and persists it in session when session is not set" do
+  test "session overrides accept-language header" do
+    conn =
+      conn(:get, "/")
+      |> put_req_header("accept-language", "it-IT,it;q=0.9")
+      |> init_test_session(%{locale: "en"})
+
+    conn = Locale.call(conn, Locale.init([]))
+
+    assert conn.assigns.locale == "en"
+  end
+
+  test "detects locale from accept-language header when no session" do
     conn =
       conn(:get, "/")
       |> put_req_header("accept-language", "it-IT,it;q=0.9,en-US;q=0.8")
@@ -27,12 +85,35 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
 
     conn = Locale.call(conn, Locale.init([]))
 
-    assert conn.assigns.locale == "it"
-    assert get_session(conn, :locale) == "it"
-    assert Gettext.get_locale(DailyLogosWeb.Gettext) == "it"
+    assert conn.halted
+    assert get_resp_header(conn, "location") == ["/it"]
   end
 
-  test "falls back to default locale when header has no supported locale and session is not set" do
+  test "redirects to localized path when no session and non-default header" do
+    conn =
+      conn(:get, "/about")
+      |> put_req_header("accept-language", "it-IT,it;q=0.9")
+      |> init_test_session(%{})
+
+    conn = Locale.call(conn, Locale.init([]))
+
+    assert conn.halted
+    assert get_resp_header(conn, "location") == ["/it/about"]
+  end
+
+  test "does not redirect when session is present, even if header differs" do
+    conn =
+      conn(:get, "/")
+      |> put_req_header("accept-language", "it-IT,it;q=0.9")
+      |> init_test_session(%{locale: "en"})
+
+    conn = Locale.call(conn, Locale.init([]))
+
+    assert not conn.halted
+    assert conn.assigns.locale == "en"
+  end
+
+  test "falls back to default locale when no supported locale is detected" do
     conn =
       conn(:get, "/")
       |> put_req_header("accept-language", "fr-FR,fr;q=0.9")
@@ -40,47 +121,8 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
 
     conn = Locale.call(conn, Locale.init([]))
 
+    assert not conn.halted
     assert conn.assigns.locale == "en"
-    assert get_session(conn, :locale) == "en"
     assert Gettext.get_locale(DailyLogosWeb.Gettext) == "en"
-  end
-
-  test "falls back to default when the session locale is not supported" do
-    conn =
-      conn(:get, "/")
-      |> put_req_header("accept-language", "en-US,en;q=0.9")
-      |> init_test_session(%{locale: "fr"})
-
-    conn = Locale.call(conn, Locale.init([]))
-
-    assert conn.assigns.locale == "en"
-    assert get_session(conn, :locale) == "en"
-    assert Gettext.get_locale(DailyLogosWeb.Gettext) == "en"
-  end
-
-  test "falls back to default when the accept-language header is not supported" do
-    conn =
-      conn(:get, "/")
-      |> put_req_header("accept-language", "fr-FR,fr;q=0.9")
-      |> init_test_session(%{})
-
-    conn = Locale.call(conn, Locale.init([]))
-
-    assert conn.assigns.locale == "en"
-    assert get_session(conn, :locale) == "en"
-    assert Gettext.get_locale(DailyLogosWeb.Gettext) == "en"
-  end
-
-  test "detects locale from accept-language header and persists it in session when session is not supported" do
-    conn =
-      conn(:get, "/")
-      |> put_req_header("accept-language", "it-IT,it;q=0.9,en-US;q=0.8")
-      |> init_test_session(%{locale: "fr"})
-
-    conn = Locale.call(conn, Locale.init([]))
-
-    assert conn.assigns.locale == "it"
-    assert get_session(conn, :locale) == "it"
-    assert Gettext.get_locale(DailyLogosWeb.Gettext) == "it"
   end
 end

@@ -1,18 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://daily-logos.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it"/>
+  </url>
+  <url>
+    <loc>https://daily-logos.com/it</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it"/>
   </url>
   <url>
     <loc>https://daily-logos.com/about</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/about"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it/about"/>
+  </url>
+  <url>
+    <loc>https://daily-logos.com/it/about</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/about"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it/about"/>
   </url>
   <url>
     <loc>https://daily-logos.com/support</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/support"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/support"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it/support"/>
+  </url>
+  <url>
+    <loc>https://daily-logos.com/it/support</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/support"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/support"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it/support"/>
+  </url>
+  <url>
+    <loc>https://daily-logos.com/feedback</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/feedback"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/feedback"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it/feedback"/>
+  </url>
+  <url>
+    <loc>https://daily-logos.com/it/feedback</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/feedback"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/feedback"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it/feedback"/>
   </url>
 </urlset>

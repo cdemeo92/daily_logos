@@ -93,4 +93,72 @@ defmodule DailyLogosWeb.Layouts do
     </div>
     """
   end
+
+  def build_structured_data(title, description, canonical, image) do
+    site_url = DailyLogosWeb.Endpoint.url()
+
+    %{
+      "@context" => "https://schema.org",
+      "@graph" => [
+        %{
+          "@type" => "Organization",
+          "@id" => site_url <> "/#organization",
+          "name" => "Daily Logos",
+          "url" => site_url,
+          "description" => "A daily Stoic quote to reflect, act better, and live with intention.",
+          "logo" => %{
+            "@type" => "ImageObject",
+            "url" => site_url <> "/images/logo.svg",
+            "width" => 400,
+            "height" => 400
+          },
+          "sameAs" => [
+            "https://github.com/claudio-demeo/daily_logos",
+            "https://twitter.com/daily_logos"
+          ],
+          "contactPoint" => %{
+            "@type" => "ContactPoint",
+            "contactType" => "Customer Support"
+          }
+        },
+        %{
+          "@type" => "WebSite",
+          "@id" => site_url <> "/#website",
+          "url" => site_url,
+          "name" => "Daily Logos",
+          "description" => description,
+          "publisher" => %{"@id" => site_url <> "/#organization"},
+          "inLanguage" => ["en", "it"]
+        },
+        %{
+          "@type" => "WebPage",
+          "@id" => canonical <> "#webpage",
+          "url" => canonical,
+          "name" => title,
+          "description" => description,
+          "isPartOf" => %{"@id" => site_url <> "/#website"},
+          "image" => %{
+            "@type" => "ImageObject",
+            "@id" => canonical <> "#primaryimage",
+            "url" => image,
+            "width" => 1200,
+            "height" => 630
+          },
+          "datePublished" => "2023-01-01T00:00:00+00:00",
+          "dateModified" => DateTime.utc_now() |> DateTime.to_iso8601()
+        },
+        %{
+          "@type" => "BreadcrumbList",
+          "itemListElement" => [
+            %{
+              "@type" => "ListItem",
+              "position" => 1,
+              "name" => "Home",
+              "item" => site_url
+            }
+          ]
+        }
+      ]
+    }
+  end
 end

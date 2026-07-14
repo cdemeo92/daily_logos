@@ -230,14 +230,14 @@ msgstr ""
 msgid "Share anything: feedback, suggestions, bugs, improvements, or ideas to make Daily Logos better."
 msgstr ""
 
-#: lib/daily_logos_web/plugs/seo_meta.ex:35
+#: lib/daily_logos_web/plugs/seo_meta.ex:25
 #, elixir-autogen, elixir-format
 msgid "A daily Stoic quote to reflect, act better, and live with intention."
 msgstr ""
 
-#: lib/daily_logos_web/plugs/seo_meta.ex:32
-#: lib/daily_logos_web/plugs/seo_meta.ex:42
-#: lib/daily_logos_web/plugs/seo_meta.ex:46
+#: lib/daily_logos_web/plugs/seo_meta.ex:23
+#: lib/daily_logos_web/plugs/seo_meta.ex:26
+#: lib/daily_logos_web/plugs/seo_meta.ex:28
 #, elixir-autogen, elixir-format
 msgid "Daily Logos"
 msgstr ""
@@ -280,4 +280,9 @@ msgstr ""
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Daily Stoic Quote of the Day"
+msgstr ""
+
+#: lib/daily_logos_web/components/layouts/root.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "stoic, philosophy, quotes, daily, reflection, wisdom, marcus aurelio, epictetus, seneca, stoicism"
 msgstr ""

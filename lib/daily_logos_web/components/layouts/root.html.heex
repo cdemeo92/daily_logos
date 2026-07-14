@@ -1,35 +1,95 @@
 <!DOCTYPE html>
-<html lang={assigns[:locale] || Gettext.get_locale(DailyLogosWeb.Gettext)}>
+<html lang={@locale || Gettext.get_locale(DailyLogosWeb.Gettext)}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+    />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <meta name="description" content={@seo_meta.description} />
-    <meta name="robots" content={@seo_meta.robots} />
+
+    <%!-- Core SEO --%>
+    <meta name="description" content={@page_description} />
+    <meta
+      name="keywords"
+      content={
+        gettext(
+          "stoic, philosophy, quotes, daily, reflection, wisdom, marcus aurelio, epictetus, seneca, stoicism"
+        )
+      }
+    />
+    <meta name="robots" content={@page_robots} />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="generator" content="Phoenix Framework 1.8" />
+    <meta name="author" content="Claudio DeMeo" />
+    <meta name="copyright" content="© Daily Logos" />
     <link rel="canonical" href={@seo_meta.canonical} />
 
-    <meta property="og:type" content={@seo_meta.type} />
+    <%!-- hreflang for multilingua --%>
+    <%= for alt <- @seo_meta.alternates do %>
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    <% end %>
+
+    <%!-- Open Graph / Facebook --%>
+    <meta property="og:type" content="website" />
     <meta property="og:site_name" content={@seo_meta.site_name} />
     <meta property="og:locale" content={@seo_meta.og_locale} />
-    <meta property="og:title" content={@seo_meta.title} />
-    <meta property="og:description" content={@seo_meta.description} />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="it_IT" />
+    <meta property="og:title" content={@page_title} />
+    <meta property="og:description" content={@page_description} />
     <meta property="og:url" content={@seo_meta.canonical} />
-    <meta property="og:image" content={@seo_meta.image} />
+    <meta property="og:image" content={@page_image} />
     <meta property="og:image:alt" content={@seo_meta.image_alt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/svg+xml" />
 
-    <meta name="twitter:card" content={@seo_meta.twitter_card} />
-    <meta name="twitter:title" content={@seo_meta.title} />
-    <meta name="twitter:description" content={@seo_meta.description} />
-    <meta name="twitter:image" content={@seo_meta.image} />
-    <meta name="twitter:image:alt" content={@seo_meta.image_alt} />
+    <%!-- Theme & Branding --%>
+    <meta name="theme-color" content="#2a2e4a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Daily Logos" />
+    <meta name="application-name" content="Daily Logos" />
+    <meta name="msapplication-TileColor" content="#2a2e4a" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="msapplication-navbutton-color" content="#2a2e4a" />
+    <meta name="msapplication-tooltip" content="Daily Logos - A daily Stoic quote" />
 
+    <%!-- Structured Data --%>
     <script type="application/ld+json">
-      <%= raw(Jason.encode!(@seo_meta.structured_data)) %>
+      <%= raw(Jason.encode!(build_structured_data(@page_title, @page_description, @seo_meta.canonical, @page_image))) %>
     </script>
 
-    <link rel="icon" type="image/svg+xml" href={~p"/images/logo_white.svg"} />
-    <link rel="alternate icon" href={~p"/favicon.ico"} />
-    <.live_title default="DailyLogos" phx-no-format>{@seo_meta.title}</.live_title>
+    <%!-- Favicon & Icons --%>
+    <link rel="icon" type="image/svg+xml" href="/images/logo_white.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/images/logo.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <%!-- SEO Indexing --%>
+    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="robots" href="/robots.txt" />
+
+    <%!-- Performance & Preload --%>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="preload" href="/assets/css/app.css" as="style" />
+    <link rel="prefetch" href="/assets/js/app.js" as="script" />
+
+    <%!-- Link Prefetch for Analytics --%>
+    <link rel="prefetch" href="https://www.google-analytics.com/ga.js" />
+
+    <%!-- Security CSP --%>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none'"
+    />
+
+    <.live_title default="DailyLogos" phx-no-format>{@page_title}</.live_title>
     <% ga_measurement_id = Application.get_env(:daily_logos, :google_analytics_measurement_id) %>
 
     <%= if ga_measurement_id && ga_measurement_id != "" do %>
@@ -64,24 +124,7 @@
         }
         window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
 
-        const setLocale = (locale) => {
-          const toggle = document.getElementById("locale-toggle");
-          if (!toggle || toggle.dataset.submitting === "true") return;
-
-          const current = toggle.getAttribute("data-locale");
-          if (current === locale) return;
-
-          toggle.setAttribute("data-locale", locale);
-          toggle.dataset.submitting = "true";
-
-          const form = document.getElementById(`locale-form-${locale}`);
-          if (form) {
-            window.setTimeout(() => form.submit(), 180);
-          }
-        };
-
         window.addEventListener("phx:set-theme", (e) => setTheme(e.target.dataset.phxTheme));
-        window.addEventListener("phx:set-locale", (e) => setLocale(e.target.dataset.phxLocale));
       })();
     </script>
   </head>

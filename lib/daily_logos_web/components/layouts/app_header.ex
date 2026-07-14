@@ -22,7 +22,7 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
     <header class="px-4 sm:px-6 lg:px-8 border-b border-base-300 dark:border-neutral-content/10">
       <div class="navbar mx-auto max-w-7xl">
         <div class="flex-1 md:flex-none">
-          <a href="/" class="flex-1 flex w-fit items-center gap-2">
+          <a href="./" class="flex-1 flex w-fit items-center gap-2">
             <img src="/images/logo.svg" width="36" alt="Daily Logos" />
             <span class="text-sm font-semibold">v{Application.spec(:daily_logos, :vsn)}</span>
           </a>
@@ -32,7 +32,7 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
           <ul class="flex flex-row gap-2 items-center">
             <li>
               <a
-                href="/feedback"
+                href="./feedback"
                 class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
               >
                 {gettext("Send feedback")}
@@ -40,7 +40,7 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
             </li>
             <li>
               <a
-                href="/support"
+                href="./support"
                 class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
               >
                 {gettext("Support")}
@@ -48,7 +48,7 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
             </li>
             <li>
               <a
-                href="/about"
+                href="./about"
                 class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
               >
                 {gettext("About")}

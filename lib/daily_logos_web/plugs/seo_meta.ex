@@ -1,91 +1,87 @@
 defmodule DailyLogosWeb.Plugs.SeoMeta do
   @moduledoc """
-  Assigns SEO metadata defaults and provides helpers for per-page overrides.
+  Assigns default SEO metadata and hreflang alternates for multi-language support.
+  Page-specific metadata is passed via render() from controllers.
   """
 
   use Gettext, backend: DailyLogosWeb.Gettext
 
   import Plug.Conn
 
-  @default_robots "index,follow"
-  @default_type "website"
-  @default_twitter_card "summary_large_image"
+  @locales Gettext.known_locales(DailyLogosWeb.Gettext)
+  @default_locale Application.compile_env(:daily_logos, :i18n)[:default_locale]
+  @non_default_locales @locales -- [@default_locale]
 
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    assign(conn, :seo_meta, default_meta(conn))
-  end
-
-  def put_page_meta(conn, overrides) when is_map(overrides) do
-    base = conn.assigns[:seo_meta] || default_meta(conn)
-    assign(conn, :seo_meta, normalize_meta(conn, Map.merge(base, overrides)))
-  end
-
-  defp default_meta(conn) do
-    endpoint_url = DailyLogosWeb.Endpoint.url()
     locale = conn.assigns[:locale] || Gettext.get_locale(DailyLogosWeb.Gettext)
-    canonical = current_url(conn)
-    image = endpoint_url <> "/images/logo.svg"
+    endpoint_url = DailyLogosWeb.Endpoint.url()
 
     Gettext.with_locale(DailyLogosWeb.Gettext, locale, fn ->
-      title = gettext("Daily Logos")
-
-      description =
-        gettext("A daily Stoic quote to reflect, act better, and live with intention.")
-
-      %{
-        title: title,
-        description: description,
-        robots: @default_robots,
-        type: @default_type,
+      seo_meta = %{
+        title: gettext("Daily Logos"),
+        description:
+          gettext("A daily Stoic quote to reflect, act better, and live with intention."),
         site_name: gettext("Daily Logos"),
-        twitter_card: @default_twitter_card,
-        canonical: canonical,
-        image: image,
+        image: endpoint_url <> "/images/logo.svg",
         image_alt: gettext("Daily Logos"),
         og_locale: og_locale(locale),
-        structured_data: build_structured_data(title, description, canonical, image)
+        endpoint_url: endpoint_url,
+        canonical: current_url(conn),
+        alternates: build_alternates(conn, endpoint_url)
       }
+
+      conn
+      |> assign(:seo_meta, seo_meta)
+      |> assign(:page_title, seo_meta.title)
+      |> assign(:page_description, seo_meta.description)
+      |> assign(:page_image, seo_meta.image)
+      |> assign(:page_robots, "index,follow")
     end)
   end
 
-  defp normalize_meta(conn, meta) do
-    endpoint_url = DailyLogosWeb.Endpoint.url()
+  def put_page_meta(conn, page_meta) do
+    seo_meta = conn.assigns[:seo_meta]
 
-    canonical =
-      case meta[:canonical] do
-        nil -> current_url(conn)
-        url when is_binary(url) -> normalize_url(url, endpoint_url)
-        _ -> current_url(conn)
-      end
-
-    image =
-      case meta[:image] do
-        nil -> endpoint_url <> "/images/logo.svg"
-        url when is_binary(url) -> normalize_url(url, endpoint_url)
-        _ -> endpoint_url <> "/images/logo.svg"
-      end
-
-    locale = conn.assigns[:locale] || Gettext.get_locale(DailyLogosWeb.Gettext)
-
-    meta
-    |> Map.put(:canonical, canonical)
-    |> Map.put(:image, image)
-    |> Map.put_new(:image_alt, "Daily Logos")
-    |> Map.put_new(:og_locale, og_locale(locale))
-    |> Map.put(
-      :structured_data,
-      build_structured_data(meta[:title], meta[:description], canonical, image)
-    )
+    conn
+    |> assign(:page_title, page_meta.title)
+    |> assign(:page_description, page_meta.description)
+    |> assign(:page_robots, page_meta[:robots] || "index,follow")
+    |> assign(:page_image, page_meta[:image] || seo_meta.image)
   end
 
-  defp normalize_url(url, endpoint_url) do
-    if String.starts_with?(url, "http") do
-      url
-    else
-      endpoint_url <> url
-    end
+  defp build_alternates(conn, endpoint_url) do
+    base = canonical_path(conn)
+
+    locale_links =
+      Enum.map(@locales, fn locale ->
+        href =
+          if locale in @non_default_locales,
+            do: endpoint_url <> "/" <> locale <> base,
+            else: endpoint_url <> base
+
+        %{hreflang: locale, href: href}
+      end)
+
+    [%{hreflang: "x-default", href: endpoint_url <> base} | locale_links]
+  end
+
+  defp canonical_path(conn) do
+    Enum.reduce_while(@non_default_locales, conn.request_path, fn locale, path ->
+      prefix = "/" <> locale
+
+      cond do
+        path == prefix ->
+          {:halt, "/"}
+
+        String.starts_with?(path, prefix <> "/") ->
+          {:halt, String.replace_prefix(path, prefix, "")}
+
+        true ->
+          {:cont, path}
+      end
+    end)
   end
 
   defp current_url(conn) do
@@ -100,34 +96,4 @@ defmodule DailyLogosWeb.Plugs.SeoMeta do
 
   defp og_locale("it"), do: "it_IT"
   defp og_locale(_), do: "en_US"
-
-  defp build_structured_data(title, description, canonical, image) do
-    site_url = DailyLogosWeb.Endpoint.url()
-
-    %{
-      "@context" => "https://schema.org",
-      "@graph" => [
-        %{
-          "@type" => "WebSite",
-          "name" => "Daily Logos",
-          "url" => site_url
-        },
-        %{
-          "@type" => "Organization",
-          "name" => "Daily Logos",
-          "url" => site_url,
-          "logo" => %{
-            "@type" => "ImageObject",
-            "url" => image
-          }
-        },
-        %{
-          "@type" => "WebPage",
-          "name" => title,
-          "url" => canonical,
-          "description" => description
-        }
-      ]
-    }
-  end
 end

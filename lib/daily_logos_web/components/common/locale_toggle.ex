@@ -43,26 +43,34 @@ defmodule DailyLogosWeb.Components.LocaleToggle do
       </button>
     </div>
 
-    <form id={"#{@id}-form-en"} method="post" action={~p"/locale/en"} class="hidden">
+    <form id={"#{@id}-form-en"} method="post" action="/locale/en" class="hidden">
       <input type="hidden" name="_csrf_token" value={get_csrf_token()} />
     </form>
 
-    <form id={"#{@id}-form-it"} method="post" action={~p"/locale/it"} class="hidden">
+    <form id={"#{@id}-form-it"} method="post" action="/locale/it" class="hidden">
       <input type="hidden" name="_csrf_token" value={get_csrf_token()} />
     </form>
 
     <script :type={Phoenix.LiveView.ColocatedHook} name=".LocaleToggle">
       export default {
         mounted() {
-          const buttons = this.el.querySelectorAll('button');
-          buttons.forEach(btn => {
+          this.el.querySelectorAll('button').forEach(btn => {
             btn.addEventListener('click', (e) => {
               e.preventDefault();
               const locale = btn.dataset.phxLocale;
               this.el.setAttribute('data-locale', locale);
               setTimeout(() => {
                 const form = document.getElementById(`${this.el.id}-form-${locale}`);
-                if (form) form.submit();
+                fetch(`/locale/${locale}`, {
+                  method: 'POST',
+                  body: new FormData(form),
+                  headers: {
+                    'Referer': window.location.href
+                  },
+                  redirect: 'follow'
+                }).then(response => {
+                  window.location.href = response.url;
+                });
               }, 300);
             });
           });

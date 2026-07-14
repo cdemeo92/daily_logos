@@ -25,4 +25,44 @@ defmodule DailyLogosWeb.PageControllerTest do
     conn = get(conn, ~p"/support")
     assert html_response(conn, 200) =~ "Daily Logos"
   end
+
+  test "GET /support shows placeholder when buy-me-coffe url not configured", %{conn: conn} do
+    conn = get(conn, ~p"/support")
+    assert html_response(conn, 200) =~ "buy-me-coffee-placeholder"
+  end
+
+  test "GET /it renders Italian home", %{conn: conn} do
+    conn = get(conn, "/it")
+    assert html_response(conn, 200) =~ "Daily Logos"
+  end
+
+  test "GET /it/about renders Italian about page", %{conn: conn} do
+    conn = get(conn, "/it/about")
+    assert html_response(conn, 200) =~ "about-title"
+  end
+
+  test "GET /it/support renders Italian support page", %{conn: conn} do
+    conn = get(conn, "/it/support")
+    assert html_response(conn, 200) =~ "Daily Logos"
+  end
+
+  test "GET /it/feedback renders Italian feedback page", %{conn: conn} do
+    conn = get(conn, "/it/feedback")
+    assert html_response(conn, 200) =~ "feedback-title"
+  end
+
+  test "GET /en redirects to /", %{conn: conn} do
+    conn = get(conn, "/en")
+    assert redirected_to(conn) == "/"
+  end
+
+  test "GET /en/about redirects to /about", %{conn: conn} do
+    conn = get(conn, "/en/about")
+    assert redirected_to(conn) == "/about"
+  end
+
+  test "GET /fr/about redirects to /about", %{conn: conn} do
+    conn = get(conn, "/fr/about")
+    assert redirected_to(conn) == "/about"
+  end
 end

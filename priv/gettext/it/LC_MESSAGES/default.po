@@ -230,14 +230,14 @@ msgstr "Daily Logos è un progetto realizzato con passione che porta la saggezza
 msgid "Share anything: feedback, suggestions, bugs, improvements, or ideas to make Daily Logos better."
 msgstr "Condividi qualsiasi cosa: feedback, suggerimenti, bug, miglioramenti o idee per rendere Daily Logos migliore."
 
-#: lib/daily_logos_web/plugs/seo_meta.ex:35
+#: lib/daily_logos_web/plugs/seo_meta.ex:25
 #, elixir-autogen, elixir-format
 msgid "A daily Stoic quote to reflect, act better, and live with intention."
 msgstr "Una citazione stoica al giorno per riflettere, agire meglio e vivere con intenzione."
 
-#: lib/daily_logos_web/plugs/seo_meta.ex:32
-#: lib/daily_logos_web/plugs/seo_meta.ex:42
-#: lib/daily_logos_web/plugs/seo_meta.ex:46
+#: lib/daily_logos_web/plugs/seo_meta.ex:23
+#: lib/daily_logos_web/plugs/seo_meta.ex:26
+#: lib/daily_logos_web/plugs/seo_meta.ex:28
 #, elixir-autogen, elixir-format
 msgid "Daily Logos"
 msgstr "Daily Logos"
@@ -281,3 +281,8 @@ msgstr "Una riflessione stoica per ogni giorno dell'anno"
 #, elixir-autogen, elixir-format
 msgid "Daily Stoic Quote of the Day"
 msgstr "Citazione stoica del giorno"
+
+#: lib/daily_logos_web/components/layouts/root.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "stoic, philosophy, quotes, daily, reflection, wisdom, marcus aurelio, epictetus, seneca, stoicism"
+msgstr "stoico, filosofia, citazioni, quotidiano, riflessione, saggezza, marco aurelio, epitteto, seneca, stoicismo"
