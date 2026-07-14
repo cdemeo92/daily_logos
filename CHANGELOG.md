@@ -1,3 +1,10 @@
+## [1.16.2](https://github.com/cdemeo92/daily_logos/compare/v1.16.1...v1.16.2) (2026-07-14)
+
+
+### Bug Fixes
+
+* enhance locale toggle functionality and improve SEO meta tests ([a667c5d](https://github.com/cdemeo92/daily_logos/commit/a667c5da82a1fb5f819a6b459400ea1472e57dc8))
+
 ## [1.16.1](https://github.com/cdemeo92/daily_logos/compare/v1.16.0...v1.16.1) (2026-07-12)
 
 
