@@ -27,25 +27,22 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
                )
              end)
 
-    assert meta.robots == "index,follow"
-    assert meta.type == "website"
     assert meta.site_name == "Daily Logos"
-    assert meta.twitter_card == "summary_large_image"
     assert meta.canonical == DailyLogosWeb.Endpoint.url() <> "/about?ref=menu"
     assert meta.image == DailyLogosWeb.Endpoint.url() <> "/images/logo.svg"
     assert meta.image_alt == "Daily Logos"
     assert meta.og_locale == "it_IT"
+    assert conn.assigns.page_title == meta.title
+    assert conn.assigns.page_description == meta.description
+    assert conn.assigns.page_image == meta.image
+    assert conn.assigns.page_robots == "index,follow"
 
-    assert %{"@context" => "https://schema.org", "@graph" => graph} = meta.structured_data
-    assert Enum.any?(graph, &(&1["@type"] == "WebSite"))
-    assert Enum.any?(graph, &(&1["@type"] == "Organization"))
-
-    assert Enum.any?(graph, fn item ->
-             item["@type"] == "WebPage" and item["url"] == meta.canonical
-           end)
+    assert Enum.any?(meta.alternates, &(&1.hreflang == "x-default"))
+    assert Enum.any?(meta.alternates, &(&1.hreflang == "en"))
+    assert Enum.any?(meta.alternates, &(&1.hreflang == "it"))
   end
 
-  test "merges page overrides and normalizes relative urls", %{conn: conn} do
+  test "applies page overrides to page assigns", %{conn: conn} do
     conn =
       conn
       |> Map.put(:request_path, "/support")
@@ -63,16 +60,18 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
 
     meta = conn.assigns.seo_meta
 
-    assert meta.title == "Support Daily Logos"
-    assert meta.description == "Support page"
-    assert meta.robots == "noindex,nofollow"
+    assert meta.title == "Daily Logos"
+
+    assert meta.description ==
+             "A daily Stoic quote to reflect, act better, and live with intention."
+
     assert meta.canonical == DailyLogosWeb.Endpoint.url() <> "/support"
-    assert meta.image == DailyLogosWeb.Endpoint.url() <> "/images/logo_white.svg"
+    assert meta.image == DailyLogosWeb.Endpoint.url() <> "/images/logo.svg"
     assert meta.og_locale == "en_US"
 
-    assert Enum.any?(meta.structured_data["@graph"], fn item ->
-             item["@type"] == "WebPage" and item["name"] == "Support Daily Logos" and
-               item["description"] == "Support page"
-           end)
+    assert conn.assigns.page_title == "Support Daily Logos"
+    assert conn.assigns.page_description == "Support page"
+    assert conn.assigns.page_robots == "noindex,nofollow"
+    assert conn.assigns.page_image == "/images/logo_white.svg"
   end
 end

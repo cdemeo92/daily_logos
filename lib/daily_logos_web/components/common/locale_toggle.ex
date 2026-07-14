@@ -13,7 +13,7 @@ defmodule DailyLogosWeb.Components.LocaleToggle do
     <div
       id={@id}
       data-locale={@current_locale}
-      phx-hook=".LocaleToggle"
+      data-csrf={get_csrf_token()}
       class="card relative flex flex-row items-center overflow-hidden rounded-full border-2 border-base-300 bg-base-300"
     >
       <div class="absolute h-full w-1/2 rounded-full border border-base-200 bg-base-100 brightness-200 left-0 [[data-locale=it]_&]:left-1/2 transition-[left] duration-300 ease-out" />
@@ -43,39 +43,39 @@ defmodule DailyLogosWeb.Components.LocaleToggle do
       </button>
     </div>
 
-    <form id={"#{@id}-form-en"} method="post" action="/locale/en" class="hidden">
-      <input type="hidden" name="_csrf_token" value={get_csrf_token()} />
-    </form>
+    <script>
+      (() => {
+        const localeToggle = document.querySelector('#<%= @id %>');
+        if (!localeToggle || localeToggle.dataset.init === 'true') return;
 
-    <form id={"#{@id}-form-it"} method="post" action="/locale/it" class="hidden">
-      <input type="hidden" name="_csrf_token" value={get_csrf_token()} />
-    </form>
+        localeToggle.dataset.init = 'true';
 
-    <script :type={Phoenix.LiveView.ColocatedHook} name=".LocaleToggle">
-      export default {
-        mounted() {
-          this.el.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-              e.preventDefault();
-              const locale = btn.dataset.phxLocale;
-              this.el.setAttribute('data-locale', locale);
-              setTimeout(() => {
-                const form = document.getElementById(`${this.el.id}-form-${locale}`);
-                fetch(`/locale/${locale}`, {
-                  method: 'POST',
-                  body: new FormData(form),
-                  headers: {
-                    'Referer': window.location.href
-                  },
-                  redirect: 'follow'
-                }).then(response => {
-                  window.location.href = response.url;
-                });
-              }, 300);
-            });
+        const csrf = localeToggle.dataset.csrf;
+
+        localeToggle.querySelectorAll('button').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.preventDefault();
+            const locale = btn.dataset.phxLocale;
+
+            localeToggle.dataset.locale = locale;
+
+            setTimeout(async () => {
+              const response = await fetch(`/locale/${locale}`, {
+                method: 'POST',
+                headers: { 'x-csrf-token': csrf },
+                credentials: 'same-origin',
+                redirect: 'follow'
+              });
+
+              if (response.redirected) {
+                window.location.assign(response.url);
+              } else {
+                window.location.reload();
+              }
+            }, 300);
           });
-        }
-      }
+        });
+      })();
     </script>
     """
   end
