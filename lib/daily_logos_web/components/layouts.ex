@@ -48,6 +48,7 @@ defmodule DailyLogosWeb.Layouts do
             </div>
             <div>
               <div class="flex flex-col items-start gap-1 text-sm text-base-content/70">
+                <span>© Daily Logos</span>
                 <button
                   type="button"
                   data-open-cookie-preferences
@@ -58,7 +59,6 @@ defmodule DailyLogosWeb.Layouts do
                 <a href="./privacy" class="hover:text-base-content transition-colors">
                   {gettext("Privacy & Cookie Policy")}
                 </a>
-                <span>© Daily Logos</span>
               </div>
             </div>
           </div>
