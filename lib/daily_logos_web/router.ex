@@ -31,6 +31,7 @@ defmodule DailyLogosWeb.Router do
     get "/feedback", PageController, :feedback
     get "/about", PageController, :about
     get "/support", PageController, :support
+    get "/privacy", PageController, :privacy
   end
 
   scope "/locale", DailyLogosWeb do
@@ -46,6 +47,7 @@ defmodule DailyLogosWeb.Router do
     get "/about", PageController, :about
     get "/support", PageController, :support
     get "/feedback", PageController, :feedback
+    get "/privacy", PageController, :privacy
   end
 
   scope "/api" do

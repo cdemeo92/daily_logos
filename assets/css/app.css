@@ -3,6 +3,7 @@
 
 @import "tailwindcss" source(none);
 @import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@import "../node_modules/vanilla-cookieconsent/dist/cookieconsent.css";
 @source "../css";
 @source "../js";
 @source "../../lib/daily_logos_web";

@@ -18,10 +18,27 @@
       <% feedback_form_url = feedback_form_url(locale) %>
 
       <%= if feedback_form_url do %>
+        <div
+          id="feedback-consent-placeholder"
+          data-consent-placeholder-for="feedback-form"
+          class="w-full min-h-[240px] border border-base-300 rounded-xl p-6 flex flex-col items-center justify-center gap-4 text-center"
+        >
+          <p class="text-sm text-base-content/70">
+            {gettext("Enable functionality cookies to load the feedback form.")}
+          </p>
+          <button
+            type="button"
+            data-open-cookie-preferences
+            class="px-4 py-2 rounded-lg border border-base-300 text-sm font-medium hover:bg-base-200 transition-colors"
+          >
+            {gettext("Open cookie preferences")}
+          </button>
+        </div>
         <iframe
           id="feedback-form"
-          src={feedback_form_url}
-          class="w-full min-h-[640px] border-0 rounded-xl"
+          data-consent-category="functionality"
+          data-src={feedback_form_url}
+          class="hidden w-full min-h-[640px] border-0 rounded-xl"
           frameborder="0"
           marginheight="0"
           marginwidth="0"

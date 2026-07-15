@@ -48,4 +48,16 @@ defmodule DailyLogosWeb.PageController do
     })
     |> render(:about)
   end
+
+  def privacy(conn, _params) do
+    conn
+    |> SeoMeta.put_page_meta(%{
+      title: gettext("Privacy & Cookie Policy | Daily Logos"),
+      description:
+        gettext(
+          "Read how Daily Logos handles personal data, technical cookies, analytics cookies, and consent preferences."
+        )
+    })
+    |> render(:privacy)
+  end
 end

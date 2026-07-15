@@ -1,0 +1,97 @@
+<Layouts.app flash={@flash}>
+  <div class="min-h-[60vh] flex flex-col items-center justify-start py-12">
+    <article class="w-full max-w-3xl space-y-8" aria-labelledby="privacy-title">
+      <header class="space-y-3 text-center">
+        <h1 id="privacy-title" class="text-3xl font-semibold tracking-tight">
+          {gettext("Privacy & Cookie Policy")}
+        </h1>
+        <p class="text-base-content/70 text-sm sm:text-base leading-relaxed">
+          {gettext(
+            "This page summarizes how personal data and cookies are handled on Daily Logos."
+          )}
+        </p>
+      </header>
+
+      <section class="space-y-3 rounded-xl border border-base-300 bg-base-200/40 p-5">
+        <h2 class="text-xl font-semibold">{gettext("Data controller")}</h2>
+        <p class="text-base-content/80 leading-relaxed">
+          {gettext(
+            "The data controller is the owner of Daily Logos. For requests regarding privacy, rights, or data handling, use the contacts provided on the website."
+          )}
+        </p>
+      </section>
+
+      <section class="space-y-3 rounded-xl border border-base-300 bg-base-200/40 p-5">
+        <h2 class="text-xl font-semibold">{gettext("What data is processed")}</h2>
+        <ul class="list-disc pl-6 space-y-1 text-base-content/80">
+          <li>
+            {gettext("Technical request data (for example IP address, browser, and server logs).")}
+          </li>
+          <li>
+            {gettext("Functional preferences such as language selection.")}
+          </li>
+          <li>
+            {gettext("Analytics data only after explicit consent.")}
+          </li>
+        </ul>
+      </section>
+
+      <section class="space-y-3 rounded-xl border border-base-300 bg-base-200/40 p-5">
+        <h2 class="text-xl font-semibold">{gettext("Cookie categories")}</h2>
+        <div class="space-y-3 text-base-content/80">
+          <p>
+            <span class="font-medium">{gettext("Necessary cookies")}</span>
+            : {gettext("required for core functionality, security, and session management.")}
+          </p>
+          <p>
+            <span class="font-medium">{gettext("Analytics cookies")}</span>
+            : {gettext("used for measurement and loaded only after consent.")}
+          </p>
+          <p>
+            <span class="font-medium">{gettext("Functionality cookies")}</span>
+            : {gettext(
+              "used for embedded third-party content (for example Google Forms) and loaded only after consent."
+            )}
+          </p>
+        </div>
+      </section>
+
+      <section class="space-y-3 rounded-xl border border-base-300 bg-base-200/40 p-5">
+        <h2 class="text-xl font-semibold">{gettext("Consent management")}</h2>
+        <p class="text-base-content/80 leading-relaxed">
+          {gettext(
+            "Consent can be granted, refused, or updated at any time from the Cookie preferences button in the footer."
+          )}
+        </p>
+      </section>
+
+      <section class="space-y-3 rounded-xl border border-base-300 bg-base-200/40 p-5">
+        <h2 class="text-xl font-semibold">{gettext("Third-party services")}</h2>
+        <ul class="list-disc pl-6 space-y-1 text-base-content/80">
+          <li>
+            {gettext("Google Tag Manager / Google Analytics (only with analytics consent).")}
+          </li>
+          <li>{gettext("Google Forms embedded form (only with functionality consent).")}</li>
+          <li>
+            {gettext(
+              "Buy Me a Coffee link without tracking script injection in this website layout."
+            )}
+          </li>
+        </ul>
+      </section>
+
+      <section class="space-y-3 rounded-xl border border-base-300 bg-base-200/40 p-5">
+        <h2 class="text-xl font-semibold">{gettext("User rights")}</h2>
+        <p class="text-base-content/80 leading-relaxed">
+          {gettext(
+            "Users can request access, rectification, deletion, restriction, objection, and portability where applicable under GDPR."
+          )}
+        </p>
+      </section>
+
+      <p class="text-xs text-base-content/60 text-center">
+        {gettext("Last update: July 2026")}
+      </p>
+    </article>
+  </div>
+</Layouts.app>

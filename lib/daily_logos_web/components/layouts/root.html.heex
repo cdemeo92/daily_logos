@@ -2,17 +2,6 @@
 <html lang={@locale || Gettext.get_locale(DailyLogosWeb.Gettext)}>
   <head>
     <% gtm_container_id = Application.get_env(:daily_logos, :google_tag_manager_id) %>
-    <%= if gtm_container_id && gtm_container_id != "" do %>
-      <!-- Google Tag Manager -->
-      <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','<%= gtm_container_id %>');
-      </script>
-      <!-- End Google Tag Manager -->
-    <% end %>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
@@ -20,6 +9,9 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
     />
     <meta name="csrf-token" content={get_csrf_token()} />
+    <%= if gtm_container_id && gtm_container_id != "" do %>
+      <meta name="gtm-container-id" content={gtm_container_id} />
+    <% end %>
 
     <%!-- Core SEO --%>
     <meta name="description" content={@page_description} />
@@ -112,19 +104,6 @@
     </script>
   </head>
   <body>
-    <%= if gtm_container_id && gtm_container_id != "" do %>
-      <!-- Google Tag Manager (noscript) -->
-      <noscript>
-        <iframe
-          src={"https://www.googletagmanager.com/ns.html?id=" <> gtm_container_id}
-          height="0"
-          width="0"
-          style="display:none;visibility:hidden"
-        >
-        </iframe>
-      </noscript>
-      <!-- End Google Tag Manager (noscript) -->
-    <% end %>
     {@inner_content}
   </body>
 </html>
