@@ -4,7 +4,7 @@ defmodule DailyLogos.MixProject do
   def project do
     [
       app: :daily_logos,
-      version: "1.17.0",
+      version: "1.17.1",
       elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,

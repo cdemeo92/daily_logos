@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/cdemeo92/daily_logos/compare/v1.17.0...v1.17.1) (2026-07-15)
+
+
+### Bug Fixes
+
+* update Content Security Policy to include additional sources for styles and connections ([e3bc11f](https://github.com/cdemeo92/daily_logos/commit/e3bc11fc7d0b647806f5959dd59720b8e5a33ed6))
+
 # [1.17.0](https://github.com/cdemeo92/daily_logos/compare/v1.16.11...v1.17.0) (2026-07-15)
 
 
