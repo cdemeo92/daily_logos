@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/cdemeo92/daily_logos/compare/v1.16.11...v1.17.0) (2026-07-15)
+
+
+### Features
+
+* add cookie consent management and privacy policy page ([8cc0984](https://github.com/cdemeo92/daily_logos/commit/8cc09845934985ba6ee9f72e9dfdad7589eb8aac))
+
 ## [1.16.11](https://github.com/cdemeo92/daily_logos/compare/v1.16.10...v1.16.11) (2026-07-14)
 
 
