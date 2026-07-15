@@ -1,11 +1,18 @@
 defmodule DailyLogosWeb.Plugs.SeoMetaTest do
-  use DailyLogosWeb.ConnCase
+  use ExUnit.Case, async: false
+
+  import Phoenix.ConnTest
 
   alias DailyLogosWeb.Plugs.SeoMeta
 
-  test "assigns default seo metadata", %{conn: conn} do
+  setup_all do
+    start_supervised!(DailyLogosWeb.Endpoint)
+    :ok
+  end
+
+  test "assigns default seo metadata" do
     conn =
-      conn
+      build_conn()
       |> Map.put(:request_path, "/about")
       |> Map.put(:query_string, "ref=menu")
       |> Plug.Conn.assign(:locale, "it")
@@ -35,6 +42,7 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
     assert conn.assigns.page_title == meta.title
     assert conn.assigns.page_description == meta.description
     assert conn.assigns.page_image == meta.image
+    assert conn.assigns.keywords == meta.keywords
     assert conn.assigns.page_robots == "index,follow"
 
     assert Enum.any?(meta.alternates, &(&1.hreflang == "x-default"))
@@ -42,9 +50,9 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
     assert Enum.any?(meta.alternates, &(&1.hreflang == "it"))
   end
 
-  test "applies page overrides to page assigns", %{conn: conn} do
+  test "applies page overrides to page assigns" do
     conn =
-      conn
+      build_conn()
       |> Map.put(:request_path, "/support")
       |> Plug.Conn.assign(:locale, "en")
       |> SeoMeta.call(SeoMeta.init([]))
@@ -55,7 +63,8 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
         description: "Support page",
         robots: "noindex,nofollow",
         canonical: "/support",
-        image: "/images/logo_white.svg"
+        image: "/images/logo_white.svg",
+        keywords: "stoic, support, daily logos"
       })
 
     meta = conn.assigns.seo_meta
@@ -73,5 +82,24 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
     assert conn.assigns.page_description == "Support page"
     assert conn.assigns.page_robots == "noindex,nofollow"
     assert conn.assigns.page_image == "/images/logo_white.svg"
+    assert conn.assigns.keywords == "stoic, support, daily logos"
+  end
+
+  test "uses default keywords when page override does not provide them" do
+    conn =
+      build_conn()
+      |> Map.put(:request_path, "/about")
+      |> Plug.Conn.assign(:locale, "en")
+      |> SeoMeta.call(SeoMeta.init([]))
+
+    default_keywords = conn.assigns.seo_meta.keywords
+
+    conn =
+      SeoMeta.put_page_meta(conn, %{
+        title: "About Daily Logos",
+        description: "About page"
+      })
+
+    assert conn.assigns.keywords == default_keywords
   end
 end

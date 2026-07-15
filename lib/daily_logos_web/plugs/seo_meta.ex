@@ -29,7 +29,11 @@ defmodule DailyLogosWeb.Plugs.SeoMeta do
         og_locale: og_locale(locale),
         endpoint_url: endpoint_url,
         canonical: current_url(conn),
-        alternates: build_alternates(conn, endpoint_url)
+        alternates: build_alternates(conn, endpoint_url),
+        keywords:
+          gettext(
+            "stoic, philosophy, quotes, daily, reflection, wisdom, marcus aurelio, epictetus, seneca, stoicism"
+          )
       }
 
       conn
@@ -37,6 +41,7 @@ defmodule DailyLogosWeb.Plugs.SeoMeta do
       |> assign(:page_title, seo_meta.title)
       |> assign(:page_description, seo_meta.description)
       |> assign(:page_image, seo_meta.image)
+      |> assign(:keywords, seo_meta.keywords)
       |> assign(:page_robots, "index,follow")
     end)
   end
@@ -49,6 +54,7 @@ defmodule DailyLogosWeb.Plugs.SeoMeta do
     |> assign(:page_description, page_meta.description)
     |> assign(:page_robots, page_meta[:robots] || "index,follow")
     |> assign(:page_image, page_meta[:image] || seo_meta.image)
+    |> assign(:keywords, page_meta[:keywords] || seo_meta.keywords)
   end
 
   defp build_alternates(conn, endpoint_url) do
