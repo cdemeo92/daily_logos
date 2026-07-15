@@ -1,5 +1,5 @@
 defmodule DailyLogosWeb.ErrorJSONTest do
-  use DailyLogosWeb.ConnCase, async: true
+  use ExUnit.Case, async: true
 
   test "renders 404" do
     assert DailyLogosWeb.ErrorJSON.render("404.json", %{}) == %{errors: %{detail: "Not Found"}}

@@ -1,33 +1,52 @@
 defmodule DailyLogosWeb.PageControllerTest do
-  use DailyLogosWeb.ConnCase
+  use ExUnit.Case, async: false
+
+  import Phoenix.ConnTest
+
+  @endpoint DailyLogosWeb.Endpoint
+
+  setup_all do
+    Application.ensure_all_started(:plug)
+
+    case Process.whereis(DailyLogosWeb.Endpoint) do
+      nil -> start_supervised!(DailyLogosWeb.Endpoint)
+      _pid -> :ok
+    end
+
+    :ok
+  end
+
+  setup do
+    {:ok, conn: build_conn()}
+  end
 
   test "GET /", %{conn: conn} do
-    conn = get(conn, ~p"/")
+    conn = get(conn, "/")
     assert html_response(conn, 200) =~ "Daily Logos"
   end
 
   test "GET /feedback renders page", %{conn: conn} do
-    conn = get(conn, ~p"/feedback")
+    conn = get(conn, "/feedback")
     assert html_response(conn, 200) =~ "feedback-title"
   end
 
   test "GET /feedback shows placeholder when form url not configured", %{conn: conn} do
-    conn = get(conn, ~p"/feedback")
+    conn = get(conn, "/feedback")
     assert html_response(conn, 200) =~ "feedback-placeholder"
   end
 
   test "GET /about renders page", %{conn: conn} do
-    conn = get(conn, ~p"/about")
+    conn = get(conn, "/about")
     assert html_response(conn, 200) =~ "about-title"
   end
 
   test "GET /support renders page", %{conn: conn} do
-    conn = get(conn, ~p"/support")
+    conn = get(conn, "/support")
     assert html_response(conn, 200) =~ "Daily Logos"
   end
 
   test "GET /support shows placeholder when buy-me-coffe url not configured", %{conn: conn} do
-    conn = get(conn, ~p"/support")
+    conn = get(conn, "/support")
     assert html_response(conn, 200) =~ "buy-me-coffee-placeholder"
   end
 

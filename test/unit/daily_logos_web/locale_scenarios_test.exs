@@ -1,7 +1,25 @@
-defmodule DailyLogosWeb.LocaleIntegrationTest do
-  use DailyLogosWeb.ConnCase, async: true
+defmodule DailyLogosWeb.LocaleScenariosTest do
+  use ExUnit.Case, async: false
 
+  import Phoenix.ConnTest
   import Plug.Conn
+
+  @endpoint DailyLogosWeb.Endpoint
+
+  setup_all do
+    Application.ensure_all_started(:plug)
+
+    case Process.whereis(DailyLogosWeb.Endpoint) do
+      nil -> start_supervised!(DailyLogosWeb.Endpoint)
+      _pid -> :ok
+    end
+
+    :ok
+  end
+
+  setup do
+    {:ok, conn: build_conn()}
+  end
 
   test "english browser first access lands on /", %{conn: conn} do
     conn =
