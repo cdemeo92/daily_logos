@@ -21,18 +21,16 @@
         <div
           id="feedback-consent-placeholder"
           data-consent-placeholder-for="feedback-form"
-          class="w-full min-h-[240px] border border-base-300 rounded-xl p-6 flex flex-col items-center justify-center gap-4 text-center"
+          class="w-full min-h-[240px] rounded-xl p-6 flex flex-col items-center justify-center gap-4 text-center"
         >
-          <p class="text-sm text-base-content/70">
-            {gettext("Enable functionality cookies to load the feedback form.")}
-          </p>
-          <button
-            type="button"
-            data-open-cookie-preferences
-            class="px-4 py-2 rounded-lg border border-base-300 text-sm font-medium hover:bg-base-200 transition-colors"
+          <a
+            href={feedback_form_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-primary-content text-sm font-semibold hover:opacity-90 transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            {gettext("Open cookie preferences")}
-          </button>
+            {gettext("Send feedback")}
+          </a>
         </div>
         <iframe
           id="feedback-form"

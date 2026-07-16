@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:96
-#: lib/daily_logos_web/components/layouts.ex:108
+#: lib/daily_logos_web/components/layouts.ex:90
+#: lib/daily_logos_web/components/layouts.ex:102
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:103
+#: lib/daily_logos_web/components/layouts.ex:97
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:91
+#: lib/daily_logos_web/components/layouts.ex:85
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr ""
@@ -122,6 +122,7 @@ msgstr ""
 #: lib/daily_logos_web/components/layouts/app_header.ex:38
 #: lib/daily_logos_web/components/layouts/main_menu.ex:67
 #: lib/daily_logos_web/controllers/page_html/feedback.html.heex:7
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "Send feedback"
 msgstr ""
@@ -131,7 +132,7 @@ msgstr ""
 msgid "Coming soon"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:46
+#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "Loading..."
 msgstr ""
@@ -287,19 +288,9 @@ msgstr ""
 msgid "stoic, philosophy, quotes, daily, reflection, wisdom, marcus aurelio, epictetus, seneca, stoicism"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:59
+#: lib/daily_logos_web/components/layouts.ex:57
 #, elixir-autogen, elixir-format
 msgid "Cookie preferences"
-msgstr ""
-
-#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:27
-#, elixir-autogen, elixir-format
-msgid "Enable functionality cookies to load the feedback form."
-msgstr ""
-
-#: lib/daily_logos_web/controllers/page_html/feedback.html.heex:34
-#, elixir-autogen, elixir-format
-msgid "Open cookie preferences"
 msgstr ""
 
 #: lib/daily_logos_web/controllers/page_html/privacy.html.heex:47
@@ -312,17 +303,17 @@ msgstr ""
 msgid "Analytics data only after explicit consent."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:72
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:76
 #, elixir-autogen, elixir-format
 msgid "Buy Me a Coffee link without tracking script injection in this website layout."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:60
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Consent can be granted, refused, or updated at any time from the Cookie preferences button in the footer."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:58
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:60
 #, elixir-autogen, elixir-format
 msgid "Consent management"
 msgstr ""
@@ -347,17 +338,17 @@ msgstr ""
 msgid "Functionality cookies"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:70
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "Google Forms embedded form (only with functionality consent)."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:69
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:72
 #, elixir-autogen, elixir-format
 msgid "Google Tag Manager / Google Analytics (only with analytics consent)."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:89
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:93
 #, elixir-autogen, elixir-format
 msgid "Last update: July 2026"
 msgstr ""
@@ -367,7 +358,7 @@ msgstr ""
 msgid "Necessary cookies"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:65
+#: lib/daily_logos_web/components/layouts.ex:60
 #: lib/daily_logos_web/controllers/page_html/privacy.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "Privacy & Cookie Policy"
@@ -393,7 +384,7 @@ msgstr ""
 msgid "The data controller is the owner of Daily Logos. For requests regarding privacy, rights, or data handling, use the contacts provided on the website."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:67
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:69
 #, elixir-autogen, elixir-format
 msgid "Third-party services"
 msgstr ""
@@ -403,12 +394,12 @@ msgstr ""
 msgid "This page summarizes how personal data and cookies are handled on Daily Logos."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:80
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:84
 #, elixir-autogen, elixir-format
 msgid "User rights"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:82
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:86
 #, elixir-autogen, elixir-format
 msgid "Users can request access, rectification, deletion, restriction, objection, and portability where applicable under GDPR."
 msgstr ""
