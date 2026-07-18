@@ -79,4 +79,10 @@ defmodule DailyLogosWeb.Router do
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
+
+  scope "/:locale_prefix", DailyLogosWeb do
+    pipe_through :browser
+
+    get "/*path", PageController, :not_found
+  end
 end

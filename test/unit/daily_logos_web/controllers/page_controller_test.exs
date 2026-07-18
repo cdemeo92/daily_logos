@@ -94,4 +94,14 @@ defmodule DailyLogosWeb.PageControllerTest do
     conn = get(conn, "/fr/about")
     assert redirected_to(conn) == "/about"
   end
+
+  test "GET invalid path redirects to home", %{conn: conn} do
+    conn = get(conn, "/this-path-does-not-exist")
+    assert redirected_to(conn) == "/"
+  end
+
+  test "GET invalid path with locale redirects to home", %{conn: conn} do
+    conn = get(conn, "/it/this-path-does-not-exist")
+    assert redirected_to(conn) == "/"
+  end
 end
