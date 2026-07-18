@@ -1,3 +1,11 @@
+## [1.17.2](https://github.com/cdemeo92/daily_logos/compare/v1.17.1...v1.17.2) (2026-07-18)
+
+
+### Bug Fixes
+
+* add not_found route to handle invalid paths and redirect to home ([dc9991e](https://github.com/cdemeo92/daily_logos/commit/dc9991eea75355318d0ec889c110d78fdfd9a662))
+* implement error handling for non-existent routes with a dedicated ErrorController ([b4634bd](https://github.com/cdemeo92/daily_logos/commit/b4634bd027c45c97aef23234aca6e7ecf88b39f8))
+
 ## [1.17.1](https://github.com/cdemeo92/daily_logos/compare/v1.17.0...v1.17.1) (2026-07-15)
 
 
