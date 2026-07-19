@@ -4,8 +4,6 @@ multi-ecosystem-groups:
   app-dependencies:
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "09:00"
 
 updates:
   - package-ecosystem: "mix"
