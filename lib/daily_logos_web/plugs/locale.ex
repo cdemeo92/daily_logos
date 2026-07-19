@@ -18,6 +18,10 @@ defmodule DailyLogosWeb.Plugs.Locale do
   def init(default), do: default
 
   def call(%{path_params: %{"locale_prefix" => locale}} = conn, _opts)
+      when locale not in @locales,
+      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: DailyLogosWeb.Router)
+
+  def call(%{path_params: %{"locale_prefix" => locale}} = conn, _opts)
       when locale in @non_default_locales do
     set_locale(conn, locale)
   end

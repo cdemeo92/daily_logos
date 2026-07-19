@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /api/docs
-Disallow: /api/openapi
+Disallow: /api/
+Disallow: /dev/
 
 Sitemap: https://daily-logos.com/sitemap.xml

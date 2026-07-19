@@ -61,8 +61,6 @@ defmodule DailyLogosWeb.Router do
     scope "/v1", DailyLogosWeb do
       get "/quotes", QuoteController, :show
     end
-
-    match :*, "/*path", DailyLogosWeb.ErrorController, :error
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -80,11 +78,5 @@ defmodule DailyLogosWeb.Router do
       live_dashboard "/dashboard", metrics: DailyLogosWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
-  end
-
-  scope "/:locale_prefix", DailyLogosWeb do
-    pipe_through :browser
-
-    get "/*path", PageController, :not_found
   end
 end

@@ -3,6 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://daily-logos.com/</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/"/>
@@ -11,6 +12,7 @@
   </url>
   <url>
     <loc>https://daily-logos.com/it</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/"/>
@@ -19,6 +21,7 @@
   </url>
   <url>
     <loc>https://daily-logos.com/about</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/about"/>
@@ -27,6 +30,7 @@
   </url>
   <url>
     <loc>https://daily-logos.com/it/about</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/about"/>
@@ -35,6 +39,7 @@
   </url>
   <url>
     <loc>https://daily-logos.com/support</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/support"/>
@@ -43,6 +48,7 @@
   </url>
   <url>
     <loc>https://daily-logos.com/it/support</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/support"/>
@@ -51,6 +57,7 @@
   </url>
   <url>
     <loc>https://daily-logos.com/feedback</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/feedback"/>
@@ -59,6 +66,7 @@
   </url>
   <url>
     <loc>https://daily-logos.com/it/feedback</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/feedback"/>
@@ -67,6 +75,7 @@
   </url>
   <url>
     <loc>https://daily-logos.com/privacy</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/privacy"/>
@@ -75,6 +84,7 @@
   </url>
   <url>
     <loc>https://daily-logos.com/it/privacy</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/privacy"/>

@@ -6,8 +6,6 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
 
   alias DailyLogosWeb.Plugs.Locale
 
-  # path-based locale tests
-
   test "sets locale from path when it is a supported non-default locale" do
     conn =
       conn(:get, "/it/about")
@@ -40,19 +38,6 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
     assert conn.halted
     assert get_resp_header(conn, "location") == ["/"]
   end
-
-  test "redirects to canonical when path locale is unsupported" do
-    conn =
-      conn(:get, "/fr/about")
-      |> Map.put(:path_params, %{"locale_prefix" => "fr"})
-
-    conn = Locale.call(conn, Locale.init([]))
-
-    assert conn.halted
-    assert get_resp_header(conn, "location") == ["/about"]
-  end
-
-  # canonical route locale tests (no path prefix)
 
   test "redirects to localized path when non-default session locale is present" do
     conn =
