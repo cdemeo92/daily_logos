@@ -1,22 +1,32 @@
 version: 2
 
+multi-ecosystem-groups:
+  app-dependencies:
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Europe/Rome
+
 updates:
   - package-ecosystem: "mix"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
+      interval: weekly
+    patterns:
+      - "*"
+    multi-ecosystem-group: "app-dependencies"
     open-pull-requests-limit: 1
     labels:
-      - "dependencies"
+      - dependencies
 
   - package-ecosystem: "npm"
     directory: "/assets"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
+      interval: weekly
+    patterns:
+      - "*"
+    multi-ecosystem-group: "app-dependencies"
     open-pull-requests-limit: 1
     labels:
-      - "dependencies"
+      - dependencies
