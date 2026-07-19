@@ -4,12 +4,16 @@ multi-ecosystem-groups:
   app-dependencies:
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "09:00"
 
 updates:
   - package-ecosystem: "mix"
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "09:00"
     open-pull-requests-limit: 1
     patterns:
       - "*"
@@ -21,6 +25,8 @@ updates:
     directory: "/assets"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "09:00"
     open-pull-requests-limit: 1
     patterns:
       - "*"
