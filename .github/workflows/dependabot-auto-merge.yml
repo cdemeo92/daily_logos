@@ -1,43 +1,22 @@
 name: Dependabot Auto Merge
 
-on:
-  pull_request_target:
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - ready_for_review
+on: pull_request_target
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  enable-auto-merge:
-    name: Enable Auto Merge for Dependabot PRs
-    if: >-
-      github.event.pull_request.user.login == 'dependabot[bot]' &&
-      github.event.pull_request.draft == false
+  dependabot:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
 
     steps:
-      - name: Enable auto-merge
-        uses: actions/github-script@v9
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const pullRequestNodeId = context.payload.pull_request.node_id;
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v3
 
-            await github.graphql(
-              `mutation($pullRequestId: ID!) {
-                enablePullRequestAutoMerge(input: {
-                  pullRequestId: $pullRequestId,
-                  mergeMethod: SQUASH
-                }) {
-                  clientMutationId
-                }
-              }`,
-              { pullRequestId: pullRequestNodeId }
-            );
-
-            core.info(`Auto-merge enabled for PR #${context.payload.pull_request.number}`);
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --squash "${{ github.event.pull_request.html_url }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
