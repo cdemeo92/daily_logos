@@ -1,3 +1,10 @@
+## [1.17.4](https://github.com/cdemeo92/daily_logos/compare/v1.17.3...v1.17.4) (2026-07-19)
+
+
+### Bug Fixes
+
+* remove specific day and time from Dependabot schedule ([4b64920](https://github.com/cdemeo92/daily_logos/commit/4b64920726346e8d1d8d40eecf3d960ed78687cf))
+
 ## [1.17.3](https://github.com/cdemeo92/daily_logos/compare/v1.17.2...v1.17.3) (2026-07-19)
 
 
