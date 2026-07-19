@@ -1,3 +1,10 @@
+## [1.17.3](https://github.com/cdemeo92/daily_logos/compare/v1.17.2...v1.17.3) (2026-07-19)
+
+
+### Bug Fixes
+
+* simplify Dependabot auto-merge workflow by removing unnecessary steps ([2e83174](https://github.com/cdemeo92/daily_logos/commit/2e83174bc6083de6678b934f523237fabd58dedd))
+
 ## [1.17.2](https://github.com/cdemeo92/daily_logos/compare/v1.17.1...v1.17.2) (2026-07-18)
 
 
