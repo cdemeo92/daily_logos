@@ -85,8 +85,7 @@ defmodule DailyLogosWeb.Components.AdSlot do
         data-ad-slot={@ad_unit_id}
         data-ad-format="auto"
         data-full-width-responsive="true"
-      >
-      </ins>
+      ></ins>
       <script phx-no-curly-interpolation>
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
