@@ -9,6 +9,7 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
   test "sets locale from path when it is a supported non-default locale" do
     conn =
       conn(:get, "/it/about")
+      |> init_test_session(%{})
       |> Map.put(:path_params, %{"locale_prefix" => "it"})
 
     conn = Locale.call(conn, Locale.init([]))
@@ -17,9 +18,10 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
     assert Gettext.get_locale(DailyLogosWeb.Gettext) == "it"
   end
 
-  test "redirects to canonical when path locale is the default locale" do
+  test "redirects to canonical path when path locale is the default locale" do
     conn =
       conn(:get, "/en/about")
+      |> init_test_session(%{})
       |> Map.put(:path_params, %{"locale_prefix" => "en"})
 
     conn = Locale.call(conn, Locale.init([]))
@@ -28,9 +30,10 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
     assert get_resp_header(conn, "location") == ["/about"]
   end
 
-  test "redirects to canonical root when path locale prefix is the only segment" do
+  test "redirects to root when path locale prefix is the only segment" do
     conn =
       conn(:get, "/en")
+      |> init_test_session(%{})
       |> Map.put(:path_params, %{"locale_prefix" => "en"})
 
     conn = Locale.call(conn, Locale.init([]))
@@ -49,6 +52,18 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
 
     assert conn.halted
     assert get_resp_header(conn, "location") == ["/it"]
+  end
+
+  test "default locale prefix still canonicalizes even when session locale differs" do
+    conn =
+      conn(:get, "/en/asdf")
+      |> init_test_session(%{locale: "it"})
+      |> Map.put(:path_params, %{"locale_prefix" => "en"})
+
+    conn = Locale.call(conn, Locale.init([]))
+
+    assert conn.halted
+    assert get_resp_header(conn, "location") == ["/asdf"]
   end
 
   test "preserves query string when redirecting from session locale" do

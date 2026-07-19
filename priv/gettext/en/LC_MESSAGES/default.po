@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:90
-#: lib/daily_logos_web/components/layouts.ex:102
+#: lib/daily_logos_web/components/layouts.ex:100
+#: lib/daily_logos_web/components/layouts.ex:112
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:97
+#: lib/daily_logos_web/components/layouts.ex:107
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:85
+#: lib/daily_logos_web/components/layouts.ex:95
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr ""
@@ -288,7 +288,7 @@ msgstr ""
 msgid "stoic, philosophy, quotes, daily, reflection, wisdom, marcus aurelio, epictetus, seneca, stoicism"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:57
+#: lib/daily_logos_web/components/layouts.ex:59
 #, elixir-autogen, elixir-format
 msgid "Cookie preferences"
 msgstr ""
@@ -358,7 +358,7 @@ msgstr ""
 msgid "Necessary cookies"
 msgstr ""
 
-#: lib/daily_logos_web/components/layouts.ex:60
+#: lib/daily_logos_web/components/layouts.ex:62
 #: lib/daily_logos_web/controllers/page_html/privacy.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "Privacy & Cookie Policy"
@@ -422,4 +422,19 @@ msgstr ""
 #: lib/daily_logos_web/controllers/page_html/privacy.html.heex:48
 #, elixir-autogen, elixir-format
 msgid "used for measurement and loaded only after consent."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/error_html/404.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Back to home"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/error_html/404.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Page Not Found"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/error_html/404.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "The page you requested does not exist."
 msgstr ""

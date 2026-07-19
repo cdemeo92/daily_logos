@@ -3,6 +3,8 @@ defmodule DailyLogosWeb.PageController do
 
   alias DailyLogosWeb.Plugs.SeoMeta
 
+  plug :guard_invalid_locale_prefix
+
   def home(conn, _params) do
     conn
     |> SeoMeta.put_page_meta(%{
@@ -60,4 +62,26 @@ defmodule DailyLogosWeb.PageController do
     })
     |> render(:privacy)
   end
+
+  def not_found(conn, _params) do
+    conn
+    |> put_status(:not_found)
+    |> SeoMeta.put_page_meta(%{
+      title: gettext("Page Not Found") <> " | Daily Logos",
+      description: gettext("The page you requested does not exist."),
+      robots: "noindex,nofollow,noarchive"
+    })
+    |> render(:not_found)
+  end
+
+  defp guard_invalid_locale_prefix(
+         %Plug.Conn{assigns: %{invalid_locale_prefix: true}} = conn,
+         _opts
+       ) do
+    conn
+    |> not_found(%{})
+    |> halt()
+  end
+
+  defp guard_invalid_locale_prefix(conn, _opts), do: conn
 end

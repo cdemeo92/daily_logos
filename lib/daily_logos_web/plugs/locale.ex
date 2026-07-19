@@ -18,20 +18,25 @@ defmodule DailyLogosWeb.Plugs.Locale do
   def init(default), do: default
 
   def call(%{path_params: %{"locale_prefix" => locale}} = conn, _opts)
-      when locale not in @locales,
-      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: DailyLogosWeb.Router)
+      when locale not in @locales do
+    fallback_locale =
+      detect_locale_from_session(conn) || detect_locale_from_header(conn) || @default_locale
 
-  def call(%{path_params: %{"locale_prefix" => locale}} = conn, _opts)
-      when locale in @non_default_locales do
-    set_locale(conn, locale)
+    conn
+    |> set_locale(fallback_locale)
+    |> assign(:invalid_locale_prefix, true)
+  end
+
+  def call(%{path_params: %{"locale_prefix" => @default_locale}} = conn, _opts) do
+    conn
+    |> Phoenix.Controller.redirect(
+      to: canonical_path(conn.request_path, conn.query_string, @default_locale)
+    )
+    |> halt()
   end
 
   def call(%{path_params: %{"locale_prefix" => locale}} = conn, _opts) do
-    canonical = strip_locale_from_path(conn.request_path, locale)
-
-    conn
-    |> Phoenix.Controller.redirect(to: canonical)
-    |> halt()
+    set_locale(conn, detect_locale_from_session(conn) || locale)
   end
 
   def call(conn, _opts) do
@@ -76,16 +81,6 @@ defmodule DailyLogosWeb.Plugs.Locale do
     end
   end
 
-  defp strip_locale_from_path(path, locale) do
-    prefix = "/" <> locale
-
-    cond do
-      path == prefix -> "/"
-      String.starts_with?(path, prefix <> "/") -> String.replace_prefix(path, prefix, "")
-      true -> "/"
-    end
-  end
-
   defp localized_path(path, query_string, locale) do
     base = "/#{locale}#{path}" |> String.trim_trailing("/")
 
@@ -93,6 +88,23 @@ defmodule DailyLogosWeb.Plugs.Locale do
       "" -> base
       nil -> base
       query -> "#{base}?#{query}"
+    end
+  end
+
+  defp canonical_path(path, query_string, locale) do
+    prefix = "/" <> locale
+
+    base =
+      cond do
+        path == prefix -> "/"
+        String.starts_with?(path, prefix <> "/") -> String.replace_prefix(path, prefix, "")
+        true -> path
+      end
+
+    case query_string do
+      "" -> base
+      nil -> base
+      query -> base <> "?" <> query
     end
   end
 

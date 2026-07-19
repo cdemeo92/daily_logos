@@ -40,16 +40,6 @@ defmodule DailyLogosWeb.Router do
     post "/:locale", LocaleController, :set
   end
 
-  scope "/:locale_prefix", DailyLogosWeb do
-    pipe_through :browser
-
-    get "/", PageController, :home
-    get "/about", PageController, :about
-    get "/support", PageController, :support
-    get "/feedback", PageController, :feedback
-    get "/privacy", PageController, :privacy
-  end
-
   scope "/api" do
     pipe_through :api
 
@@ -78,5 +68,23 @@ defmodule DailyLogosWeb.Router do
       live_dashboard "/dashboard", metrics: DailyLogosWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  scope "/:locale_prefix", DailyLogosWeb do
+    pipe_through :browser
+
+    get "/", PageController, :home
+    get "/about", PageController, :about
+    get "/support", PageController, :support
+    get "/feedback", PageController, :feedback
+    get "/privacy", PageController, :privacy
+
+    get "/*path", PageController, :not_found
+  end
+
+  scope "/", DailyLogosWeb do
+    pipe_through :browser
+
+    get "/*path", PageController, :not_found
   end
 end
