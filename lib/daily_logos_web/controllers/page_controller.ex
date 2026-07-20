@@ -24,7 +24,8 @@ defmodule DailyLogosWeb.PageController do
       description:
         gettext(
           "Share feedback, ideas, bug reports, and suggestions to help improve Daily Logos."
-        )
+        ),
+      robots: "noindex,nofollow,noarchive"
     })
     |> render(:feedback)
   end
@@ -58,7 +59,8 @@ defmodule DailyLogosWeb.PageController do
       description:
         gettext(
           "Read how Daily Logos handles personal data, technical cookies, analytics cookies, and consent preferences."
-        )
+        ),
+      robots: "noindex,nofollow,noarchive"
     })
     |> render(:privacy)
   end
