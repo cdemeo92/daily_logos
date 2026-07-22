@@ -1,3 +1,11 @@
+## [1.17.5](https://github.com/cdemeo92/daily_logos/compare/v1.17.4...v1.17.5) (2026-07-22)
+
+
+### Bug Fixes
+
+* add migration to enable row level security for quotes and schema migrations ([9701d78](https://github.com/cdemeo92/daily_logos/commit/9701d78ce65b65a84c50502d2a7d13a1ae98c5f9))
+* enable row level security for schema migrations and adjust permissions for roles ([b79fb33](https://github.com/cdemeo92/daily_logos/commit/b79fb335f8696f0a36b5af3f353d66ab8f12e7f7))
+
 ## [1.17.4](https://github.com/cdemeo92/daily_logos/compare/v1.17.3...v1.17.4) (2026-07-19)
 
 
