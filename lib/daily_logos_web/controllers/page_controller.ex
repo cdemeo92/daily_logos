@@ -35,7 +35,8 @@ defmodule DailyLogosWeb.PageController do
     |> SeoMeta.put_page_meta(%{
       title: gettext("Support Daily Logos"),
       description:
-        gettext("Support Daily Logos and help keep Stoic wisdom freely accessible every day.")
+        gettext("Support Daily Logos and help keep Stoic wisdom freely accessible every day."),
+      robots: "noindex,follow"
     })
     |> render(:support)
   end

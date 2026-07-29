@@ -37,22 +37,4 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/about"/>
     <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it/about"/>
   </url>
-  <url>
-    <loc>https://daily-logos.com/support</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/support"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/support"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it/support"/>
-  </url>
-  <url>
-    <loc>https://daily-logos.com/it/support</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://daily-logos.com/support"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://daily-logos.com/support"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://daily-logos.com/it/support"/>
-  </url>
 </urlset>

@@ -14,6 +14,7 @@ config :daily_logos, DailyLogosWeb.Endpoint,
 config :daily_logos, DailyLogosWeb.Endpoint,
   force_ssl: [
     rewrite_on: [:x_forwarded_proto],
+    host: "daily-logos.com",
     exclude: [
       # paths: ["/health"],
       hosts: ["localhost", "127.0.0.1"]
