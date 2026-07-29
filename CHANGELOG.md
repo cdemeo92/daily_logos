@@ -1,3 +1,5 @@
+## [1.17.6](https://github.com/cdemeo92/daily_logos/compare/v1.17.5...v1.17.6) (2026-07-29)
+
 ## [1.17.5](https://github.com/cdemeo92/daily_logos/compare/v1.17.4...v1.17.5) (2026-07-22)
 
 
