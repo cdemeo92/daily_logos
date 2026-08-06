@@ -20,3 +20,8 @@ jobs:
         run: gh pr merge --auto --merge "${{ github.event.pull_request.html_url }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger CI workflow after merge
+        run: gh workflow run ci.yml --ref main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 env:
   OTP_VERSION: '27.1.2'
@@ -193,7 +194,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     needs: [unit-test, integration-test, lint, build]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     permissions:
       contents: write
       packages: write
@@ -253,7 +254,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     needs: release
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     env:
       RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
 
