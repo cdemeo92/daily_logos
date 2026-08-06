@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/cdemeo92/daily_logos/compare/v1.17.7...v1.18.0) (2026-08-06)
+
+
+### Features
+
+* add per-day quote pages ([69d81d9](https://github.com/cdemeo92/daily_logos/commit/69d81d983817bcf23c7ee7ef6a0bf667735d60ba))
+
 ## [1.17.7](https://github.com/cdemeo92/daily_logos/compare/v1.17.6...v1.17.7) (2026-08-06)
 
 ## [1.17.6](https://github.com/cdemeo92/daily_logos/compare/v1.17.5...v1.17.6) (2026-07-29)
