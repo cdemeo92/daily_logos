@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr "Azioni"
 
-#: lib/daily_logos_web/components/layouts.ex:100
-#: lib/daily_logos_web/components/layouts.ex:112
+#: lib/daily_logos_web/components/layouts.ex:90
+#: lib/daily_logos_web/components/layouts.ex:102
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr "Tentativo di riconnessione in corso"
 
-#: lib/daily_logos_web/components/layouts.ex:107
+#: lib/daily_logos_web/components/layouts.ex:97
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr "Qualcosa è andato storto!"
 
-#: lib/daily_logos_web/components/layouts.ex:95
+#: lib/daily_logos_web/components/layouts.ex:85
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr "Connessione non disponibile"
@@ -38,83 +38,95 @@ msgid "close"
 msgstr "chiudi"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:19
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:9
 #, elixir-autogen, elixir-format
 msgid "April"
 msgstr "Aprile"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:23
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:13
 #, elixir-autogen, elixir-format
 msgid "August"
 msgstr "Agosto"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:27
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "December"
 msgstr "Dicembre"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:17
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "February"
 msgstr "Febbraio"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:16
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "January"
 msgstr "Gennaio"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:22
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "July"
 msgstr "Luglio"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:21
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:11
 #, elixir-autogen, elixir-format
 msgid "June"
 msgstr "Giugno"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:18
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "March"
 msgstr "Marzo"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:20
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:10
 #, elixir-autogen, elixir-format
 msgid "May"
 msgstr "Maggio"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:26
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "November"
 msgstr "Novembre"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:25
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "October"
 msgstr "Ottobre"
 
 #: lib/daily_logos_web/controllers/page_html/home.html.heex:24
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "September"
 msgstr "Settembre"
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:149
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:167
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:148
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:165
 #, elixir-autogen, elixir-format
 msgid "Loading today's quote..."
 msgstr "Caricamento della citazione di oggi..."
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:150
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:149
 #, elixir-autogen, elixir-format
 msgid "No quote available for today."
 msgstr "Nessuna citazione disponibile per oggi."
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:185
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:186
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:183
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:184
 #, elixir-autogen, elixir-format
 msgid "Reload quote"
 msgstr "Ricarica citazione"
 
-#: lib/daily_logos_web/controllers/page_html/home.html.heex:151
+#: lib/daily_logos_web/controllers/page_html/home.html.heex:150
 #, elixir-autogen, elixir-format
 msgid "Unable to load the quote. Please try again shortly."
 msgstr "Impossibile caricare la citazione. Riprova tra poco."
@@ -153,7 +165,7 @@ msgstr "Una citazione al giorno, radicata nella saggezza antica."
 msgid "About"
 msgstr "Info"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:43
+#: lib/daily_logos_web/controllers/page_controller.ex:47
 #: lib/daily_logos_web/controllers/page_html/about.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "About Daily Logos"
@@ -210,7 +222,7 @@ msgstr "Cos'è Daily Logos?"
 msgid "Why Stoicism?"
 msgstr "Perché lo stoicismo?"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:33
+#: lib/daily_logos_web/controllers/page_controller.ex:36
 #: lib/daily_logos_web/controllers/page_html/support.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "Support Daily Logos"
@@ -243,32 +255,32 @@ msgstr "Una citazione stoica al giorno per riflettere, agire meglio e vivere con
 msgid "Daily Logos"
 msgstr "Daily Logos"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:9
+#: lib/daily_logos_web/controllers/page_controller.ex:11
 #, elixir-autogen, elixir-format
 msgid "Daily Stoic Quote of the Day | Daily Logos"
 msgstr "Citazione stoica del giorno | Daily Logos"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:45
+#: lib/daily_logos_web/controllers/page_controller.ex:49
 #, elixir-autogen, elixir-format
 msgid "Learn what Daily Logos is, why Stoicism matters, and how to get the most from one quote per day."
 msgstr "Scopri cos'è Daily Logos, perché lo stoicismo è importante e come ottenere il massimo da una citazione al giorno."
 
-#: lib/daily_logos_web/controllers/page_controller.ex:11
+#: lib/daily_logos_web/controllers/page_controller.ex:13
 #, elixir-autogen, elixir-format
 msgid "Read one Stoic quote every day, aligned with the calendar, and build a consistent reflection habit."
 msgstr "Leggi ogni giorno una citazione stoica, allineata al calendario, e costruisci un'abitudine costante alla riflessione."
 
-#: lib/daily_logos_web/controllers/page_controller.ex:21
+#: lib/daily_logos_web/controllers/page_controller.ex:23
 #, elixir-autogen, elixir-format
 msgid "Send Feedback | Daily Logos"
 msgstr "Invia feedback | Daily Logos"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:23
+#: lib/daily_logos_web/controllers/page_controller.ex:25
 #, elixir-autogen, elixir-format
 msgid "Share feedback, ideas, bug reports, and suggestions to help improve Daily Logos."
 msgstr "Condividi feedback, idee, segnalazioni di bug e suggerimenti per aiutare a migliorare Daily Logos."
 
-#: lib/daily_logos_web/controllers/page_controller.ex:35
+#: lib/daily_logos_web/controllers/page_controller.ex:38
 #, elixir-autogen, elixir-format
 msgid "Support Daily Logos and help keep Stoic wisdom freely accessible every day."
 msgstr "Sostieni Daily Logos e aiuta a mantenere la saggezza stoica liberamente accessibile ogni giorno."
@@ -288,7 +300,7 @@ msgstr "Citazione stoica del giorno"
 msgid "stoic, philosophy, quotes, daily, reflection, wisdom, marcus aurelio, epictetus, seneca, stoicism"
 msgstr "stoico, filosofia, citazioni, quotidiano, riflessione, saggezza, marco aurelio, epitteto, seneca, stoicismo"
 
-#: lib/daily_logos_web/components/layouts.ex:59
+#: lib/daily_logos_web/components/layouts.ex:57
 #, elixir-autogen, elixir-format
 msgid "Cookie preferences"
 msgstr "Preferenze cookie"
@@ -358,18 +370,18 @@ msgstr "Ultimo aggiornamento: luglio 2026"
 msgid "Necessary cookies"
 msgstr "Cookie necessari"
 
-#: lib/daily_logos_web/components/layouts.ex:62
+#: lib/daily_logos_web/components/layouts.ex:60
 #: lib/daily_logos_web/controllers/page_html/privacy.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "Privacy & Cookie Policy"
 msgstr "Privacy e Cookie Policy"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:55
+#: lib/daily_logos_web/controllers/page_controller.ex:59
 #, elixir-autogen, elixir-format
 msgid "Privacy & Cookie Policy | Daily Logos"
 msgstr "Privacy e Cookie Policy | Daily Logos"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:57
+#: lib/daily_logos_web/controllers/page_controller.ex:61
 #, elixir-autogen, elixir-format
 msgid "Read how Daily Logos handles personal data, technical cookies, analytics cookies, and consent preferences."
 msgstr "Scopri come Daily Logos gestisce dati personali, cookie tecnici, cookie analytics e preferenze di consenso."
@@ -424,17 +436,54 @@ msgstr "usati per contenuti incorporati di terze parti (ad esempio Google Forms)
 msgid "used for measurement and loaded only after consent."
 msgstr "usati per misurazione e caricati solo dopo il consenso."
 
-#: lib/daily_logos_web/controllers/error_html/404.html.heex:14
+#: lib/daily_logos_web/controllers/page_html/not_found.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "Back to home"
 msgstr "Torna alla home"
 
-#: lib/daily_logos_web/controllers/error_html/404.html.heex:4
+#: lib/daily_logos_web/controllers/page_controller.ex:117
+#: lib/daily_logos_web/controllers/page_html/not_found.html.heex:5
 #, elixir-autogen, elixir-format
 msgid "Page Not Found"
 msgstr "Pagina non trovata"
 
-#: lib/daily_logos_web/controllers/error_html/404.html.heex:7
+#: lib/daily_logos_web/controllers/page_controller.ex:118
+#: lib/daily_logos_web/controllers/page_html/not_found.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "The page you requested does not exist."
 msgstr "La pagina richiesta non esiste."
+
+#: lib/daily_logos_web/controllers/page_controller.ex:82
+#, elixir-autogen, elixir-format
+msgid "\"%{topic}\" — %{author} | Daily Logos"
+msgstr "\"%{topic}\" — %{author} | Daily Logos"
+
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:82
+#, elixir-autogen, elixir-format
+msgid "Today's quote"
+msgstr "La citazione di oggi"
+
+#: lib/daily_logos_web/controllers/page_controller.ex:85
+#, elixir-autogen, elixir-format
+msgid "stoic quote %{author}, %{topic}, daily stoic, stoicism"
+msgstr "citazione stoica %{author}, %{topic}, stoicismo quotidiano, stoicismo"
+
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:47
+#, elixir-autogen, elixir-format
+msgid "Next"
+msgstr "Successivo"
+
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "Next day"
+msgstr "Giorno successivo"
+
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:34
+#, elixir-autogen, elixir-format
+msgid "Previous"
+msgstr "Precedente"
+
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Previous day"
+msgstr "Giorno precedente"

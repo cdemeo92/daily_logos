@@ -78,13 +78,13 @@ defmodule DailyLogosWeb.Router do
     get "/support", PageController, :support
     get "/feedback", PageController, :feedback
     get "/privacy", PageController, :privacy
-
-    get "/*path", PageController, :not_found
+    get "/:month/:day", PageController, :show
   end
 
   scope "/", DailyLogosWeb do
     pipe_through :browser
 
+    get "/:month/:day", PageController, :show
     get "/*path", PageController, :not_found
   end
 end

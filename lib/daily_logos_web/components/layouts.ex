@@ -106,7 +106,7 @@ defmodule DailyLogosWeb.Layouts do
     """
   end
 
-  def build_structured_data(title, description, canonical, image) do
+  def build_structured_data(title, description, canonical, image, extra_nodes \\ []) do
     site_url = DailyLogosWeb.Endpoint.url()
 
     %{
@@ -170,6 +170,7 @@ defmodule DailyLogosWeb.Layouts do
             }
           ]
         }
+        | extra_nodes
       ]
     }
   end

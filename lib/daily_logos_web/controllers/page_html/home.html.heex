@@ -26,12 +26,12 @@
         gettext("November"),
         gettext("December")
       ] %>
-      <time
+      <a
         id="date-display"
         phx-hook=".DateDisplay"
         data-months={Jason.encode!(months)}
-        class="text-base font-semibold text-amber-600 dark:text-amber-400"
-      ></time>
+        class="text-base font-semibold text-amber-600 dark:text-amber-400 hover:underline"
+      ></a>
       <script :type={Phoenix.LiveView.ColocatedHook} name=".DateDisplay">
         export default {
           mounted() {
@@ -40,7 +40,7 @@
             const month = months[today.getMonth()];
             const day = today.getDate();
             this.el.textContent = `${month} ${day}`;
-            this.el.dateTime = today.toISOString().split('T')[0];
+            this.el.href = `/${today.getMonth() + 1}/${day}`;
           }
         }
       </script>

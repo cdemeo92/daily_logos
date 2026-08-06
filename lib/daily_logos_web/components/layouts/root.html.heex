@@ -57,7 +57,7 @@
 
     <%!-- Structured Data --%>
     <script type="application/ld+json">
-      <%= raw(Jason.encode!(build_structured_data(@page_title, @page_description, @seo_meta.canonical, @page_image))) %>
+      <%= raw(Jason.encode!(build_structured_data(@page_title, @page_description, @seo_meta.canonical, @page_image, Map.get(assigns, :extra_ld_nodes, [])))) %>
     </script>
 
     <%!-- Favicon & Icons --%>

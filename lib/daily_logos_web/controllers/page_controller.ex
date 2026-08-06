@@ -66,6 +66,50 @@ defmodule DailyLogosWeb.PageController do
     |> render(:privacy)
   end
 
+  def show(conn, %{"month" => month_str, "day" => day_str}) do
+    with {month, ""} <- Integer.parse(month_str),
+         {day, ""} <- Integer.parse(day_str),
+         true <- month in 1..12 and day in 1..31,
+         quote when not is_nil(quote) <- DailyLogos.Quotes.get_quote_by_day_month(day, month) do
+      locale = Gettext.get_locale(DailyLogosWeb.Gettext)
+
+      text = Map.get(quote, :"text_#{locale}") || quote.text_en || ""
+      topic = Map.get(quote, :"topic_#{locale}") || quote.topic_en || ""
+
+      conn
+      |> SeoMeta.put_page_meta(%{
+        title:
+          gettext("\"%{topic}\" — %{author} | Daily Logos", topic: topic, author: quote.author),
+        description: String.slice(text, 0, 160),
+        keywords:
+          gettext(
+            "stoic quote %{author}, %{topic}, daily stoic, stoicism",
+            author: quote.author,
+            topic: topic
+          )
+      })
+      |> assign(:extra_ld_nodes, [
+        %{
+          "@type" => "Quotation",
+          "@id" => conn.assigns.seo_meta.canonical <> "#quotation",
+          "text" => text,
+          "spokenByCharacter" => %{"@type" => "Person", "name" => quote.author},
+          "isPartOf" => %{"@id" => conn.assigns.seo_meta.canonical <> "#webpage"}
+        }
+      ])
+      |> render(:show,
+        month: month,
+        day: day,
+        quote_text: text,
+        quote_topic: topic,
+        quote_author: quote.author,
+        quote_source: quote.source
+      )
+    else
+      _ -> conn |> not_found(%{}) |> halt()
+    end
+  end
+
   def not_found(conn, _params) do
     conn
     |> put_status(:not_found)
