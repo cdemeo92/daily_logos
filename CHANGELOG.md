@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/cdemeo92/daily_logos/compare/v1.18.0...v1.18.1) (2026-08-11)
+
+
+### Bug Fixes
+
+* update privacy link to absolute path and enhance SEO metadata with canonical URL ([fe6c44c](https://github.com/cdemeo92/daily_logos/commit/fe6c44cee980c15cf45f66d2f2d4d030a0498831))
+
 # [1.18.0](https://github.com/cdemeo92/daily_logos/compare/v1.17.7...v1.18.0) (2026-08-06)
 
 
