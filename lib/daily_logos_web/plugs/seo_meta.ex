@@ -28,7 +28,7 @@ defmodule DailyLogosWeb.Plugs.SeoMeta do
         image_alt: gettext("Daily Logos"),
         og_locale: og_locale(locale),
         endpoint_url: endpoint_url,
-        canonical: current_url(conn),
+        canonical: endpoint_url <> canonical_path(conn),
         alternates: build_alternates(conn, endpoint_url),
         keywords:
           gettext(
@@ -89,16 +89,6 @@ defmodule DailyLogosWeb.Plugs.SeoMeta do
       end
     end)
   end
-
-  defp current_url(conn) do
-    DailyLogosWeb.Endpoint.url() <> request_path_with_query(conn)
-  end
-
-  defp request_path_with_query(%Plug.Conn{query_string: "", request_path: request_path}),
-    do: request_path
-
-  defp request_path_with_query(%Plug.Conn{query_string: query_string, request_path: request_path}),
-    do: request_path <> "?" <> query_string
 
   defp og_locale("it"), do: "it_IT"
   defp og_locale(_), do: "en_US"

@@ -19,8 +19,12 @@ defmodule DailyLogosWeb.Router do
     plug DailyLogosWeb.Plugs.SecurityHeaders
   end
 
+  defp put_robots_noindex(conn, _opts),
+    do: Plug.Conn.put_resp_header(conn, "x-robots-tag", "noindex, nofollow")
+
   pipeline :api do
     plug :accepts, ["json"]
+    plug :put_robots_noindex
     plug OpenApiSpex.Plug.PutApiSpec, module: DailyLogosWeb.ApiSpec
   end
 

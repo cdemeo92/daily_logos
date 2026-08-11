@@ -35,7 +35,7 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
              end)
 
     assert meta.site_name == "Daily Logos"
-    assert meta.canonical == DailyLogosWeb.Endpoint.url() <> "/about?ref=menu"
+    assert meta.canonical == DailyLogosWeb.Endpoint.url() <> "/about"
     assert meta.image == DailyLogosWeb.Endpoint.url() <> "/images/logo.svg"
     assert meta.image_alt == "Daily Logos"
     assert meta.og_locale == "it_IT"

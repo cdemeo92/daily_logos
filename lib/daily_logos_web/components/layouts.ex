@@ -56,7 +56,7 @@ defmodule DailyLogosWeb.Layouts do
                 >
                   {gettext("Cookie preferences")}
                 </button>
-                <a href="./privacy" class="hover:text-base-content transition-colors">
+                <a href="/privacy" class="hover:text-base-content transition-colors">
                   {gettext("Privacy & Cookie Policy")}
                 </a>
               </div>
