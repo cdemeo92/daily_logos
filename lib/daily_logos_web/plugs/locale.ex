@@ -39,6 +39,18 @@ defmodule DailyLogosWeb.Plugs.Locale do
     set_locale(conn, detect_locale_from_session(conn) || locale)
   end
 
+  def call(%{path_info: [locale | _]} = conn, _opts) when locale in @non_default_locales do
+    set_locale(conn, detect_locale_from_session(conn) || locale)
+  end
+
+  def call(%{path_info: [@default_locale | _]} = conn, _opts) do
+    conn
+    |> Phoenix.Controller.redirect(
+      to: canonical_path(conn.request_path, conn.query_string, @default_locale)
+    )
+    |> halt()
+  end
+
   def call(conn, _opts) do
     handle_locale(conn, detect_locale_from_session(conn))
   end

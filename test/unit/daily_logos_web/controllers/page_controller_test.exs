@@ -2,6 +2,7 @@ defmodule DailyLogosWeb.PageControllerTest do
   use ExUnit.Case, async: false
 
   import Phoenix.ConnTest
+  import Plug.Conn
 
   @endpoint DailyLogosWeb.Endpoint
 
@@ -98,5 +99,15 @@ defmodule DailyLogosWeb.PageControllerTest do
   test "GET /it/not-exist returns not-found", %{conn: conn} do
     conn = get(conn, "/it/not-exist")
     assert conn.status == 404
+  end
+
+  test "GET unknown localized path with Italian session returns not-found", %{conn: conn} do
+    conn =
+      conn
+      |> init_test_session(%{locale: "it"})
+      |> get("/it/9/15/asdf")
+
+    assert conn.status == 404
+    assert get_resp_header(conn, "location") == []
   end
 end
