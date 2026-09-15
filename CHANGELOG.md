@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/cdemeo92/daily_logos/compare/v1.18.1...v1.18.2) (2026-09-15)
+
+
+### Bug Fixes
+
+* enhance locale handling with new path_info support and add test for unknown localized paths ([9324950](https://github.com/cdemeo92/daily_logos/commit/93249507420c3681603e852d1c35998060ff7506))
+
 ## [1.18.1](https://github.com/cdemeo92/daily_logos/compare/v1.18.0...v1.18.1) (2026-08-11)
 
 
