@@ -175,8 +175,8 @@ Goal: verify most business logic quickly and deterministically.
 Example locations:
 
 ```
-test/daily_logos/quotes/...
-test/daily_logos/..._test.exs
+test/unit/daily_logos/...
+test/unit/daily_logos_web/...
 ```
 
 ### 2. Integration Tests (middle layer)
@@ -190,8 +190,8 @@ Goal: verify components working together and confirm the application can build/r
 Example locations:
 
 ```
-test/daily_logos/quotes_test.exs
-test/daily_logos/..._integration_test.exs
+test/integration/daily_logos/...
+test/integration/daily_logos_web/...
 ```
 
 ### 3. End-to-End Tests (smallest layer)
