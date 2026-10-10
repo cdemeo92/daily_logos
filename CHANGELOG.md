@@ -1,3 +1,10 @@
+## [1.18.4](https://github.com/cdemeo92/daily_logos/compare/v1.18.3...v1.18.4) (2026-10-10)
+
+
+### Bug Fixes
+
+* update test directory structure for unit and integration tests ([8d91395](https://github.com/cdemeo92/daily_logos/commit/8d913953011669e712bf2ded564ab8c15011f0fd))
+
 ## [1.18.3](https://github.com/cdemeo92/daily_logos/compare/v1.18.2...v1.18.3) (2026-10-10)
 
 ## [1.18.2](https://github.com/cdemeo92/daily_logos/compare/v1.18.1...v1.18.2) (2026-09-15)
