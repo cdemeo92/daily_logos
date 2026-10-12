@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/cdemeo92/daily_logos/compare/v1.18.4...v1.19.0) (2026-10-12)
+
+
+### Features
+
+* add user management ([f8e3373](https://github.com/cdemeo92/daily_logos/commit/f8e3373d85fcdb9c8747cd1f08ff6316fca1a888))
+
 ## [1.18.4](https://github.com/cdemeo92/daily_logos/compare/v1.18.3...v1.18.4) (2026-10-10)
 
 
