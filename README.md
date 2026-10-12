@@ -161,13 +161,12 @@ For a detailed explanation of the architectural approach, see [docs/ARCHITECTURE
 ## Documentation
 
 - **[Architecture Overview](docs/ARCHITECTURE.md)** - System design, layers, and principles
-- **[Roadmap](docs/ROADMAP.md)** - Project phases and feature planning
 
 ## Contributing
 
 This project prioritizes code clarity, maintainability, and adherence to Elixir/Phoenix best practices. Before submitting changes, ensure:
 
-1. All tests pass: `mix test`
+1. All tests pass: `mix test.all`
 2. Code quality checks pass: `mix precommit`
 
 ---
@@ -175,11 +174,3 @@ This project prioritizes code clarity, maintainability, and adherence to Elixir/
 **Built with Elixir & Phoenix** | Stoic Wisdom for Every Day
 
 If you later run Phoenix inside Docker as well, change the host in `DATABASE_URL` from `localhost` to the Compose service name (`db`).
-
-## Learn more
-
-- Official website: https://www.phoenixframework.org/
-- Guides: https://hexdocs.pm/phoenix/overview.html
-- Docs: https://hexdocs.pm/phoenix
-- Forum: https://elixirforum.com/c/phoenix-forum
-- Source: https://github.com/phoenixframework/phoenix
