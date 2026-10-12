@@ -1,3 +1,10 @@
+# [1.21.0](https://github.com/cdemeo92/daily_logos/compare/v1.20.0...v1.21.0) (2026-10-12)
+
+
+### Features
+
+* remove support page ([b32ebfc](https://github.com/cdemeo92/daily_logos/commit/b32ebfc29bfb487a202f8d8a96a405d05a8785a7))
+
 # [1.20.0](https://github.com/cdemeo92/daily_logos/compare/v1.19.0...v1.20.0) (2026-10-12)
 
 
