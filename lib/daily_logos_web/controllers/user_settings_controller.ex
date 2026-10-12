@@ -3,6 +3,7 @@ defmodule DailyLogosWeb.UserSettingsController do
 
   alias DailyLogos.Accounts
   alias DailyLogosWeb.Plugs.InvalidLocalePrefix
+  alias DailyLogosWeb.Plugs.SeoMeta
   alias DailyLogosWeb.UserAuth
 
   import DailyLogosWeb.UserAuth, only: [require_sudo_mode: 2]
@@ -12,7 +13,9 @@ defmodule DailyLogosWeb.UserSettingsController do
   plug :assign_email_and_password_changesets
 
   def edit(conn, _params) do
-    render(conn, :edit)
+    conn
+    |> SeoMeta.put_page_meta(%{robots: "noindex,follow"})
+    |> render(:edit)
   end
 
   def update(conn, %{"action" => "update_email"} = params) do
@@ -35,7 +38,9 @@ defmodule DailyLogosWeb.UserSettingsController do
         |> redirect(to: ~p"/users/settings")
 
       changeset ->
-        render(conn, :edit, email_changeset: %{changeset | action: :insert})
+        conn
+        |> SeoMeta.put_page_meta(%{robots: "noindex,follow"})
+        |> render(:edit, email_changeset: %{changeset | action: :insert})
     end
   end
 
@@ -51,7 +56,9 @@ defmodule DailyLogosWeb.UserSettingsController do
         |> UserAuth.log_in_user(user)
 
       {:error, changeset} ->
-        render(conn, :edit, password_changeset: changeset)
+        conn
+        |> SeoMeta.put_page_meta(%{robots: "noindex,follow"})
+        |> render(:edit, password_changeset: changeset)
     end
   end
 

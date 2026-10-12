@@ -3,6 +3,7 @@ defmodule DailyLogosWeb.UserSessionController do
 
   alias DailyLogos.Accounts
   alias DailyLogosWeb.Plugs.InvalidLocalePrefix
+  alias DailyLogosWeb.Plugs.SeoMeta
   alias DailyLogosWeb.UserAuth
 
   plug InvalidLocalePrefix when action in [:new, :confirm]
@@ -76,6 +77,7 @@ defmodule DailyLogosWeb.UserSessionController do
       form = Phoenix.Component.to_form(%{"token" => token}, as: "user")
 
       conn
+      |> SeoMeta.put_page_meta(%{robots: "noindex,nofollow,noarchive"})
       |> assign(:user, user)
       |> assign(:form, form)
       |> render(:confirm)

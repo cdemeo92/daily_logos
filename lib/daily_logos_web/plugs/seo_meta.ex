@@ -50,8 +50,8 @@ defmodule DailyLogosWeb.Plugs.SeoMeta do
     seo_meta = conn.assigns[:seo_meta]
 
     conn
-    |> assign(:page_title, page_meta.title)
-    |> assign(:page_description, page_meta.description)
+    |> assign(:page_title, page_meta[:title] || conn.assigns.page_title)
+    |> assign(:page_description, page_meta[:description] || conn.assigns.page_description)
     |> assign(:page_robots, page_meta[:robots] || "index,follow")
     |> assign(:page_image, page_meta[:image] || seo_meta.image)
     |> assign(:keywords, page_meta[:keywords] || seo_meta.keywords)

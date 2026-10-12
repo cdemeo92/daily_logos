@@ -10,6 +10,7 @@ defmodule DailyLogosWeb.AuthDisplayLocaleRoutesTest do
       conn = get(conn, "/it/users/log-in")
 
       assert html_response(conn, 200) =~ "Accedi"
+      assert html_response(conn, 200) =~ ~s(name="robots" content="index,follow")
       assert conn.assigns.locale == "it"
     end
 
@@ -24,6 +25,7 @@ defmodule DailyLogosWeb.AuthDisplayLocaleRoutesTest do
       conn = get(conn, "/it/users/log-in/#{token}")
 
       assert html_response(conn, 200) =~ "Conferma e resta connesso"
+      assert html_response(conn, 200) =~ ~s(name="robots" content="noindex,nofollow,noarchive")
       assert conn.assigns.locale == "it"
     end
 
@@ -31,6 +33,7 @@ defmodule DailyLogosWeb.AuthDisplayLocaleRoutesTest do
       conn = get(conn, "/it/users/register")
 
       assert html_response(conn, 200) =~ "Crea un account"
+      assert html_response(conn, 200) =~ ~s(name="robots" content="index,follow")
       assert conn.assigns.locale == "it"
     end
 
@@ -39,6 +42,7 @@ defmodule DailyLogosWeb.AuthDisplayLocaleRoutesTest do
       conn = conn |> log_in_user(user) |> get("/it/users/settings")
 
       assert html_response(conn, 200) =~ "Impostazioni account"
+      assert html_response(conn, 200) =~ ~s(name="robots" content="noindex,follow")
       assert conn.assigns.locale == "it"
     end
   end

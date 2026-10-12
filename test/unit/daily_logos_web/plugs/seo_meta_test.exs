@@ -102,4 +102,18 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
 
     assert conn.assigns.keywords == default_keywords
   end
+
+  test "allows overriding robots while preserving default title and description" do
+    conn =
+      build_conn()
+      |> Map.put(:request_path, "/users/log-in")
+      |> Plug.Conn.assign(:locale, "en")
+      |> SeoMeta.call(SeoMeta.init([]))
+
+    conn = SeoMeta.put_page_meta(conn, %{robots: "noindex,follow"})
+
+    assert conn.assigns.page_robots == "noindex,follow"
+    assert conn.assigns.page_title == conn.assigns.seo_meta.title
+    assert conn.assigns.page_description == conn.assigns.seo_meta.description
+  end
 end
