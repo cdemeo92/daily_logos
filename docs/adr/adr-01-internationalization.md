@@ -62,8 +62,8 @@ Supported locales: `en` (default), `it`.
 
 ### URL structure
 
-- English (default): `/`, `/about`, `/support`, `/feedback`
-- Italian: `/it`, `/it/about`, `/it/support`, `/it/feedback`
+- English (default): `/`, `/about`, `/feedback`
+- Italian: `/it`, `/it/about`, `/it/feedback`
 - Redundant default prefix (e.g. `/en/about`): 302 redirect to `/about`, preserving the query string
 - Unsupported prefix on a localized route (e.g. `/fr/about`): 404, not a locale redirect
 - Web actions and JSON API endpoints keep canonical URLs without a locale prefix

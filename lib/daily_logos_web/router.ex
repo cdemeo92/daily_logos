@@ -46,7 +46,6 @@ defmodule DailyLogosWeb.Router do
     get "/", PageController, :home
     get "/feedback", PageController, :feedback
     get "/about", PageController, :about
-    get "/support", PageController, :support
     get "/privacy", PageController, :privacy
 
     get "/users/log-in", UserSessionController, :new
@@ -133,7 +132,6 @@ defmodule DailyLogosWeb.Router do
 
     get "/", PageController, :home
     get "/about", PageController, :about
-    get "/support", PageController, :support
     get "/feedback", PageController, :feedback
     get "/privacy", PageController, :privacy
 

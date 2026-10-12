@@ -104,7 +104,8 @@
     </script>
   </head>
   <body>
-    <ul class="menu menu-horizontal w-full relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
+    <%!-- TODO: Remove this authentication navigation list. --%>
+    <ul class="menu menu-horizontal w-full absolute top-0 right-0 z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
       <%= if @current_scope do %>
         <li>
           {@current_scope.user.email}

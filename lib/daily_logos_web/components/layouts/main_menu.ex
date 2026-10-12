@@ -67,12 +67,6 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
             {gettext("Send feedback")}
           </a>
           <a
-            href="/support"
-            class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
-          >
-            {gettext("Support")}
-          </a>
-          <a
             href="/about"
             class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
           >

@@ -18,6 +18,8 @@ defmodule DailyLogosWeb.Layouts do
   slot :inner_block, required: true
 
   def app(assigns) do
+    assigns = assign(assigns, :buy_me_coffee_url, buy_me_coffee_url())
+
     ~H"""
     <div class="h-screen overflow-hidden">
       <.app_header />
@@ -46,7 +48,7 @@ defmodule DailyLogosWeb.Layouts do
                 GitHub
               </a>
             </div>
-            <div>
+            <div class="flex items-start justify-between gap-3">
               <div class="flex flex-col items-start gap-1 text-sm text-base-content/70">
                 <span>© Daily Logos</span>
                 <button
@@ -60,6 +62,15 @@ defmodule DailyLogosWeb.Layouts do
                   {gettext("Privacy & Cookie Policy")}
                 </a>
               </div>
+              <%= if @buy_me_coffee_url do %>
+                <a href={@buy_me_coffee_url} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+                    alt="Buy Me a Coffee"
+                    style="height: 40px;width: 140px;"
+                  />
+                </a>
+              <% end %>
             </div>
           </div>
         </footer>
@@ -68,6 +79,13 @@ defmodule DailyLogosWeb.Layouts do
       <.flash_group flash={@flash} />
     </div>
     """
+  end
+
+  defp buy_me_coffee_url do
+    case Application.get_env(:daily_logos, :buy_me_coffee_url) do
+      url when is_binary(url) and url != "" -> url
+      _ -> nil
+    end
   end
 
   attr :flash, :map, required: true, doc: "the map of flash messages"

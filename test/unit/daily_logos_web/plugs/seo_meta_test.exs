@@ -53,18 +53,18 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
   test "applies page overrides to page assigns" do
     conn =
       build_conn()
-      |> Map.put(:request_path, "/support")
+      |> Map.put(:request_path, "/about")
       |> Plug.Conn.assign(:locale, "en")
       |> SeoMeta.call(SeoMeta.init([]))
 
     conn =
       SeoMeta.put_page_meta(conn, %{
-        title: "Support Daily Logos",
-        description: "Support page",
+        title: "Custom Page Title",
+        description: "Custom page description",
         robots: "noindex,nofollow",
-        canonical: "/support",
+        canonical: "/about",
         image: "/images/logo_white.svg",
-        keywords: "stoic, support, daily logos"
+        keywords: "custom, page"
       })
 
     meta = conn.assigns.seo_meta
@@ -74,15 +74,15 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
     assert meta.description ==
              "A daily Stoic quote to reflect, act better, and live with intention."
 
-    assert meta.canonical == DailyLogosWeb.Endpoint.url() <> "/support"
+    assert meta.canonical == DailyLogosWeb.Endpoint.url() <> "/about"
     assert meta.image == DailyLogosWeb.Endpoint.url() <> "/images/logo.svg"
     assert meta.og_locale == "en_US"
 
-    assert conn.assigns.page_title == "Support Daily Logos"
-    assert conn.assigns.page_description == "Support page"
+    assert conn.assigns.page_title == "Custom Page Title"
+    assert conn.assigns.page_description == "Custom page description"
     assert conn.assigns.page_robots == "noindex,nofollow"
     assert conn.assigns.page_image == "/images/logo_white.svg"
-    assert conn.assigns.keywords == "stoic, support, daily logos"
+    assert conn.assigns.keywords == "custom, page"
   end
 
   test "uses default keywords when page override does not provide them" do

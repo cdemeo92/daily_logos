@@ -40,14 +40,6 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
             </li>
             <li>
               <a
-                href="/support"
-                class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
-              >
-                {gettext("Support")}
-              </a>
-            </li>
-            <li>
-              <a
                 href="/about"
                 class="block text-base-content/70 hover:text-base-content transition-colors py-3 px-2"
               >

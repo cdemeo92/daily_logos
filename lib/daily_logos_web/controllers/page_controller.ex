@@ -30,17 +30,6 @@ defmodule DailyLogosWeb.PageController do
     |> render(:feedback)
   end
 
-  def support(conn, _params) do
-    conn
-    |> SeoMeta.put_page_meta(%{
-      title: gettext("Support Daily Logos"),
-      description:
-        gettext("Support Daily Logos and help keep Stoic wisdom freely accessible every day."),
-      robots: "noindex,follow"
-    })
-    |> render(:support)
-  end
-
   def about(conn, _params) do
     conn
     |> SeoMeta.put_page_meta(%{

@@ -43,23 +43,23 @@ defmodule DailyLogosWeb.Plugs.LocaleRedirectTest do
   end
 
   test "redirects canonical paths to the assigned non-default locale" do
-    conn = conn(:get, "/support") |> assign(:locale, "it")
+    conn = conn(:get, "/about") |> assign(:locale, "it")
 
     conn = LocaleRedirect.call(conn, LocaleRedirect.init([]))
 
     assert conn.halted
-    assert get_resp_header(conn, "location") == ["/it/support"]
+    assert get_resp_header(conn, "location") == ["/it/about"]
   end
 
   test "preserves the query string when redirecting" do
     conn =
-      conn(:get, "/support?utm_source=test")
+      conn(:get, "/about?utm_source=test")
       |> assign(:locale, "it")
 
     conn = LocaleRedirect.call(conn, LocaleRedirect.init([]))
 
     assert conn.halted
-    assert get_resp_header(conn, "location") == ["/it/support?utm_source=test"]
+    assert get_resp_header(conn, "location") == ["/it/about?utm_source=test"]
   end
 
   test "does not redirect a supported non-default locale path" do

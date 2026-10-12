@@ -8,6 +8,14 @@ Daily Logos is a SaaS platform that delivers carefully curated Stoic philosophy 
 
 Users receive a daily quote aligned with their day of the year, creating a complete cycle of Stoic wisdom across all 365 days.
 
+## Support Daily Logos
+
+If you like Daily Logos, consider supporting its development.
+
+<a href="https://www.buymeacoffee.com/dailylogos" target="_blank" rel="noopener noreferrer">
+   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="140" height="40" alt="Buy Me a Coffee" />
+</a>
+
 ## Tech Stack
 
 - **Framework**: Phoenix 1.8

@@ -41,16 +41,6 @@ defmodule DailyLogosWeb.PageControllerTest do
     assert html_response(conn, 200) =~ "about-title"
   end
 
-  test "GET /support renders page", %{conn: conn} do
-    conn = get(conn, "/support")
-    assert html_response(conn, 200) =~ "Daily Logos"
-  end
-
-  test "GET /support shows placeholder when buy-me-coffe url not configured", %{conn: conn} do
-    conn = get(conn, "/support")
-    assert html_response(conn, 200) =~ "buy-me-coffee-placeholder"
-  end
-
   test "GET /privacy renders page", %{conn: conn} do
     conn = get(conn, "/privacy")
     assert html_response(conn, 200) =~ "privacy-title"
@@ -64,11 +54,6 @@ defmodule DailyLogosWeb.PageControllerTest do
   test "GET /it/about renders Italian about page", %{conn: conn} do
     conn = get(conn, "/it/about")
     assert html_response(conn, 200) =~ "about-title"
-  end
-
-  test "GET /it/support renders Italian support page", %{conn: conn} do
-    conn = get(conn, "/it/support")
-    assert html_response(conn, 200) =~ "Daily Logos"
   end
 
   test "GET /it/feedback renders Italian feedback page", %{conn: conn} do
