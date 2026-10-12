@@ -1,15 +1,22 @@
 defmodule DailyLogosWeb.Router do
   use DailyLogosWeb, :router
 
+  import DailyLogosWeb.UserAuth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug DailyLogosWeb.Plugs.Locale
-    plug DailyLogosWeb.Plugs.SeoMeta
+    plug :fetch_current_scope_for_user
+    plug DailyLogosWeb.Plugs.SetLocale
+    # plug DailyLogosWeb.Plugs.SeoMeta
     plug :fetch_live_flash
-    plug :put_root_layout, html: {DailyLogosWeb.Layouts, :root}
+    # plug :put_root_layout, html: {DailyLogosWeb.Layouts, :root}
     plug :protect_from_forgery
     plug DailyLogosWeb.Plugs.SecurityHeaders
+  end
+
+  pipeline :locale_redirect do
+    plug DailyLogosWeb.Plugs.LocaleRedirect
   end
 
   pipeline :locale_set do
@@ -17,6 +24,11 @@ defmodule DailyLogosWeb.Router do
     plug :fetch_session
     plug :protect_from_forgery
     plug DailyLogosWeb.Plugs.SecurityHeaders
+  end
+
+  pipeline :seo do
+    plug DailyLogosWeb.Plugs.SeoMeta
+    plug :put_root_layout, html: {DailyLogosWeb.Layouts, :root}
   end
 
   defp put_robots_noindex(conn, _opts),
@@ -29,13 +41,55 @@ defmodule DailyLogosWeb.Router do
   end
 
   scope "/", DailyLogosWeb do
-    pipe_through :browser
+    pipe_through [:browser, :locale_redirect, :seo]
 
     get "/", PageController, :home
     get "/feedback", PageController, :feedback
     get "/about", PageController, :about
     get "/support", PageController, :support
     get "/privacy", PageController, :privacy
+
+    get "/users/log-in", UserSessionController, :new
+    get "/users/log-in/:token", UserSessionController, :confirm
+  end
+
+  ## Authentication routes
+
+  scope "/", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo, :redirect_if_user_is_authenticated]
+
+    get "/users/register", UserRegistrationController, :new
+  end
+
+  scope "/", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo, :redirect_if_user_is_authenticated]
+
+    post "/users/register", UserRegistrationController, :create
+  end
+
+  scope "/", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo, :require_authenticated_user]
+
+    get "/users/settings", UserSettingsController, :edit
+  end
+
+  scope "/", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo, :require_authenticated_user]
+
+    put "/users/settings", UserSettingsController, :update
+  end
+
+  scope "/", DailyLogosWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    get "/users/settings/confirm-email/:token", UserSettingsController, :confirm_email
+  end
+
+  scope "/", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo]
+
+    post "/users/log-in", UserSessionController, :create
+    delete "/users/log-out", UserSessionController, :delete
   end
 
   scope "/locale", DailyLogosWeb do
@@ -67,7 +121,7 @@ defmodule DailyLogosWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
-      pipe_through :browser
+      pipe_through [:browser]
 
       live_dashboard "/dashboard", metrics: DailyLogosWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
@@ -75,18 +129,38 @@ defmodule DailyLogosWeb.Router do
   end
 
   scope "/:locale_prefix", DailyLogosWeb do
-    pipe_through :browser
+    pipe_through [:browser, :locale_redirect, :seo]
 
     get "/", PageController, :home
     get "/about", PageController, :about
     get "/support", PageController, :support
     get "/feedback", PageController, :feedback
     get "/privacy", PageController, :privacy
+
+    get "/users/log-in", UserSessionController, :new
+    get "/users/log-in/:token", UserSessionController, :confirm
+  end
+
+  scope "/:locale_prefix", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo, :redirect_if_user_is_authenticated]
+
+    get "/users/register", UserRegistrationController, :new
+  end
+
+  scope "/:locale_prefix", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo, :require_authenticated_user]
+
+    get "/users/settings", UserSettingsController, :edit
+  end
+
+  scope "/:locale_prefix", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo]
+
     get "/:month/:day", PageController, :show
   end
 
   scope "/", DailyLogosWeb do
-    pipe_through :browser
+    pipe_through [:browser, :locale_redirect, :seo]
 
     get "/:month/:day", PageController, :show
     get "/*path", PageController, :not_found

@@ -1,0 +1,67 @@
+<Layouts.app flash={@flash} current_scope={@current_scope}>
+  <div class="flex min-h-[60vh] flex-col items-center justify-start py-12">
+    <section class="w-full max-w-2xl space-y-6">
+      <header class="space-y-2 text-center">
+        <h1 class="text-2xl font-semibold tracking-tight">{gettext("Account Settings")}</h1>
+        <p class="text-sm text-base-content/60">
+          {gettext("Manage your account email address and password settings")}
+        </p>
+      </header>
+
+      <.form
+        :let={f}
+        for={@email_changeset}
+        action={~p"/users/settings"}
+        id="update_email"
+        class="mx-auto max-w-sm"
+      >
+        <input type="hidden" name="action" value="update_email" />
+
+        <.input
+          field={f[:email]}
+          type="email"
+          label={gettext("Email")}
+          autocomplete="username"
+          spellcheck="false"
+          required
+        />
+
+        <.button variant="primary" phx-disable-with={gettext("Changing...")}>{gettext(
+          "Change Email"
+        )}</.button>
+      </.form>
+
+      <div class="divider" />
+
+      <.form
+        :let={f}
+        for={@password_changeset}
+        action={~p"/users/settings"}
+        id="update_password"
+        class="mx-auto max-w-sm"
+      >
+        <input type="hidden" name="action" value="update_password" />
+
+        <.input
+          field={f[:password]}
+          type="password"
+          label={gettext("New password")}
+          autocomplete="new-password"
+          spellcheck="false"
+          required
+        />
+        <.input
+          field={f[:password_confirmation]}
+          type="password"
+          label={gettext("Confirm new password")}
+          autocomplete="new-password"
+          spellcheck="false"
+          required
+        />
+        <.button variant="primary" phx-disable-with={gettext("Changing...")}>
+          {gettext("Save Password")}
+        </.button>
+      </.form>
+    </section>
+  </div>
+</Layouts.app>

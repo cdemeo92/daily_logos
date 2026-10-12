@@ -1,0 +1,73 @@
+<Layouts.app flash={@flash} current_scope={@current_scope}>
+  <div class="flex min-h-[60vh] flex-col items-center justify-start py-12">
+    <section class="w-full max-w-sm space-y-6">
+      <header class="space-y-2 text-center">
+        <h1 class="text-2xl font-semibold tracking-tight">{gettext("Log in")}</h1>
+        <p class="text-sm text-base-content/60">
+          <%= if @current_scope do %>
+            {gettext("You need to reauthenticate to perform sensitive actions on your account.")}
+          <% else %>
+            {gettext("Don't have an account?")} <.link
+              navigate={~p"/users/register"}
+              class="font-semibold text-base-content/70 transition-colors hover:text-base-content hover:underline"
+              phx-no-format
+            >{gettext("Sign up")}</.link> {gettext("for an account now.")}
+          <% end %>
+        </p>
+      </header>
+
+      <div :if={local_mail_adapter?()} class="alert alert-info">
+        <.icon name="hero-information-circle" class="size-6 shrink-0" />
+        <div>
+          <p>{gettext("You are running the local mail adapter.")}</p>
+          <p>
+            {gettext("To see sent emails, visit")} <.link href="/dev/mailbox" class="underline">{gettext("the mailbox page")}</.link>.
+          </p>
+        </div>
+      </div>
+
+      <.form :let={f} for={@form} as={:user} id="login_form_magic" action={~p"/users/log-in"}>
+        <.input
+          readonly={!!@current_scope}
+          field={f[:email]}
+          type="email"
+          label={gettext("Email")}
+          autocomplete="username"
+          spellcheck="false"
+          required
+          phx-mounted={JS.focus()}
+        />
+        <.button class="btn btn-primary w-full">
+          {gettext("Log in with email")} <span aria-hidden="true">→</span>
+        </.button>
+      </.form>
+
+      <div class="divider">{gettext("or")}</div>
+
+      <.form :let={f} for={@form} as={:user} id="login_form_password" action={~p"/users/log-in"}>
+        <.input
+          readonly={!!@current_scope}
+          field={f[:email]}
+          type="email"
+          label={gettext("Email")}
+          autocomplete="username"
+          spellcheck="false"
+          required
+        />
+        <.input
+          field={f[:password]}
+          type="password"
+          label={gettext("Password")}
+          autocomplete="current-password"
+          spellcheck="false"
+        />
+        <.button class="btn btn-primary w-full" name={@form[:remember_me].name} value="true">
+          {gettext("Log in and stay logged in")} <span aria-hidden="true">→</span>
+        </.button>
+        <.button class="btn btn-primary btn-soft w-full mt-2">
+          {gettext("Log in only this time")}
+        </.button>
+      </.form>
+    </section>
+  </div>
+</Layouts.app>

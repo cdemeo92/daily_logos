@@ -10,6 +10,7 @@ defmodule DailyLogos.Application do
     children = [
       DailyLogosWeb.Telemetry,
       DailyLogos.Repo,
+      {DailyLogos.AuthRateLimiter, []},
       {DNSCluster, query: Application.get_env(:daily_logos, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: DailyLogos.PubSub},
       # Start a worker by calling: DailyLogos.Worker.start_link(arg)

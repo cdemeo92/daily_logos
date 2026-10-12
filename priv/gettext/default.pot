@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 
-#: lib/daily_logos_web/components/core_components.ex:376
+#: lib/daily_logos_web/components/core_components.ex:416
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""
@@ -443,12 +443,14 @@ msgstr ""
 
 #: lib/daily_logos_web/controllers/page_controller.ex:117
 #: lib/daily_logos_web/controllers/page_html/not_found.html.heex:5
+#: lib/daily_logos_web/plugs/invalid_locale_prefix.ex:25
 #, elixir-autogen, elixir-format
 msgid "Page Not Found"
 msgstr ""
 
 #: lib/daily_logos_web/controllers/page_controller.ex:118
 #: lib/daily_logos_web/controllers/page_html/not_found.html.heex:8
+#: lib/daily_logos_web/plugs/invalid_locale_prefix.ex:26
 #, elixir-autogen, elixir-format
 msgid "The page you requested does not exist."
 msgstr ""
@@ -486,4 +488,317 @@ msgstr ""
 #: lib/daily_logos_web/controllers/page_html/show.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Previous day"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_controller.ex:33
+#, elixir-autogen, elixir-format
+msgid "A link to confirm your email change has been sent to the new address."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:5
+#, elixir-autogen, elixir-format
+msgid "Account Settings"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Already registered?"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_controller.ex:28
+#, elixir-autogen, elixir-format
+msgid "An email was sent to %{email}, please access it to confirm your account."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "Change Email"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:29
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:61
+#, elixir-autogen, elixir-format
+msgid "Changing..."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Confirm and log in only this time"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:24
+#, elixir-autogen, elixir-format
+msgid "Confirm and stay logged in"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:56
+#, elixir-autogen, elixir-format
+msgid "Confirm new password"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:21
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Confirming..."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "Create an account"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Creating account..."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:10
+#, elixir-autogen, elixir-format
+msgid "Don't have an account?"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:24
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:34
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:52
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "Email"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_controller.ex:67
+#, elixir-autogen, elixir-format
+msgid "Email change link is invalid or it has expired."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_controller.ex:62
+#, elixir-autogen, elixir-format
+msgid "Email changed successfully."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_controller.ex:65
+#, elixir-autogen, elixir-format
+msgid "If your email is in our system, you will receive instructions for logging in shortly."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_controller.ex:50
+#, elixir-autogen, elixir-format
+msgid "Invalid email or password"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:57
+#, elixir-autogen, elixir-format
+msgid "Keep me logged in on this device"
+msgstr ""
+
+#: lib/daily_logos_web/components/layouts/root.html.heex:123
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:14
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:48
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:5
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:65
+#, elixir-autogen, elixir-format
+msgid "Log in and stay logged in"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:68
+#, elixir-autogen, elixir-format
+msgid "Log in only this time"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:41
+#, elixir-autogen, elixir-format
+msgid "Log in with email"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:63
+#, elixir-autogen, elixir-format
+msgid "Log me in only this time"
+msgstr ""
+
+#: lib/daily_logos_web/components/layouts/root.html.heex:116
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_controller.ex:91
+#, elixir-autogen, elixir-format
+msgid "Logged out successfully."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:45
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:54
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:60
+#, elixir-autogen, elixir-format
+msgid "Logging in..."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_controller.ex:84
+#, elixir-autogen, elixir-format
+msgid "Magic link is invalid or it has expired."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Manage your account email address and password settings"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:48
+#, elixir-autogen, elixir-format
+msgid "New password"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:60
+#, elixir-autogen, elixir-format
+msgid "Password"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_controller.ex:49
+#, elixir-autogen, elixir-format
+msgid "Password updated successfully."
+msgstr ""
+
+#: lib/daily_logos_web/components/layouts/root.html.heex:120
+#, elixir-autogen, elixir-format
+msgid "Register"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Register for an account"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:62
+#, elixir-autogen, elixir-format
+msgid "Save Password"
+msgstr ""
+
+#: lib/daily_logos_web/components/layouts/root.html.heex:113
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Sign up"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_controller.ex:34
+#, elixir-autogen, elixir-format
+msgid "The link is invalid or it has expired."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:69
+#, elixir-autogen, elixir-format
+msgid "Tip: If you prefer passwords, you can enable them in the user settings."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:24
+#, elixir-autogen, elixir-format
+msgid "To see sent emails, visit"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_controller.ex:22
+#, elixir-autogen, elixir-format
+msgid "User confirmed successfully."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Welcome %{email}"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_controller.ex:23
+#: lib/daily_logos_web/controllers/user_session_controller.ex:43
+#, elixir-autogen, elixir-format
+msgid "Welcome back!"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "You are running the local mail adapter."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "You need to reauthenticate to perform sensitive actions on your account."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "for an account now."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "or"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:24
+#, elixir-autogen, elixir-format
+msgid "the mailbox page"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "to your account now."
+msgstr ""
+
+#: lib/daily_logos/accounts/user_notifier.ex:31
+#, elixir-autogen, elixir-format
+msgid "\n==============================\n\nHi %{email},\n\nYou can change your email by visiting the URL below:\n\n%{url}\n\nIf you didn't request this change, please ignore this.\n\n==============================\n"
+msgstr ""
+
+#: lib/daily_logos/accounts/user_notifier.ex:89
+#, elixir-autogen, elixir-format
+msgid "\n==============================\n\nHi %{email},\n\nYou can confirm your account by visiting the URL below:\n\n%{url}\n\nIf you didn't create an account with us, please ignore this.\n\n==============================\n"
+msgstr ""
+
+#: lib/daily_logos/accounts/user_notifier.ex:65
+#, elixir-autogen, elixir-format
+msgid "\n==============================\n\nHi %{email},\n\nYou can log into your account by visiting the URL below:\n\n%{url}\n\nIf you didn't request this email, please ignore this.\n\n==============================\n"
+msgstr ""
+
+#: lib/daily_logos/accounts/user_notifier.ex:108
+#, elixir-autogen, elixir-format
+msgid "Confirmation instructions"
+msgstr ""
+
+#: lib/daily_logos/accounts/user_notifier.ex:84
+#, elixir-autogen, elixir-format
+msgid "Log in instructions"
+msgstr ""
+
+#: lib/daily_logos/accounts/user_notifier.ex:50
+#, elixir-autogen, elixir-format
+msgid "Update email instructions"
+msgstr ""
+
+#: lib/daily_logos_web/user_auth.ex:227
+#, elixir-autogen, elixir-format
+msgid "You must log in to access this page."
+msgstr ""
+
+#: lib/daily_logos_web/user_auth.ex:187
+#, elixir-autogen, elixir-format
+msgid "You must re-authenticate to access this page."
+msgstr ""
+
+#: lib/daily_logos_web/components/core_components.ex:308
+#, elixir-autogen, elixir-format
+msgid "Hide password"
+msgstr ""
+
+#: lib/daily_logos_web/components/core_components.ex:307
+#: lib/daily_logos_web/components/core_components.ex:309
+#: lib/daily_logos_web/components/core_components.ex:310
+#, elixir-autogen, elixir-format
+msgid "Show password"
+msgstr ""
+
+#: lib/daily_logos_web/plugs/auth_rate_limit.ex:42
+#, elixir-autogen, elixir-format
+msgid "Too many requests. Please try again later."
 msgstr ""

@@ -280,7 +280,47 @@ defmodule DailyLogosWeb.CoreComponents do
     """
   end
 
-  # All other inputs text, datetime-local, url, password, etc. are handled here...
+  def input(%{type: "password"} = assigns) do
+    ~H"""
+    <div class="fieldset mb-2">
+      <label for={@id}>
+        <span :if={@label} class="label mb-1">{@label}</span>
+      </label>
+      <div class="relative">
+        <input
+          type="password"
+          name={@name}
+          id={@id}
+          value={Phoenix.HTML.Form.normalize_value("password", @value)}
+          class={[
+            @class || "w-full rounded border border-base-300 bg-base-100 px-3 py-2",
+            "pr-12",
+            @errors != [] && (@error_class || "border-error")
+          ]}
+          {@rest}
+        />
+        <button
+          id={"#{@id}-toggle"}
+          type="button"
+          class="absolute inset-y-0 right-0 flex w-11 items-center justify-center cursor-pointer text-base-content/70 hover:text-base-content"
+          data-password-target={@id}
+          data-show-label={gettext("Show password")}
+          data-hide-label={gettext("Hide password")}
+          aria-label={gettext("Show password")}
+          title={gettext("Show password")}
+          aria-controls={@id}
+          aria-pressed="false"
+        >
+          <.icon name="hero-eye" class="size-5" />
+          <.icon name="hero-eye-slash" class="size-5 hidden" />
+        </button>
+      </div>
+      <.error :for={msg <- @errors}>{msg}</.error>
+    </div>
+    """
+  end
+
+  # All other inputs text, datetime-local, url, etc. are handled here...
   def input(assigns) do
     ~H"""
     <div class="fieldset mb-2">

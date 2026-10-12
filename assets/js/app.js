@@ -28,6 +28,23 @@ import { initCookieConsent } from "./cookieconsent-config";
 
 initCookieConsent();
 
+document.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-password-target]");
+  if (!button) return;
+
+  const input = document.getElementById(button.dataset.passwordTarget);
+  if (!input) return;
+
+  const visible = input.type === "password";
+  input.type = visible ? "text" : "password";
+  const label = visible ? button.dataset.hideLabel : button.dataset.showLabel;
+  button.setAttribute("aria-label", label);
+  button.setAttribute("title", label);
+  button.setAttribute("aria-pressed", String(visible));
+  button.querySelector(".hero-eye").classList.toggle("hidden", visible);
+  button.querySelector(".hero-eye-slash").classList.toggle("hidden", !visible);
+});
+
 const csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");

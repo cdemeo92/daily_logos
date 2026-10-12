@@ -1,9 +1,9 @@
 defmodule DailyLogosWeb.PageController do
   use DailyLogosWeb, :controller
 
-  alias DailyLogosWeb.Plugs.SeoMeta
+  alias DailyLogosWeb.Plugs.{InvalidLocalePrefix, SeoMeta}
 
-  plug :guard_invalid_locale_prefix
+  plug InvalidLocalePrefix
 
   def home(conn, _params) do
     conn
@@ -120,15 +120,4 @@ defmodule DailyLogosWeb.PageController do
     })
     |> render(:not_found)
   end
-
-  defp guard_invalid_locale_prefix(
-         %Plug.Conn{assigns: %{invalid_locale_prefix: true}} = conn,
-         _opts
-       ) do
-    conn
-    |> not_found(%{})
-    |> halt()
-  end
-
-  defp guard_invalid_locale_prefix(conn, _opts), do: conn
 end

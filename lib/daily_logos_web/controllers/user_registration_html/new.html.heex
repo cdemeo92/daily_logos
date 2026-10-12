@@ -1,0 +1,37 @@
+<Layouts.app flash={@flash} current_scope={@current_scope}>
+  <div class="flex min-h-[60vh] flex-col items-center justify-start py-12">
+    <section class="w-full max-w-sm space-y-6">
+      <header class="space-y-2 text-center">
+        <h1 class="text-2xl font-semibold tracking-tight">
+          {gettext("Register for an account")}
+        </h1>
+        <p class="text-sm text-base-content/60">
+          {gettext("Already registered?")}
+          <.link
+            navigate={~p"/users/log-in"}
+            class="font-semibold text-base-content/70 transition-colors hover:text-base-content hover:underline"
+          >
+            {gettext("Log in")}
+          </.link>
+          {gettext("to your account now.")}
+        </p>
+      </header>
+
+      <.form :let={f} for={@changeset} action={~p"/users/register"}>
+        <.input
+          field={f[:email]}
+          type="email"
+          label={gettext("Email")}
+          autocomplete="username"
+          spellcheck="false"
+          required
+          phx-mounted={JS.focus()}
+        />
+
+        <.button phx-disable-with={gettext("Creating account...")} class="btn btn-primary w-full">
+          {gettext("Create an account")}
+        </.button>
+      </.form>
+    </section>
+  </div>
+</Layouts.app>
