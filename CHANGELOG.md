@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/cdemeo92/daily_logos/compare/v1.19.0...v1.20.0) (2026-10-12)
+
+
+### Features
+
+* enhance SEO metadata handling for user session and settings pages ([e305273](https://github.com/cdemeo92/daily_logos/commit/e305273c35cb2ae66e2cee432874e9458c700c9d))
+
 # [1.19.0](https://github.com/cdemeo92/daily_logos/compare/v1.18.4...v1.19.0) (2026-10-12)
 
 
