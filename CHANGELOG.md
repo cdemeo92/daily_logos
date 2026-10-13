@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/cdemeo92/daily_logos/compare/v1.21.0...v1.22.0) (2026-10-13)
+
+
+### Features
+
+* add users management controllers in the ui ([9f45d6a](https://github.com/cdemeo92/daily_logos/commit/9f45d6ad8ca5b80ac6ae880db7b26030d9da1af7))
+
 # [1.21.0](https://github.com/cdemeo92/daily_logos/compare/v1.20.0...v1.21.0) (2026-10-12)
 
 
