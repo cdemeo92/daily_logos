@@ -128,7 +128,7 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
               href="/users/register"
               class="block py-3 px-2 text-base-content/70 hover:text-base-content transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
-              {gettext("Register")}
+              {gettext("Sign up")}
             </a>
           <% end %>
 
