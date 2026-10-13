@@ -4,11 +4,13 @@ defmodule DailyLogosWeb.UserRegistrationController do
   alias DailyLogos.Accounts
   alias DailyLogos.Accounts.User
   alias DailyLogosWeb.Plugs.InvalidLocalePrefix
+  alias DailyLogosWeb.UserAuth
 
   plug InvalidLocalePrefix when action == :new
   plug DailyLogosWeb.Plugs.AuthRateLimit when action == :create
 
-  def new(conn, _params) do
+  def new(conn, params) do
+    conn = UserAuth.store_notifications_return_to(conn, params)
     changeset = Accounts.change_user_email(%User{})
     render(conn, :new, changeset: changeset)
   end

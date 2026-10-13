@@ -39,6 +39,22 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
       assert response =~ ~p"/users/register"
       assert response =~ "Log in with email"
     end
+
+    test "preserves the Notifications destination through login", %{conn: conn, user: user} do
+      conn = get(conn, "/users/log-in?return_to=%2Fnotifications")
+      response = html_response(conn, 200)
+      assert get_session(conn, :user_return_to) == "/notifications"
+      refute response =~ "Quote notifications"
+
+      token =
+        extract_user_token(fn url ->
+          Accounts.deliver_login_instructions(user, url)
+        end)
+
+      conn = post(conn, "/users/log-in", %{"user" => %{"token" => token}})
+      assert redirected_to(conn) == "/notifications"
+      assert conn |> get("/notifications") |> html_response(200) =~ "Coming soon"
+    end
   end
 
   describe "GET /users/log-in/:token" do
@@ -103,7 +119,11 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, ~p"/")
       response = html_response(conn, 200)
-      assert response =~ user.email
+      assert response =~ "aria-label=\"Account\""
+      assert response =~ "aria-expanded=\"false\""
+      assert response =~ "aria-modal=\"true\""
+      assert response =~ "Notifications"
+      refute response =~ user.email
       assert response =~ ~p"/users/settings"
       assert response =~ ~p"/users/log-out"
     end
@@ -200,7 +220,8 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, ~p"/")
       response = html_response(conn, 200)
-      assert response =~ user.email
+      assert response =~ "aria-label=\"Account\""
+      refute response =~ user.email
       assert response =~ ~p"/users/settings"
       assert response =~ ~p"/users/log-out"
     end
@@ -224,7 +245,8 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, ~p"/")
       response = html_response(conn, 200)
-      assert response =~ user.email
+      assert response =~ "aria-label=\"Account\""
+      refute response =~ user.email
       assert response =~ ~p"/users/settings"
       assert response =~ ~p"/users/log-out"
     end

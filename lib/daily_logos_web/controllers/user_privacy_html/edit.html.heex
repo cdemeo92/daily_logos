@@ -1,0 +1,47 @@
+<Layouts.app flash={@flash} current_scope={@current_scope}>
+  <section class="mx-auto w-full max-w-2xl space-y-6 py-8">
+    <header class="space-y-2">
+      <h1 class="text-2xl font-semibold">{gettext("Privacy")}</h1>
+      <p class="text-sm text-base-content/70">
+        {gettext("Manage your account privacy and permanent account deletion.")}
+      </p>
+    </header>
+
+    <section
+      class="space-y-4 border-t border-base-300 pt-6"
+      aria-labelledby="delete-account-title"
+    >
+      <h2 id="delete-account-title" class="text-lg font-semibold">
+        {gettext("Delete account")}
+      </h2>
+      <p class="text-sm text-base-content/70">
+        {gettext(
+          "Deleting your account is permanent. Your account and sign-in tokens will be deleted, and you will be signed out. This cannot be undone."
+        )}
+      </p>
+
+      <.form
+        for={@form}
+        action={~p"/users/account"}
+        id="delete-account-form"
+        method="delete"
+        class="space-y-4"
+      >
+        <.input
+          field={@form[:confirm]}
+          type="checkbox"
+          checked={false}
+          required
+          label={gettext("I understand that deleting my account is permanent.")}
+        />
+        <button
+          type="submit"
+          id="delete-account-submit"
+          class="btn border border-error text-error hover:bg-error hover:text-error-content"
+        >
+          {gettext("Permanently delete account")}
+        </button>
+      </.form>
+    </section>
+  </section>
+</Layouts.app>

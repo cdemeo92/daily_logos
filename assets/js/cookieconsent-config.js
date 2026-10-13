@@ -185,19 +185,19 @@ export function initCookieConsent() {
               {
                 title: "Strictly necessary",
                 description:
-                  "These cookies are required for core features such as session management and language preference.",
+                  "_daily_logos_key stores session and locale state until the browser session ends. __phoenix_flash__ carries redirect flash messages for up to 60 seconds. _daily_logos_web_user_remember_me keeps you signed in for up to 14 days only if you choose to stay signed in. cc_cookie stores consent choices for 182 days.",
                 linkedCategory: "necessary",
               },
               {
                 title: "Analytics",
                 description:
-                  "These cookies support measurement of usage patterns to improve the website.",
+                  "Optional Google Analytics cookies such as _ga, _ga_<container-id>, _gid, and _gat are set only after analytics consent. Retention may vary by service.",
                 linkedCategory: "analytics",
               },
               {
                 title: "Functionality",
                 description:
-                  "These cookies enable third-party embedded content, such as Google Forms.",
+                  "This category enables third-party embedded content, such as Google Forms, after consent. The provider may set its own cookies.",
                 linkedCategory: "functionality",
               },
               {
@@ -228,19 +228,19 @@ export function initCookieConsent() {
               {
                 title: "Strettamente necessari",
                 description:
-                  "Questi cookie sono necessari per funzioni essenziali, come sessione e lingua.",
+                  "_daily_logos_key conserva sessione e lingua fino alla chiusura del browser. __phoenix_flash__ trasporta messaggi dei redirect per un massimo di 60 secondi. _daily_logos_web_user_remember_me mantiene l'accesso fino a 14 giorni solo se scegli di restare connesso. cc_cookie memorizza le preferenze di consenso per 182 giorni.",
                 linkedCategory: "necessary",
               },
               {
                 title: "Analytics",
                 description:
-                  "Questi cookie consentono di misurare l'uso del sito per migliorarlo.",
+                  "Cookie facoltativi di Google Analytics come _ga, _ga_<container-id>, _gid e _gat vengono impostati solo dopo il consenso analytics. La durata può variare in base al servizio.",
                 linkedCategory: "analytics",
               },
               {
                 title: "Funzionalità",
                 description:
-                  "Questi cookie abilitano contenuti esterni incorporati, come Google Forms.",
+                  "Questa categoria abilita contenuti esterni incorporati, come Google Forms, dopo il consenso. Il fornitore può impostare propri cookie.",
                 linkedCategory: "functionality",
               },
               {

@@ -49,46 +49,156 @@ const csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
 
-// Menu hooks for mobile hamburger and sidebar
+const setMobileMenuOpen = (open, trigger = null) => {
+  const menu = document.getElementById("mobile-menu");
+  const overlay = document.getElementById("mobile-menu-overlay");
+  const appShell = document.getElementById("app-shell");
+  const toggle = document.getElementById("menu-toggle");
+  if (!menu || !overlay || !appShell || !toggle) return;
+
+  if (open) {
+    menu.classList.remove("translate-x-full");
+    menu.inert = false;
+    menu.removeAttribute("aria-hidden");
+    overlay.classList.remove("hidden");
+    overlay.removeAttribute("aria-hidden");
+    appShell.inert = true;
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute("aria-label", toggle.dataset.closeLabel);
+    menu.querySelector("#menu-close").focus();
+    return;
+  }
+
+  menu.classList.add("translate-x-full");
+  menu.inert = true;
+  menu.setAttribute("aria-hidden", "true");
+  overlay.classList.add("hidden");
+  overlay.setAttribute("aria-hidden", "true");
+  appShell.inert = false;
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.setAttribute("aria-label", toggle.dataset.openLabel);
+  (trigger || toggle).focus();
+};
+
+// Modal navigation drawer hooks
 const HamburgerMenu = {
   mounted() {
-    this.el.addEventListener("click", () => this.toggleMenu());
-  },
-  toggleMenu() {
-    const menu = document.getElementById("mobile-menu");
-    const overlay = document.getElementById("mobile-menu-overlay");
-    const isOpen = !menu.classList.contains("translate-x-full");
-
-    if (isOpen) {
-      menu.classList.add("translate-x-full");
-      overlay.classList.add("hidden");
-    } else {
-      menu.classList.remove("translate-x-full");
-      overlay.classList.remove("hidden");
-    }
+    this.el.addEventListener("click", () => setMobileMenuOpen(true));
   },
 };
 
 const MobileMenuOverlay = {
   mounted() {
-    this.el.addEventListener("click", () => {
-      const menu = document.getElementById("mobile-menu");
-      menu.classList.add("translate-x-full");
-      this.el.classList.add("hidden");
-    });
+    this.el.addEventListener("click", () => setMobileMenuOpen(false));
   },
 };
 
 const MobileMenuClose = {
   mounted() {
-    this.el.addEventListener("click", () => {
-      const menu = document.getElementById("mobile-menu");
-      const overlay = document.getElementById("mobile-menu-overlay");
-      menu.classList.add("translate-x-full");
-      overlay.classList.add("hidden");
-    });
+    this.el.addEventListener("click", () => setMobileMenuOpen(false));
   },
 };
+
+const ThemeToggle = {
+  mounted() {
+    this.updateSelection(localStorage.getItem("phx:theme") || "system");
+    this.handleThemeChange = (event) => {
+      const button = event.target.closest?.("button[data-phx-theme]");
+      if (button && this.el.contains(button))
+        this.updateSelection(button.dataset.phxTheme);
+    };
+    this.el.addEventListener("phx:set-theme", this.handleThemeChange);
+  },
+  updateSelection(theme) {
+    this.el.querySelectorAll("button[data-phx-theme]").forEach((button) => {
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.phxTheme === theme),
+      );
+    });
+  },
+  destroyed() {
+    this.el.removeEventListener("phx:set-theme", this.handleThemeChange);
+  },
+};
+
+document.addEventListener("click", async (event) => {
+  const button = event.target.closest("button[data-phx-locale]");
+  const localeToggle = button?.closest("[data-locale]");
+  if (!button || !localeToggle) return;
+
+  event.preventDefault();
+  const locale = button.dataset.phxLocale;
+  localeToggle.dataset.locale = locale;
+  localeToggle
+    .querySelectorAll("button[data-phx-locale]")
+    .forEach((localeButton) => {
+      localeButton.setAttribute(
+        "aria-pressed",
+        String(localeButton === button),
+      );
+    });
+
+  try {
+    const response = await fetch(`/locale/${locale}`, {
+      method: "POST",
+      headers: { "x-csrf-token": localeToggle.dataset.csrf },
+      credentials: "same-origin",
+      redirect: "follow",
+    });
+
+    if (response.redirected) {
+      window.location.assign(response.url);
+    } else {
+      window.location.reload();
+    }
+  } catch (_error) {
+    window.location.reload();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  const menu = document.getElementById("mobile-menu");
+  if (menu && !menu.inert) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setMobileMenuOpen(false);
+      return;
+    }
+
+    if (event.key === "Tab") {
+      const focusable = [
+        ...menu.querySelectorAll("a[href], button:not(:disabled)"),
+      ];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  if (event.key === "Escape") {
+    const openAccount = [
+      ...document.querySelectorAll("details.account-menu[open]"),
+    ].find((details) => details.contains(document.activeElement));
+    if (openAccount) {
+      openAccount.open = false;
+      openAccount.querySelector("summary").focus();
+    }
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (event.target.closest("details.account-menu")) return;
+  document.querySelectorAll("details.account-menu[open]").forEach((details) => {
+    details.open = false;
+  });
+});
 
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
@@ -98,6 +208,7 @@ const liveSocket = new LiveSocket("/live", Socket, {
     HamburgerMenu,
     MobileMenuOverlay,
     MobileMenuClose,
+    ThemeToggle,
   },
 });
 

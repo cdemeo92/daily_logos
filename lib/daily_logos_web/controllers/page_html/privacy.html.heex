@@ -1,4 +1,4 @@
-<Layouts.app flash={@flash}>
+<Layouts.app flash={@flash} current_scope={@current_scope}>
   <div class="min-h-[60vh] flex flex-col items-center justify-start py-12">
     <article class="w-full max-w-3xl space-y-8" aria-labelledby="privacy-title">
       <header class="space-y-3 text-center">
@@ -31,6 +31,11 @@
             {gettext("Functional preferences such as language selection.")}
           </li>
           <li>
+            {gettext(
+              "Your explicitly selected theme preference, stored in browser local storage."
+            )}
+          </li>
+          <li>
             {gettext("Analytics data only after explicit consent.")}
           </li>
         </ul>
@@ -53,7 +58,53 @@
               "used for embedded third-party content (for example Google Forms) and loaded only after consent."
             )}
           </p>
+          <dl class="grid gap-3 border-t border-base-300 pt-3">
+            <div>
+              <dt class="font-medium"><code class="break-all">_daily_logos_key</code></dt>
+              <dd>
+                {gettext(
+                  "Session cookie storing authentication and locale state until the browser session ends."
+                )}
+              </dd>
+            </div>
+            <div>
+              <dt class="font-medium"><code class="break-all">__phoenix_flash__</code></dt>
+              <dd>
+                {gettext(
+                  "Temporary cookie used only to carry a flash message through a client-side redirect; expires after 60 seconds."
+                )}
+              </dd>
+            </div>
+            <div>
+              <dt class="font-medium">
+                <code class="break-all">_daily_logos_web_user_remember_me</code>
+              </dt>
+              <dd>
+                {gettext(
+                  "Keeps you signed in for up to 14 days, only when you choose the stay-signed-in option."
+                )}
+              </dd>
+            </div>
+            <div>
+              <dt class="font-medium"><code class="break-all">cc_cookie</code></dt>
+              <dd>{gettext("Stores your cookie-consent choices for 182 days.")}</dd>
+            </div>
+          </dl>
+          <p class="text-sm">
+            {gettext(
+              "Analytics cookies such as _ga, _ga_<container-id>, _gid, and _gat are set only after analytics consent. Embedded services may set their own cookies after functionality consent."
+            )}
+          </p>
         </div>
+      </section>
+
+      <section class="space-y-3 rounded-xl border border-base-300 bg-base-200/40 p-5">
+        <h2 class="text-xl font-semibold">{gettext("Other browser storage")}</h2>
+        <p class="text-base-content/80 leading-relaxed">
+          {gettext(
+            "An explicitly selected light or dark theme is stored in browser local storage under phx:theme until you clear site data. This is not a cookie."
+          )}
+        </p>
       </section>
 
       <section class="space-y-3 rounded-xl border border-base-300 bg-base-200/40 p-5">
@@ -90,7 +141,7 @@
       </section>
 
       <p class="text-xs text-base-content/60 text-center">
-        {gettext("Last update: July 2026")}
+        {gettext("Last update: October 2026")}
       </p>
     </article>
   </div>

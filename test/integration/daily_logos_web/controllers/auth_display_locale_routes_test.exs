@@ -6,6 +6,22 @@ defmodule DailyLogosWeb.AuthDisplayLocaleRoutesTest do
   alias DailyLogos.Accounts
 
   describe "localized auth display routes" do
+    test "renders the notification signup landing in Italian for anonymous users", %{conn: conn} do
+      conn = get(conn, "/it/notifications")
+      response = html_response(conn, 200)
+
+      assert response =~ "Vuoi ricevere la citazione del giorno e lasciarti ispirare?"
+
+      assert response =~
+               "Crea un account e preparati a scegliere quando e come ricevere la citazione quotidiana."
+
+      assert response =~ ~s(class="btn btn-primary min-h-11")
+      refute response =~ "Le impostazioni delle notifiche sono in arrivo."
+      assert response =~ "Notifiche"
+      refute response =~ "notifications-coming-soon"
+      assert conn.assigns.locale == "it"
+    end
+
     test "renders the login page in Italian", %{conn: conn} do
       conn = get(conn, "/it/users/log-in")
 
@@ -43,6 +59,29 @@ defmodule DailyLogosWeb.AuthDisplayLocaleRoutesTest do
 
       assert html_response(conn, 200) =~ "Impostazioni account"
       assert html_response(conn, 200) =~ ~s(name="robots" content="noindex,follow")
+      assert conn.assigns.locale == "it"
+    end
+
+    test "renders Notifications coming soon for an authenticated user", %{conn: conn} do
+      user = user_fixture()
+      conn = conn |> log_in_user(user) |> get("/it/notifications")
+      response = html_response(conn, 200)
+
+      assert response =~ "Notifiche"
+      assert response =~ "In arrivo"
+      assert response =~ "Le impostazioni delle notifiche non sono ancora disponibili."
+      assert conn.assigns.locale == "it"
+    end
+
+    test "renders account privacy and deletion in Italian", %{conn: conn} do
+      user = user_fixture()
+      conn = conn |> log_in_user(user) |> get("/it/users/account/privacy")
+      response = html_response(conn, 200)
+
+      assert response =~ "Privacy"
+      assert response =~ "Elimina definitivamente l&#39;account"
+      assert response =~ "aria-pressed=\"true\""
+      assert response =~ ~s(name="robots" content="noindex,nofollow,noarchive")
       assert conn.assigns.locale == "it"
     end
   end

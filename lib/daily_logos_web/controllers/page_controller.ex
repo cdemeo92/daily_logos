@@ -48,11 +48,27 @@ defmodule DailyLogosWeb.PageController do
       title: gettext("Privacy & Cookie Policy | Daily Logos"),
       description:
         gettext(
-          "Read how Daily Logos handles personal data, technical cookies, analytics cookies, and consent preferences."
+          "Review how Daily Logos handles session, remember-me, consent, analytics, and embedded-content cookies."
         ),
       robots: "noindex,nofollow,noarchive"
     })
     |> render(:privacy)
+  end
+
+  def notifications(conn, _params) do
+    login_path = ~p"/users/log-in" <> "?return_to=%2Fnotifications"
+    register_path = ~p"/users/register" <> "?return_to=%2Fnotifications"
+
+    conn
+    |> SeoMeta.put_page_meta(%{
+      title: gettext("Notifications | Daily Logos"),
+      description:
+        gettext("Get daily Stoic inspiration with notifications when they are available."),
+      robots: "noindex,nofollow,noarchive"
+    })
+    |> assign(:notifications_login_path, login_path)
+    |> assign(:notifications_register_path, register_path)
+    |> render(:notifications)
   end
 
   def show(conn, %{"month" => month_str, "day" => day_str}) do

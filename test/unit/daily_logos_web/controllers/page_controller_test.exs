@@ -42,8 +42,18 @@ defmodule DailyLogosWeb.PageControllerTest do
   end
 
   test "GET /privacy renders page", %{conn: conn} do
-    conn = get(conn, "/privacy")
-    assert html_response(conn, 200) =~ "privacy-title"
+    response = conn |> get("/privacy") |> html_response(200)
+
+    assert response =~ "privacy-title"
+    assert response =~ "_daily_logos_key"
+    assert response =~ "__phoenix_flash__"
+    assert response =~ "_daily_logos_web_user_remember_me"
+    assert response =~ "cc_cookie"
+    assert response =~ "60 seconds"
+    assert response =~ "182 days"
+    assert response =~ "_ga_"
+    assert response =~ "_gid"
+    assert response =~ "_gat"
   end
 
   test "GET /it renders Italian home", %{conn: conn} do
@@ -62,8 +72,13 @@ defmodule DailyLogosWeb.PageControllerTest do
   end
 
   test "GET /it/privacy renders Italian privacy page", %{conn: conn} do
-    conn = get(conn, "/it/privacy")
-    assert html_response(conn, 200) =~ "privacy-title"
+    response = conn |> get("/it/privacy") |> html_response(200)
+
+    assert response =~ "privacy-title"
+    assert response =~ "_daily_logos_web_user_remember_me"
+    assert response =~ "phx:theme"
+    assert response =~ "Altri dati memorizzati nel browser"
+    assert response =~ "Non è un cookie."
   end
 
   test "GET /en redirects to /", %{conn: conn} do

@@ -237,4 +237,13 @@ defmodule DailyLogosWeb.UserAuth do
   end
 
   defp maybe_store_return_to(conn), do: conn
+
+  @doc """
+  Stores the Notifications return path only when requested by its account links.
+  """
+  def store_notifications_return_to(conn, %{"return_to" => "/notifications"}) do
+    put_session(conn, :user_return_to, "/notifications")
+  end
+
+  def store_notifications_return_to(conn, _params), do: conn
 end

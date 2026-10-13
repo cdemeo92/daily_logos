@@ -6,6 +6,30 @@ defmodule DailyLogosWeb.UserSettingsControllerTest do
 
   setup :register_and_log_in_user
 
+  describe "GET /notifications" do
+    test "shows the coming soon state to authenticated users", %{conn: conn} do
+      response = conn |> get("/notifications") |> html_response(200)
+
+      assert response =~ "Notifications"
+      assert response =~ "Coming soon"
+      assert response =~ "Notification settings are not available yet."
+    end
+
+    test "shows the notification signup landing to anonymous users" do
+      response = build_conn() |> get("/notifications") |> html_response(200)
+
+      assert response =~ "Want to receive the daily quote and feel inspired?"
+
+      assert response =~
+               "Create an account and be ready to choose when and how to receive your daily quote."
+
+      assert response =~ ~s(href="/users/register?return_to=%2Fnotifications")
+      assert response =~ ~s(href="/users/log-in?return_to=%2Fnotifications")
+      refute response =~ "Notification settings are coming soon."
+      refute response =~ "notifications-coming-soon"
+    end
+  end
+
   describe "GET /users/settings" do
     test "rejects an unconfirmed user's session", %{conn: conn} do
       user = unconfirmed_user_fixture()

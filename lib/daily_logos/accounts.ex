@@ -80,6 +80,11 @@ defmodule DailyLogos.Accounts do
     |> Repo.insert()
   end
 
+  @doc """
+  Permanently deletes a user and relies on database cascades to remove their tokens.
+  """
+  def delete_user(%User{} = user), do: Repo.delete(user)
+
   ## Settings
 
   @doc """

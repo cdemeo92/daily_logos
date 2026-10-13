@@ -104,27 +104,6 @@
     </script>
   </head>
   <body>
-    <%!-- TODO: Remove this authentication navigation list. --%>
-    <ul class="menu menu-horizontal w-full absolute top-0 right-0 z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
-      <%= if @current_scope do %>
-        <li>
-          {@current_scope.user.email}
-        </li>
-        <li>
-          <.link href={~p"/users/settings"}>{gettext("Settings")}</.link>
-        </li>
-        <li>
-          <.link href={~p"/users/log-out"} method="delete">{gettext("Log out")}</.link>
-        </li>
-      <% else %>
-        <li>
-          <.link href={~p"/users/register"}>{gettext("Register")}</.link>
-        </li>
-        <li>
-          <.link href={~p"/users/log-in"}>{gettext("Log in")}</.link>
-        </li>
-      <% end %>
-    </ul>
     {@inner_content}
   </body>
 </html>

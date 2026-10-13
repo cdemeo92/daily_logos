@@ -1,6 +1,6 @@
 # Daily Logos
 
-Live site: [https://daily-logos.com/](https://daily-logos.com/)
+Live site: [https://daily-logos.com](https://daily-logos.com)
 
 ## What is Daily Logos?
 

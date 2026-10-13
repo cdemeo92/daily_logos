@@ -47,6 +47,7 @@ defmodule DailyLogosWeb.Router do
     get "/feedback", PageController, :feedback
     get "/about", PageController, :about
     get "/privacy", PageController, :privacy
+    get "/notifications", PageController, :notifications
 
     get "/users/log-in", UserSessionController, :new
     get "/users/log-in/:token", UserSessionController, :confirm
@@ -70,6 +71,8 @@ defmodule DailyLogosWeb.Router do
     pipe_through [:browser, :locale_redirect, :seo, :require_authenticated_user]
 
     get "/users/settings", UserSettingsController, :edit
+    get "/users/account/privacy", UserPrivacyController, :edit
+    delete "/users/account", UserPrivacyController, :delete
   end
 
   scope "/", DailyLogosWeb do
@@ -134,6 +137,7 @@ defmodule DailyLogosWeb.Router do
     get "/about", PageController, :about
     get "/feedback", PageController, :feedback
     get "/privacy", PageController, :privacy
+    get "/notifications", PageController, :notifications
 
     get "/users/log-in", UserSessionController, :new
     get "/users/log-in/:token", UserSessionController, :confirm
@@ -149,6 +153,8 @@ defmodule DailyLogosWeb.Router do
     pipe_through [:browser, :locale_redirect, :seo, :require_authenticated_user]
 
     get "/users/settings", UserSettingsController, :edit
+    get "/users/account/privacy", UserPrivacyController, :edit
+    delete "/users/account", UserPrivacyController, :delete
   end
 
   scope "/:locale_prefix", DailyLogosWeb do

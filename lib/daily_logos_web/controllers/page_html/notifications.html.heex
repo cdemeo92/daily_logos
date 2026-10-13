@@ -1,0 +1,49 @@
+<Layouts.app flash={@flash} current_scope={@current_scope}>
+  <%= if @current_scope && @current_scope.user do %>
+    <section class="mx-auto w-full max-w-2xl space-y-6 py-8">
+      <h1 class="text-2xl font-semibold">{gettext("Notifications")}</h1>
+      <.placeholder
+        id="notifications-coming-soon"
+        icon="hero-bell"
+        title={gettext("Coming soon")}
+        description={gettext("Notification settings are not available yet.")}
+        class="rounded-md"
+      />
+    </section>
+  <% else %>
+    <section class="mx-auto w-full max-w-xl space-y-6 py-12" aria-labelledby="notifications-title">
+      <h1 id="notifications-title" class="text-2xl font-semibold">
+        {gettext("Notifications")}
+      </h1>
+      <div class="space-y-2">
+        <h2 class="text-xl font-semibold">
+          {gettext("Want to receive the daily quote and feel inspired?")}
+        </h2>
+        <p class="text-base text-base-content/70">
+          {gettext(
+            "Create an account and be ready to choose when and how to receive your daily quote."
+          )}
+        </p>
+      </div>
+      <div class="flex flex-col gap-1 sm:flex-row sm:gap-6">
+        <a
+          id="notifications-register-link"
+          href={@notifications_register_path}
+          class="btn btn-primary min-h-11"
+        >
+          {gettext("Register")}
+        </a>
+        <p class="flex flex-wrap items-center gap-x-1 text-sm text-base-content/70">
+          {gettext("Already have an account?")}
+          <a
+            id="notifications-login-link"
+            href={@notifications_login_path}
+            class="inline-flex min-h-11 items-center rounded px-2 font-semibold text-base-content hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            {gettext("Log in")}
+          </a>
+        </p>
+      </div>
+    </section>
+  <% end %>
+</Layouts.app>

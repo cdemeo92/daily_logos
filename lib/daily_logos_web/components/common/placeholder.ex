@@ -31,8 +31,8 @@ defmodule DailyLogosWeb.Components.Placeholder do
       ]}
     >
       <.icon name={@icon} class="size-10 mx-auto opacity-40" />
-      <p class="font-medium">{@title}</p>
-      <p class="text-sm">{@description}</p>
+      <h2 id={"#{@id}-title"} class="font-medium">{@title}</h2>
+      <p id={"#{@id}-description"} class="text-sm">{@description}</p>
     </div>
     """
   end

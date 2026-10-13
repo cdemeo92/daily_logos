@@ -22,61 +22,64 @@ defmodule DailyLogosWeb.Layouts do
 
     ~H"""
     <div class="h-screen overflow-hidden">
-      <.app_header />
-      <DailyLogosWeb.Layouts.MainMenu.main_menu_sidebar />
+      <div id="app-shell">
+        <.app_header current_scope={@current_scope} />
 
-      <div class="mt-16 flex h-[calc(100vh-4rem)] flex-col overflow-y-auto">
-        <main class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
-          <div class="mx-auto max-w-7xl space-y-4">
-            {render_slot(@inner_block)}
-          </div>
-        </main>
-
-        <footer class="border-t border-base-300 dark:border-neutral-content/10 dark:bg-[oklch(0.27_0.02_255.66)] px-4 py-4 sm:px-6 lg:px-8">
-          <div class="mx-auto max-w-7xl space-y-2">
-            <div class="flex justify-between items-center gap-4">
-              <span class="font-semibold text-base-content">Daily Logos</span>
-              <div class="flex-1">
-                <%!-- <.ad_slot id="footer" /> --%>
-              </div>
-              <a
-                href="https://github.com/claudio-demeo/daily_logos"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-base-content/70 hover:text-base-content transition-colors"
-              >
-                GitHub
-              </a>
+        <div class="mt-16 flex h-[calc(100vh-4rem)] flex-col overflow-y-auto">
+          <main class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl space-y-4">
+              {render_slot(@inner_block)}
             </div>
-            <div class="flex items-start justify-between gap-3">
-              <div class="flex flex-col items-start gap-1 text-sm text-base-content/70">
-                <span>© Daily Logos</span>
-                <button
-                  type="button"
-                  data-open-cookie-preferences
-                  class="cursor-pointer hover:text-base-content transition-colors"
+          </main>
+
+          <footer class="border-t border-base-300 dark:border-neutral-content/10 dark:bg-[oklch(0.27_0.02_255.66)] px-4 py-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl space-y-2">
+              <div class="flex justify-between items-center gap-4">
+                <span class="font-semibold text-base-content">Daily Logos</span>
+                <div class="flex-1">
+                  <%!-- <.ad_slot id="footer" /> --%>
+                </div>
+                <a
+                  href="https://github.com/claudio-demeo/daily_logos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-base-content/70 hover:text-base-content transition-colors"
                 >
-                  {gettext("Cookie preferences")}
-                </button>
-                <a href="/privacy" class="hover:text-base-content transition-colors">
-                  {gettext("Privacy & Cookie Policy")}
+                  GitHub
                 </a>
               </div>
-              <%= if @buy_me_coffee_url do %>
-                <a href={@buy_me_coffee_url} target="_blank" rel="noopener noreferrer">
-                  <img
-                    src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
-                    alt="Buy Me a Coffee"
-                    style="height: 40px;width: 140px;"
-                  />
-                </a>
-              <% end %>
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex flex-col items-start gap-1 text-sm text-base-content/70">
+                  <span>© Daily Logos</span>
+                  <button
+                    type="button"
+                    data-open-cookie-preferences
+                    class="cursor-pointer hover:text-base-content transition-colors"
+                  >
+                    {gettext("Cookie preferences")}
+                  </button>
+                  <a href="/privacy" class="hover:text-base-content transition-colors">
+                    {gettext("Privacy & Cookie Policy")}
+                  </a>
+                </div>
+                <%= if @buy_me_coffee_url do %>
+                  <a href={@buy_me_coffee_url} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+                      alt="Buy Me a Coffee"
+                      style="height: 40px;width: 140px;"
+                    />
+                  </a>
+                <% end %>
+              </div>
             </div>
-          </div>
-        </footer>
+          </footer>
+        </div>
+
+        <.flash_group flash={@flash} />
       </div>
 
-      <.flash_group flash={@flash} />
+      <DailyLogosWeb.Layouts.MainMenu.main_menu_sidebar current_scope={@current_scope} />
     </div>
     """
   end

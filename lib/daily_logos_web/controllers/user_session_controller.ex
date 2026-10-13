@@ -9,7 +9,8 @@ defmodule DailyLogosWeb.UserSessionController do
   plug InvalidLocalePrefix when action in [:new, :confirm]
   plug DailyLogosWeb.Plugs.AuthRateLimit when action == :create
 
-  def new(conn, _params) do
+  def new(conn, params) do
+    conn = UserAuth.store_notifications_return_to(conn, params)
     email = get_in(conn.assigns, [:current_scope, Access.key(:user), Access.key(:email)])
     form = Phoenix.Component.to_form(%{"email" => email}, as: "user")
 

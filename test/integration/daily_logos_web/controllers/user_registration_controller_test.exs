@@ -1,6 +1,7 @@
 defmodule DailyLogosWeb.UserRegistrationControllerTest do
   use DailyLogosWeb.ConnCase, async: true
 
+  alias DailyLogos.Accounts
   import DailyLogos.AccountsFixtures
 
   describe "GET /users/register" do
@@ -10,6 +11,11 @@ defmodule DailyLogosWeb.UserRegistrationControllerTest do
       assert response =~ "Register"
       assert response =~ ~p"/users/log-in"
       assert response =~ ~p"/users/register"
+    end
+
+    test "does not add a Notifications promo block to registration", %{conn: conn} do
+      response = conn |> get("/users/register") |> html_response(200)
+      refute response =~ "Quote notifications"
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -46,6 +52,37 @@ defmodule DailyLogosWeb.UserRegistrationControllerTest do
 
       assert conn.assigns.flash["info"] =~
                ~r/An email was sent to .*, please access it to confirm your account/
+    end
+
+    @tag :capture_log
+    test "preserves Notifications through registration and email confirmation", %{conn: conn} do
+      conn = get(conn, "/users/register?return_to=%2Fnotifications")
+      assert html_response(conn, 200) =~ "Register for an account"
+      assert get_session(conn, :user_return_to) == "/notifications"
+
+      email = unique_user_email()
+
+      conn =
+        post(conn, ~p"/users/register", %{
+          "user" => valid_user_attributes(email: email)
+        })
+
+      assert redirected_to(conn) == ~p"/users/log-in"
+      user = Accounts.get_user_by_email(email)
+
+      token =
+        extract_user_token(fn url ->
+          Accounts.deliver_login_instructions(user, url)
+        end)
+
+      conn =
+        post(conn, ~p"/users/log-in", %{
+          "user" => %{"token" => token},
+          "_action" => "confirmed"
+        })
+
+      assert redirected_to(conn) == "/notifications"
+      assert conn |> get("/notifications") |> html_response(200) =~ "Coming soon"
     end
 
     test "render errors for invalid data", %{conn: conn} do
