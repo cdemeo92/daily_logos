@@ -112,6 +112,14 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
             <% else %>
               <li>
                 <a
+                  href="/notifications"
+                  class="block min-h-11 py-3 px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  {gettext("Notifications")}
+                </a>
+              </li>
+              <li>
+                <a
                   href="/users/log-in"
                   class="block min-h-11 py-3 px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >{gettext("Log in")}</a>
@@ -121,14 +129,6 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
                   href="/users/register"
                   class="block min-h-11 py-3 px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >{gettext("Sign up")}</a>
-              </li>
-              <li>
-                <a
-                  href="/notifications"
-                  class="block min-h-11 py-3 px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                >
-                  {gettext("Notifications")}
-                </a>
               </li>
             <% end %>
           </ul>

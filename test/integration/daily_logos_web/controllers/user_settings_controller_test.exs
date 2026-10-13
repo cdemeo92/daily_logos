@@ -27,6 +27,18 @@ defmodule DailyLogosWeb.UserSettingsControllerTest do
       assert response =~ ~s(href="/users/log-in?return_to=%2Fnotifications")
       refute response =~ "Notification settings are coming soon."
       refute response =~ "notifications-coming-soon"
+
+      mobile_menu =
+        LazyHTML.query(
+          LazyHTML.from_document(response),
+          "#mobile-menu nav[aria-label='Primary navigation'] a"
+        )
+
+      assert LazyHTML.attribute(mobile_menu, "href") == [
+               "/notifications",
+               "/users/log-in",
+               "/users/register"
+             ]
     end
   end
 
