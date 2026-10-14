@@ -168,9 +168,3 @@ This project prioritizes code clarity, maintainability, and adherence to Elixir/
 
 1. All tests pass: `mix test.all`
 2. Code quality checks pass: `mix precommit`
-
----
-
-**Built with Elixir & Phoenix** | Stoic Wisdom for Every Day
-
-If you later run Phoenix inside Docker as well, change the host in `DATABASE_URL` from `localhost` to the Compose service name (`db`).
