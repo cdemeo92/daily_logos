@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/cdemeo92/daily_logos/compare/v1.22.0...v1.23.0) (2026-10-15)
+
+
+### Features
+
+* add health check endpoint ([41606c0](https://github.com/cdemeo92/daily_logos/commit/41606c0ee48100eb4979c55105c22edf60fc0f9b))
+
 # [1.22.0](https://github.com/cdemeo92/daily_logos/compare/v1.21.0...v1.22.0) (2026-10-13)
 
 
