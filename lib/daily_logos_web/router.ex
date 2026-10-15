@@ -110,6 +110,7 @@ defmodule DailyLogosWeb.Router do
 
     scope "/v1", DailyLogosWeb do
       get "/quotes", QuoteController, :show
+      get "/healthz", HealthController, :show
     end
   end
 

@@ -16,7 +16,7 @@ config :daily_logos, DailyLogosWeb.Endpoint,
     rewrite_on: [:x_forwarded_proto],
     host: "daily-logos.com",
     exclude: [
-      # paths: ["/health"],
+      paths: ["/api/v1/healthz"],
       hosts: ["localhost", "127.0.0.1"]
     ]
   ]

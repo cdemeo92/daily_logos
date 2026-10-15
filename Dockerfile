@@ -2,6 +2,7 @@ FROM debian:trixie-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
+    curl \
     libncurses6 \
     libstdc++6 \
     libtinfo6 \
@@ -20,6 +21,9 @@ RUN chmod -R +x /app
 USER app
 
 EXPOSE 4000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+    CMD ["curl", "--fail", "--silent", "--output", "/dev/null", "--max-time", "4", "http://127.0.0.1:4000/api/v1/healthz"]
 
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
