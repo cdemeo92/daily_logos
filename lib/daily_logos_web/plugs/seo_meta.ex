@@ -58,23 +58,23 @@ defmodule DailyLogosWeb.Plugs.SeoMeta do
   end
 
   defp build_alternates(conn, endpoint_url) do
-    base = canonical_path(conn)
+    base = localized_base_path(conn)
 
     locale_links =
       Enum.map(@locales, fn locale ->
-        href =
-          if locale in @non_default_locales,
-            do: endpoint_url <> "/" <> locale <> base,
-            else: endpoint_url <> base
-
-        %{hreflang: locale, href: href}
+        %{hreflang: locale, href: endpoint_url <> alternate_path(locale, base)}
       end)
 
     [%{hreflang: "x-default", href: endpoint_url <> base} | locale_links]
   end
 
   defp canonical_path(conn) do
-    Enum.reduce_while(@non_default_locales, conn.request_path, fn locale, path ->
+    path = String.replace(conn.request_path, ~r{/+}, "/")
+    if path == "/", do: path, else: String.trim_trailing(path, "/")
+  end
+
+  defp localized_base_path(conn) do
+    Enum.reduce_while(@non_default_locales, canonical_path(conn), fn locale, path ->
       prefix = "/" <> locale
 
       cond do
@@ -89,6 +89,10 @@ defmodule DailyLogosWeb.Plugs.SeoMeta do
       end
     end)
   end
+
+  defp alternate_path(locale, base) when locale == @default_locale, do: base
+  defp alternate_path(locale, "/"), do: "/" <> locale
+  defp alternate_path(locale, base), do: "/" <> locale <> base
 
   defp og_locale("it"), do: "it_IT"
   defp og_locale(_), do: "en_US"

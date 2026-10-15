@@ -13,7 +13,7 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
   test "assigns default seo metadata" do
     conn =
       build_conn()
-      |> Map.put(:request_path, "/about")
+      |> Map.put(:request_path, "/it/about")
       |> Map.put(:query_string, "ref=menu")
       |> Plug.Conn.assign(:locale, "it")
 
@@ -35,7 +35,7 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
              end)
 
     assert meta.site_name == "Daily Logos"
-    assert meta.canonical == DailyLogosWeb.Endpoint.url() <> "/about"
+    assert meta.canonical == DailyLogosWeb.Endpoint.url() <> "/it/about"
     assert meta.image == DailyLogosWeb.Endpoint.url() <> "/images/logo.svg"
     assert meta.image_alt == "Daily Logos"
     assert meta.og_locale == "it_IT"
@@ -45,9 +45,28 @@ defmodule DailyLogosWeb.Plugs.SeoMetaTest do
     assert conn.assigns.keywords == meta.keywords
     assert conn.assigns.page_robots == "index,follow"
 
-    assert Enum.any?(meta.alternates, &(&1.hreflang == "x-default"))
-    assert Enum.any?(meta.alternates, &(&1.hreflang == "en"))
-    assert Enum.any?(meta.alternates, &(&1.hreflang == "it"))
+    assert %{href: endpoint_url} = Enum.find(meta.alternates, &(&1.hreflang == "x-default"))
+    assert endpoint_url == DailyLogosWeb.Endpoint.url() <> "/about"
+    assert %{href: endpoint_url} = Enum.find(meta.alternates, &(&1.hreflang == "en"))
+    assert endpoint_url == DailyLogosWeb.Endpoint.url() <> "/about"
+    assert %{href: endpoint_url} = Enum.find(meta.alternates, &(&1.hreflang == "it"))
+    assert endpoint_url == DailyLogosWeb.Endpoint.url() <> "/it/about"
+  end
+
+  test "keeps a localized home canonical when its path has a trailing slash" do
+    conn =
+      build_conn()
+      |> Map.put(:request_path, "/it/")
+      |> Plug.Conn.assign(:locale, "it")
+      |> SeoMeta.call(SeoMeta.init([]))
+
+    meta = conn.assigns.seo_meta
+
+    assert meta.canonical == DailyLogosWeb.Endpoint.url() <> "/it"
+    assert %{href: endpoint_url} = Enum.find(meta.alternates, &(&1.hreflang == "en"))
+    assert endpoint_url == DailyLogosWeb.Endpoint.url() <> "/"
+    assert %{href: endpoint_url} = Enum.find(meta.alternates, &(&1.hreflang == "it"))
+    assert endpoint_url == DailyLogosWeb.Endpoint.url() <> "/it"
   end
 
   test "applies page overrides to page assigns" do
