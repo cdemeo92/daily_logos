@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/cdemeo92/daily_logos/compare/v1.23.0...v1.24.0) (2026-10-15)
+
+
+### Features
+
+* enhance SEO metadata handling for localized paths and add new sitemap entries ([f29dae9](https://github.com/cdemeo92/daily_logos/commit/f29dae9cdefdf7bc2d2275f7405ba2a652df3624))
+
 # [1.23.0](https://github.com/cdemeo92/daily_logos/compare/v1.22.0...v1.23.0) (2026-10-15)
 
 
