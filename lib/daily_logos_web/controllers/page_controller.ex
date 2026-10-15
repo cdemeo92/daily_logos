@@ -61,10 +61,12 @@ defmodule DailyLogosWeb.PageController do
 
     conn
     |> SeoMeta.put_page_meta(%{
-      title: gettext("Notifications | Daily Logos"),
+      title: gettext("Daily Stoic Quote Notifications | Daily Logos"),
       description:
-        gettext("Get daily Stoic inspiration with notifications when they are available."),
-      robots: "noindex,nofollow,noarchive"
+        gettext(
+          "Receive daily Stoic quotes through email, Slack, Telegram and more. Build a daily reflection habit with Daily Logos."
+        ),
+      robots: "index,follow"
     })
     |> assign(:notifications_login_path, login_path)
     |> assign(:notifications_register_path, register_path)

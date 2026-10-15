@@ -41,6 +41,34 @@ defmodule DailyLogosWeb.PageControllerTest do
     assert html_response(conn, 200) =~ "about-title"
   end
 
+  test "notifications pages expose indexable localized metadata", %{conn: conn} do
+    for {path, title, description} <- [
+          {"/notifications", "Daily Stoic Quote Notifications | Daily Logos",
+           "Receive daily Stoic quotes through email, Slack, Telegram and more. Build a daily reflection habit with Daily Logos."},
+          {"/it/notifications", "Notifiche con citazioni stoiche quotidiane | Daily Logos",
+           "Ricevi ogni giorno citazioni stoiche via email, Slack, Telegram e altri canali. Coltiva una riflessione quotidiana con Daily Logos."}
+        ] do
+      document = conn |> get(path) |> html_response(200) |> LazyHTML.from_document()
+      canonical = DailyLogosWeb.Endpoint.url() <> path
+
+      for selector <- [
+            "title",
+            "meta[name='robots'][content='index,follow']",
+            "meta[name='description'][content='#{description}']",
+            "meta[property='og:title'][content='#{title}']",
+            "meta[property='og:description'][content='#{description}']",
+            "meta[property='og:url'][content='#{canonical}']",
+            "link[rel='canonical'][href='#{canonical}']",
+            "link[hreflang='en'][href='#{DailyLogosWeb.Endpoint.url()}/notifications']",
+            "link[hreflang='it'][href='#{DailyLogosWeb.Endpoint.url()}/it/notifications']"
+          ] do
+        assert document |> LazyHTML.query(selector) |> Enum.any?(), selector
+      end
+
+      assert document |> LazyHTML.query("title") |> LazyHTML.text() == title
+    end
+  end
+
   test "GET /privacy renders page", %{conn: conn} do
     response = conn |> get("/privacy") |> html_response(200)
 
