@@ -78,9 +78,9 @@ config :phoenix, :json_library, Jason
 
 config :ueberauth, Ueberauth,
   providers: [
-    google: {Ueberauth.Strategy.Google, [default_scope: "email"]},
+    google: {Ueberauth.Strategy.Google, [default_scope: "openid email"]},
     github: {Ueberauth.Strategy.Github, [default_scope: "user:email"]},
-    facebook: {Ueberauth.Strategy.Facebook, [default_scope: "email", profile_fields: "email"]}
+    facebook: {Ueberauth.Strategy.Facebook, [default_scope: "email", profile_fields: "id,email"]}
   ]
 
 # Import environment specific config. This must remain at the bottom
