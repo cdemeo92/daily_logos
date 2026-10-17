@@ -1,3 +1,16 @@
+# [1.25.0](https://github.com/cdemeo92/daily_logos/compare/v1.24.0...v1.25.0) (2026-10-17)
+
+
+### Bug Fixes
+
+* update default OAuth scopes for Google and Facebook providers ([c70ecfa](https://github.com/cdemeo92/daily_logos/commit/c70ecfa8f0f317331baa542d5df1c95f97708b7c))
+
+
+### Features
+
+* add migration for user_identities table with row level security ([9dc14a0](https://github.com/cdemeo92/daily_logos/commit/9dc14a06c7d11341e93932cadbb8096f357787b2))
+* implement OAuth user registration and linking with provider identities ([eb51279](https://github.com/cdemeo92/daily_logos/commit/eb512798b85645e31805f1be2afb4803adbc9e30))
+
 # [1.24.0](https://github.com/cdemeo92/daily_logos/compare/v1.23.0...v1.24.0) (2026-10-15)
 
 
