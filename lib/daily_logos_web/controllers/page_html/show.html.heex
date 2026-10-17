@@ -21,9 +21,8 @@
           {@quote_topic}
         </h1>
         <% locale_prefix = if @locale == "en", do: "", else: "/#{@locale}" %>
-        <% date = Date.new!(2023, @month, @day) %>
-        <% prev = Date.add(date, -1) %>
-        <% next = Date.add(date, 1) %>
+        <% prev = Date.add(@date, -1) %>
+        <% next = Date.add(@date, 1) %>
         <div class="flex items-center justify-between">
           <.link
             navigate={"#{locale_prefix}/#{prev.month}/#{prev.day}"}
