@@ -51,6 +51,15 @@ defmodule DailyLogosWeb.Router do
 
     get "/users/log-in", UserSessionController, :new
     get "/users/log-in/:token", UserSessionController, :confirm
+    post "/users/log-in", UserSessionController, :create
+    delete "/users/log-out", UserSessionController, :delete
+  end
+
+  scope "/", DailyLogosWeb do
+    pipe_through :browser
+
+    get "/auth/:provider", OAuthController, :request
+    get "/auth/:provider/callback", OAuthController, :callback
   end
 
   ## Authentication routes
@@ -59,11 +68,6 @@ defmodule DailyLogosWeb.Router do
     pipe_through [:browser, :locale_redirect, :seo, :redirect_if_user_is_authenticated]
 
     get "/users/register", UserRegistrationController, :new
-  end
-
-  scope "/", DailyLogosWeb do
-    pipe_through [:browser, :locale_redirect, :seo, :redirect_if_user_is_authenticated]
-
     post "/users/register", UserRegistrationController, :create
   end
 
@@ -73,11 +77,6 @@ defmodule DailyLogosWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     get "/users/account/privacy", UserPrivacyController, :edit
     delete "/users/account", UserPrivacyController, :delete
-  end
-
-  scope "/", DailyLogosWeb do
-    pipe_through [:browser, :locale_redirect, :seo, :require_authenticated_user]
-
     put "/users/settings", UserSettingsController, :update
   end
 
@@ -88,10 +87,15 @@ defmodule DailyLogosWeb.Router do
   end
 
   scope "/", DailyLogosWeb do
-    pipe_through [:browser, :locale_redirect, :seo]
+    pipe_through [
+      :browser,
+      :locale_redirect,
+      :seo,
+      :require_authenticated_user,
+      :require_sudo_mode
+    ]
 
-    post "/users/log-in", UserSessionController, :create
-    delete "/users/log-out", UserSessionController, :delete
+    post "/users/settings/identities/:provider", OAuthController, :link
   end
 
   scope "/locale", DailyLogosWeb do
@@ -142,6 +146,7 @@ defmodule DailyLogosWeb.Router do
 
     get "/users/log-in", UserSessionController, :new
     get "/users/log-in/:token", UserSessionController, :confirm
+    get "/auth/:provider", OAuthController, :request
   end
 
   scope "/:locale_prefix", DailyLogosWeb do
@@ -156,6 +161,18 @@ defmodule DailyLogosWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     get "/users/account/privacy", UserPrivacyController, :edit
     delete "/users/account", UserPrivacyController, :delete
+  end
+
+  scope "/:locale_prefix", DailyLogosWeb do
+    pipe_through [
+      :browser,
+      :locale_redirect,
+      :seo,
+      :require_authenticated_user,
+      :require_sudo_mode
+    ]
+
+    post "/users/settings/identities/:provider", OAuthController, :link
   end
 
   scope "/:locale_prefix", DailyLogosWeb do

@@ -6,7 +6,7 @@ defmodule DailyLogos.Accounts do
   import Ecto.Query, warn: false
   alias DailyLogos.Repo
 
-  alias DailyLogos.Accounts.{User, UserNotifier, UserToken}
+  alias DailyLogos.Accounts.{User, UserIdentity, UserNotifier, UserToken}
 
   ## Database getters
 
@@ -24,6 +24,99 @@ defmodule DailyLogos.Accounts do
   """
   def get_user_by_email(email) when is_binary(email) do
     Repo.get_by(User, email: email)
+  end
+
+  @doc """
+  Gets the local user linked to a provider identity.
+  """
+  def get_user_by_oauth_identity(provider, provider_uid)
+      when is_binary(provider) and is_binary(provider_uid) do
+    Repo.one(
+      from identity in UserIdentity,
+        join: user in assoc(identity, :user),
+        where: identity.provider == ^provider and identity.provider_uid == ^provider_uid,
+        select: user
+    )
+  end
+
+  @doc """
+  Registers a user and provider identity atomically.
+
+  Provider-verified emails create confirmed users. Other emails remain
+  unconfirmed until the local magic-link flow verifies ownership.
+  """
+  def register_oauth_user(%{
+        email: email,
+        email_verified?: true,
+        provider: provider,
+        provider_uid: provider_uid
+      })
+      when is_binary(provider) and is_binary(provider_uid) do
+    confirmed_at = DateTime.utc_now(:second)
+
+    user_changeset =
+      %User{}
+      |> User.email_changeset(%{email: email})
+      |> Ecto.Changeset.put_change(:confirmed_at, confirmed_at)
+
+    Repo.transact(fn ->
+      with {:ok, user} <- Repo.insert(user_changeset),
+           {:ok, _identity} <-
+             Repo.insert(
+               UserIdentity.changeset(%UserIdentity{}, %{
+                 user_id: user.id,
+                 provider: provider,
+                 provider_uid: provider_uid
+               })
+             ) do
+        {:ok, user}
+      end
+    end)
+  end
+
+  def register_oauth_user(%{email_verified?: false}), do: {:error, :unverified_email}
+
+  @doc """
+  Links a provider identity to an existing user without moving identities
+  already owned by another account.
+  """
+  def link_oauth_identity(%User{id: user_id}, provider, provider_uid)
+      when is_binary(provider) and is_binary(provider_uid) do
+    case Repo.get_by(UserIdentity, provider: provider, provider_uid: provider_uid) do
+      %UserIdentity{user_id: ^user_id} = identity ->
+        {:ok, identity}
+
+      %UserIdentity{} ->
+        {:error, :identity_already_linked}
+
+      nil ->
+        insert_oauth_identity(user_id, provider, provider_uid)
+    end
+  end
+
+  defp insert_oauth_identity(user_id, provider, provider_uid) do
+    changeset =
+      UserIdentity.changeset(%UserIdentity{}, %{
+        user_id: user_id,
+        provider: provider,
+        provider_uid: provider_uid
+      })
+
+    case Repo.insert(changeset) do
+      {:ok, identity} ->
+        {:ok, identity}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        resolve_oauth_identity_conflict(user_id, provider, provider_uid, changeset)
+    end
+  end
+
+  defp resolve_oauth_identity_conflict(user_id, provider, provider_uid, changeset) do
+    case Repo.get_by(UserIdentity, provider: provider, provider_uid: provider_uid) do
+      %UserIdentity{user_id: ^user_id} = identity -> {:ok, identity}
+      %UserIdentity{} -> {:error, :identity_already_linked}
+      nil -> {:error, changeset}
+    end
   end
 
   @doc """
