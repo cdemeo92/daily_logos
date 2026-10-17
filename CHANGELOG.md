@@ -1,3 +1,10 @@
+## [1.26.2](https://github.com/cdemeo92/daily_logos/compare/v1.26.1...v1.26.2) (2026-10-17)
+
+
+### Bug Fixes
+
+* add Italian translations for OAuth sign-in and functional preferences ([d3ddad5](https://github.com/cdemeo92/daily_logos/commit/d3ddad58598f0c116c930bf3397cb792faec8416))
+
 ## [1.26.1](https://github.com/cdemeo92/daily_logos/compare/v1.26.0...v1.26.1) (2026-10-17)
 
 
