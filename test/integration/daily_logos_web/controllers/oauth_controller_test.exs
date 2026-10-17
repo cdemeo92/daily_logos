@@ -44,6 +44,36 @@ defmodule DailyLogosWeb.OAuthControllerTest do
   end
 
   describe "GET /auth/:provider" do
+    test "renders configured providers and marks the last used provider on login", %{conn: conn} do
+      conn =
+        conn
+        |> init_test_session(%{last_oauth_provider: "google"})
+        |> get("/users/log-in")
+
+      response = html_response(conn, 200)
+
+      assert response =~ ~s(id="oauth-login-google")
+      assert response =~ ~s(id="oauth-login-github")
+      assert response =~ ~s(id="oauth-login-facebook")
+      assert response =~ ~s(id="oauth-last-used-google")
+      refute response =~ ~s(id="oauth-last-used-github")
+    end
+
+    test "renders connected and available providers in account settings", %{conn: conn} do
+      user = user_fixture()
+      {:ok, _identity} = Accounts.link_oauth_identity(user, "google", "google-connected")
+
+      conn = conn |> log_in_user(user) |> get("/users/settings")
+      response = html_response(conn, 200)
+
+      assert response =~ ~s(id="oauth-settings-google")
+      assert response =~ "Connected"
+      assert response =~ ~s(id="oauth-settings-github")
+      assert response =~ "Connect GitHub"
+      assert response =~ ~s(id="oauth-settings-facebook")
+      assert response =~ "Connect Facebook"
+    end
+
     test "starts OAuth and preserves the localized request locale in the session", %{conn: conn} do
       conn = get(conn, "/it/auth/google")
       authorization_url = URI.parse(redirected_to(conn))

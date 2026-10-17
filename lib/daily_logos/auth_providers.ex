@@ -15,6 +15,17 @@ defmodule DailyLogos.AuthProviders do
   }
 
   @provider_names %{"google" => :google, "github" => :github, "facebook" => :facebook}
+  @provider_labels [
+    {"google", "Google"},
+    {"github", "GitHub"},
+    {"facebook", "Facebook"}
+  ]
+
+  def available_providers do
+    Enum.flat_map(@provider_labels, fn {provider, label} ->
+      if configured?(provider), do: [%{id: provider, label: label}], else: []
+    end)
+  end
 
   def configured?(provider) do
     case Map.fetch(@oauth_modules, provider) do

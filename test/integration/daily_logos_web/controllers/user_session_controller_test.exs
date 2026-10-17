@@ -262,6 +262,16 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
   end
 
   describe "DELETE /users/log-out" do
+    test "preserves the last OAuth provider for the next login", %{conn: conn} do
+      conn =
+        conn
+        |> init_test_session(%{last_oauth_provider: "google", locale: "it"})
+        |> delete(~p"/users/log-out")
+
+      assert get_session(conn, :last_oauth_provider) == "google"
+      assert get_session(conn, :locale) == "it"
+    end
+
     test "logs the user out", %{conn: conn, user: user} do
       conn = conn |> log_in_user(user) |> delete(~p"/users/log-out")
       assert redirected_to(conn) == ~p"/"

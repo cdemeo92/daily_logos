@@ -2,6 +2,7 @@ defmodule DailyLogosWeb.UserSettingsController do
   use DailyLogosWeb, :controller
 
   alias DailyLogos.Accounts
+  alias DailyLogos.AuthProviders
   alias DailyLogosWeb.Plugs.InvalidLocalePrefix
   alias DailyLogosWeb.Plugs.SeoMeta
   alias DailyLogosWeb.UserAuth
@@ -78,9 +79,15 @@ defmodule DailyLogosWeb.UserSettingsController do
 
   defp assign_email_and_password_changesets(conn, _opts) do
     user = conn.assigns.current_scope.user
+    oauth_providers = AuthProviders.available_providers()
+    connected_oauth_providers = Accounts.list_user_identities(user) |> Enum.map(& &1.provider)
+    oauth_form = Phoenix.Component.to_form(%{}, as: :oauth)
 
     conn
     |> assign(:email_changeset, Accounts.change_user_email(user))
     |> assign(:password_changeset, Accounts.change_user_password(user))
+    |> assign(:oauth_providers, oauth_providers)
+    |> assign(:connected_oauth_providers, connected_oauth_providers)
+    |> assign(:oauth_form, oauth_form)
   end
 end

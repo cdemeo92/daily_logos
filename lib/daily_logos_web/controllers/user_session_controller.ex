@@ -2,6 +2,7 @@ defmodule DailyLogosWeb.UserSessionController do
   use DailyLogosWeb, :controller
 
   alias DailyLogos.Accounts
+  alias DailyLogos.AuthProviders
   alias DailyLogosWeb.Plugs.InvalidLocalePrefix
   alias DailyLogosWeb.Plugs.SeoMeta
   alias DailyLogosWeb.UserAuth
@@ -14,7 +15,22 @@ defmodule DailyLogosWeb.UserSessionController do
     email = get_in(conn.assigns, [:current_scope, Access.key(:user), Access.key(:email)])
     form = Phoenix.Component.to_form(%{"email" => email}, as: "user")
 
-    render(conn, :new, form: form)
+    render_login(conn, form)
+  end
+
+  defp render_login(conn, form) do
+    current_user = get_in(conn.assigns, [:current_scope, Access.key(:user)])
+    oauth_providers = if current_user, do: [], else: AuthProviders.available_providers()
+    stored_last_provider = get_session(conn, :last_oauth_provider)
+
+    last_oauth_provider =
+      if Enum.any?(oauth_providers, &(&1.id == stored_last_provider)), do: stored_last_provider
+
+    render(conn, :new,
+      form: form,
+      oauth_providers: oauth_providers,
+      last_oauth_provider: last_oauth_provider
+    )
   end
 
   # magic link login
@@ -34,7 +50,7 @@ defmodule DailyLogosWeb.UserSessionController do
       {:error, :not_found} ->
         conn
         |> put_flash(:error, gettext("The link is invalid or it has expired."))
-        |> render(:new, form: Phoenix.Component.to_form(%{}, as: "user"))
+        |> render_login(Phoenix.Component.to_form(%{}, as: "user"))
     end
   end
 
@@ -50,7 +66,7 @@ defmodule DailyLogosWeb.UserSessionController do
       # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
       conn
       |> put_flash(:error, gettext("Invalid email or password"))
-      |> render(:new, form: form)
+      |> render_login(form)
     end
   end
 

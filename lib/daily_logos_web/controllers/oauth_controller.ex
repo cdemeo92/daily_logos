@@ -125,7 +125,7 @@ defmodule DailyLogosWeb.OAuthController do
         )
 
       %User{} = user ->
-        UserAuth.log_in_user(conn, user)
+        log_in_with_provider(conn, user, provider)
 
       nil ->
         register_provider_user(conn, auth, provider, provider_uid)
@@ -142,7 +142,7 @@ defmodule DailyLogosWeb.OAuthController do
              provider: provider,
              provider_uid: provider_uid
            }) do
-        {:ok, user} -> UserAuth.log_in_user(conn, user)
+        {:ok, user} -> log_in_with_provider(conn, user, provider)
         {:error, _changeset} -> authentication_failed(conn)
       end
     else
@@ -160,6 +160,7 @@ defmodule DailyLogosWeb.OAuthController do
       {:ok, _identity} ->
         conn
         |> delete_session(:oauth_link_user_id)
+        |> put_session(:last_oauth_provider, provider)
         |> put_flash(:info, gettext("Sign-in provider connected."))
         |> redirect(to: settings_path(conn))
 
@@ -169,6 +170,12 @@ defmodule DailyLogosWeb.OAuthController do
       {:error, _changeset} ->
         authentication_failed(conn)
     end
+  end
+
+  defp log_in_with_provider(conn, user, provider) do
+    conn
+    |> put_session(:last_oauth_provider, provider)
+    |> UserAuth.log_in_user(user)
   end
 
   defp provider_unavailable(conn) do

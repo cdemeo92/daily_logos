@@ -42,7 +42,20 @@
         </.button>
       </.form>
 
-      <div class="divider">{gettext("or")}</div>
+      <%= if @oauth_providers != [] do %>
+        <div class="space-y-2">
+          <div class="divider">{gettext("or continue with")}</div>
+          <.oauth_login_button
+            :for={provider <- @oauth_providers}
+            provider={provider.id}
+            label={provider.label}
+            last_used?={provider.id == @last_oauth_provider}
+          />
+        </div>
+        <div class="divider">{gettext("or use email")}</div>
+      <% else %>
+        <div class="divider">{gettext("or")}</div>
+      <% end %>
 
       <.form :let={f} for={@form} as={:user} id="login_form_password" action={~p"/users/log-in"}>
         <.input

@@ -131,8 +131,8 @@ msgstr "Ricarica citazione"
 msgid "Unable to load the quote. Please try again shortly."
 msgstr "Impossibile caricare la citazione. Riprova tra poco."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:53
-#: lib/daily_logos_web/components/layouts/main_menu.ex:142
+#: lib/daily_logos_web/components/layouts/app_header.ex:54
+#: lib/daily_logos_web/components/layouts/main_menu.ex:143
 #: lib/daily_logos_web/controllers/page_html/feedback.html.heex:7
 #: lib/daily_logos_web/controllers/page_html/feedback.html.heex:32
 #, elixir-autogen, elixir-format
@@ -160,8 +160,8 @@ msgstr "Questa sezione non è ancora disponibile."
 msgid "A quote a day, rooted in ancient wisdom."
 msgstr "Una citazione al giorno, radicata nella saggezza antica."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:61
-#: lib/daily_logos_web/components/layouts/main_menu.ex:148
+#: lib/daily_logos_web/components/layouts/app_header.ex:62
+#: lib/daily_logos_web/components/layouts/main_menu.ex:149
 #, elixir-autogen, elixir-format
 msgid "About"
 msgstr "Info"
@@ -319,11 +319,6 @@ msgstr "Categorie di cookie"
 msgid "Data controller"
 msgstr "Titolare del trattamento"
 
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:31
-#, elixir-autogen, elixir-format
-msgid "Functional preferences such as language selection."
-msgstr "Preferenze funzionali come la selezione della lingua."
-
 #: lib/daily_logos_web/controllers/page_html/privacy.html.heex:56
 #, elixir-autogen, elixir-format
 msgid "Functionality cookies"
@@ -410,21 +405,21 @@ msgstr "usati per misurazione e caricati solo dopo il consenso."
 msgid "Back to home"
 msgstr "Torna alla home"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:122
+#: lib/daily_logos_web/controllers/page_controller.ex:124
 #: lib/daily_logos_web/controllers/page_html/not_found.html.heex:5
 #: lib/daily_logos_web/plugs/invalid_locale_prefix.ex:25
 #, elixir-autogen, elixir-format
 msgid "Page Not Found"
 msgstr "Pagina non trovata"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:123
+#: lib/daily_logos_web/controllers/page_controller.ex:125
 #: lib/daily_logos_web/controllers/page_html/not_found.html.heex:8
 #: lib/daily_logos_web/plugs/invalid_locale_prefix.ex:26
 #, elixir-autogen, elixir-format
 msgid "The page you requested does not exist."
 msgstr "La pagina richiesta non esiste."
 
-#: lib/daily_logos_web/controllers/page_controller.ex:87
+#: lib/daily_logos_web/controllers/page_controller.ex:89
 #, elixir-autogen, elixir-format
 msgid "\"%{topic}\" — %{author} | Daily Logos"
 msgstr "\"%{topic}\" — %{author} | Daily Logos"
@@ -434,7 +429,7 @@ msgstr "\"%{topic}\" — %{author} | Daily Logos"
 msgid "Today's quote"
 msgstr "La citazione di oggi"
 
-#: lib/daily_logos_web/controllers/page_controller.ex:90
+#: lib/daily_logos_web/controllers/page_controller.ex:92
 #, elixir-autogen, elixir-format
 msgid "stoic quote %{author}, %{topic}, daily stoic, stoicism"
 msgstr "citazione stoica %{author}, %{topic}, stoicismo quotidiano, stoicismo"
@@ -459,7 +454,7 @@ msgstr "Precedente"
 msgid "Previous day"
 msgstr "Giorno precedente"
 
-#: lib/daily_logos_web/controllers/user_settings_controller.ex:36
+#: lib/daily_logos_web/controllers/user_settings_controller.ex:37
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "Abbiamo inviato un link al nuovo indirizzo per confermare la modifica dell'email."
@@ -528,28 +523,28 @@ msgstr "Non hai un account?"
 
 #: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:24
 #: lib/daily_logos_web/controllers/user_session_html/new.html.heex:34
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:52
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:65
 #: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr "Email"
 
-#: lib/daily_logos_web/controllers/user_settings_controller.ex:74
+#: lib/daily_logos_web/controllers/user_settings_controller.ex:75
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr "Il link per modificare l'email non è valido o è scaduto."
 
-#: lib/daily_logos_web/controllers/user_settings_controller.ex:69
+#: lib/daily_logos_web/controllers/user_settings_controller.ex:70
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr "Email modificata correttamente."
 
-#: lib/daily_logos_web/controllers/user_session_controller.ex:67
+#: lib/daily_logos_web/controllers/user_session_controller.ex:83
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions for logging in shortly."
 msgstr "Se il tuo indirizzo email è registrato, riceverai a breve le istruzioni per accedere."
 
-#: lib/daily_logos_web/controllers/user_session_controller.ex:52
+#: lib/daily_logos_web/controllers/user_session_controller.ex:68
 #, elixir-autogen, elixir-format
 msgid "Invalid email or password"
 msgstr "Email o password non valide"
@@ -559,8 +554,8 @@ msgstr "Email o password non valide"
 msgid "Keep me logged in on this device"
 msgstr "Resta connesso su questo dispositivo"
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:131
-#: lib/daily_logos_web/components/layouts/main_menu.ex:116
+#: lib/daily_logos_web/components/layouts/app_header.ex:125
+#: lib/daily_logos_web/components/layouts/main_menu.ex:125
 #: lib/daily_logos_web/controllers/page_html/notifications.html.heex:43
 #: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:14
 #: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:48
@@ -569,12 +564,12 @@ msgstr "Resta connesso su questo dispositivo"
 msgid "Log in"
 msgstr "Accedi"
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:65
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:78
 #, elixir-autogen, elixir-format
 msgid "Log in and stay logged in"
 msgstr "Accedi e resta connesso"
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:68
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:81
 #, elixir-autogen, elixir-format
 msgid "Log in only this time"
 msgstr "Accedi solo per questa sessione"
@@ -589,13 +584,13 @@ msgstr "Accedi tramite email"
 msgid "Log me in only this time"
 msgstr "Accedi solo per questa sessione"
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:119
-#: lib/daily_logos_web/components/layouts/main_menu.ex:107
+#: lib/daily_logos_web/components/layouts/app_header.ex:115
+#: lib/daily_logos_web/components/layouts/main_menu.ex:108
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr "Esci"
 
-#: lib/daily_logos_web/controllers/user_session_controller.ex:94
+#: lib/daily_logos_web/controllers/user_session_controller.ex:110
 #, elixir-autogen, elixir-format
 msgid "Logged out successfully."
 msgstr "Disconnessione completata."
@@ -607,7 +602,7 @@ msgstr "Disconnessione completata."
 msgid "Logging in..."
 msgstr "Accesso in corso..."
 
-#: lib/daily_logos_web/controllers/user_session_controller.ex:87
+#: lib/daily_logos_web/controllers/user_session_controller.ex:103
 #, elixir-autogen, elixir-format
 msgid "Magic link is invalid or it has expired."
 msgstr "Il link di accesso non è valido o è scaduto."
@@ -622,18 +617,16 @@ msgstr "Gestisci l'indirizzo email e la password del tuo account"
 msgid "New password"
 msgstr "Nuova password"
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:60
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:73
 #, elixir-autogen, elixir-format
 msgid "Password"
 msgstr "Password"
 
-#: lib/daily_logos_web/controllers/user_settings_controller.ex:54
+#: lib/daily_logos_web/controllers/user_settings_controller.ex:55
 #, elixir-autogen, elixir-format
 msgid "Password updated successfully."
 msgstr "Password aggiornata correttamente."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:137
-#: lib/daily_logos_web/components/layouts/main_menu.ex:122
 #: lib/daily_logos_web/controllers/page_html/notifications.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "Register"
@@ -649,18 +642,20 @@ msgstr "Crea un account"
 msgid "Save Password"
 msgstr "Salva password"
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:97
-#: lib/daily_logos_web/components/layouts/main_menu.ex:88
+#: lib/daily_logos_web/components/layouts/app_header.ex:93
+#: lib/daily_logos_web/components/layouts/main_menu.ex:89
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr "Impostazioni"
 
+#: lib/daily_logos_web/components/layouts/app_header.ex:131
+#: lib/daily_logos_web/components/layouts/main_menu.ex:131
 #: lib/daily_logos_web/controllers/user_session_html/new.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Sign up"
 msgstr "Registrati"
 
-#: lib/daily_logos_web/controllers/user_session_controller.ex:36
+#: lib/daily_logos_web/controllers/user_session_controller.ex:52
 #, elixir-autogen, elixir-format
 msgid "The link is invalid or it has expired."
 msgstr "Il link non è valido o è scaduto."
@@ -675,7 +670,7 @@ msgstr "Se preferisci usare una password, puoi impostarla nelle impostazioni del
 msgid "To see sent emails, visit"
 msgstr "Per vedere le email inviate, visita"
 
-#: lib/daily_logos_web/controllers/user_session_controller.ex:24
+#: lib/daily_logos_web/controllers/user_session_controller.ex:40
 #, elixir-autogen, elixir-format
 msgid "User confirmed successfully."
 msgstr "Email confermata correttamente."
@@ -685,8 +680,8 @@ msgstr "Email confermata correttamente."
 msgid "Welcome %{email}"
 msgstr "Benvenuto %{email}"
 
-#: lib/daily_logos_web/controllers/user_session_controller.ex:25
-#: lib/daily_logos_web/controllers/user_session_controller.ex:45
+#: lib/daily_logos_web/controllers/user_session_controller.ex:41
+#: lib/daily_logos_web/controllers/user_session_controller.ex:61
 #, elixir-autogen, elixir-format
 msgid "Welcome back!"
 msgstr "Bentornato!"
@@ -706,7 +701,7 @@ msgstr "Devi autenticarti di nuovo per eseguire operazioni sensibili sul tuo acc
 msgid "for an account now."
 msgstr "per creare un account."
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:45
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:57
 #, elixir-autogen, elixir-format
 msgid "or"
 msgstr "oppure"
@@ -751,12 +746,12 @@ msgstr "Istruzioni per l'accesso"
 msgid "Update email instructions"
 msgstr "Istruzioni per aggiornare l'indirizzo email"
 
-#: lib/daily_logos_web/user_auth.ex:227
+#: lib/daily_logos_web/user_auth.ex:235
 #, elixir-autogen, elixir-format
 msgid "You must log in to access this page."
 msgstr "Devi accedere per visualizzare questa pagina."
 
-#: lib/daily_logos_web/user_auth.ex:187
+#: lib/daily_logos_web/user_auth.ex:195
 #, elixir-autogen, elixir-format
 msgid "You must re-authenticate to access this page."
 msgstr "Devi autenticarti di nuovo per visualizzare questa pagina."
@@ -778,14 +773,12 @@ msgstr "Mostra password"
 msgid "Too many requests. Please try again later."
 msgstr "Troppe richieste. Riprova piu' tardi."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:80
-#: lib/daily_logos_web/components/layouts/app_header.ex:81
-#: lib/daily_logos_web/components/layouts/app_header.ex:84
+#: lib/daily_logos_web/components/layouts/app_header.ex:82
 #, elixir-autogen, elixir-format
 msgid "Account"
 msgstr "Account"
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:88
+#: lib/daily_logos_web/components/layouts/app_header.ex:81
 #, elixir-autogen, elixir-format
 msgid "Account navigation"
 msgstr "Navigazione account"
@@ -805,8 +798,8 @@ msgstr "Elimina account"
 msgid "Deleting your account is permanent. Your account and sign-in tokens will be deleted, and you will be signed out. This cannot be undone."
 msgstr "La cancellazione dell'account è definitiva. L'account e i token di accesso verranno eliminati e la sessione verrà chiusa. L'operazione non può essere annullata."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:38
-#: lib/daily_logos_web/components/layouts/app_header.ex:146
+#: lib/daily_logos_web/components/layouts/app_header.ex:39
+#: lib/daily_logos_web/components/layouts/app_header.ex:140
 #, elixir-autogen, elixir-format
 msgid "GitHub repository"
 msgstr "Repository GitHub"
@@ -816,13 +809,13 @@ msgstr "Repository GitHub"
 msgid "I understand that deleting my account is permanent."
 msgstr "Comprendo che la cancellazione dell'account è definitiva."
 
-#: lib/daily_logos_web/components/layouts/main_menu.ex:136
+#: lib/daily_logos_web/components/layouts/main_menu.ex:137
 #, elixir-autogen, elixir-format
 msgid "Information"
 msgstr "Informazioni"
 
 #: lib/daily_logos_web/components/common/locale_toggle.ex:18
-#: lib/daily_logos_web/components/layouts/main_menu.ex:162
+#: lib/daily_logos_web/components/layouts/main_menu.ex:163
 #, elixir-autogen, elixir-format
 msgid "Language"
 msgstr "Lingua"
@@ -847,9 +840,9 @@ msgstr "Navigazione mobile"
 msgid "Notification settings are not available yet."
 msgstr "Le impostazioni delle notifiche non sono ancora disponibili."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:69
-#: lib/daily_logos_web/components/layouts/main_menu.ex:82
-#: lib/daily_logos_web/components/layouts/main_menu.ex:129
+#: lib/daily_logos_web/components/layouts/app_header.ex:70
+#: lib/daily_logos_web/components/layouts/main_menu.ex:83
+#: lib/daily_logos_web/components/layouts/main_menu.ex:118
 #: lib/daily_logos_web/controllers/page_html/notifications.html.heex:4
 #: lib/daily_logos_web/controllers/page_html/notifications.html.heex:16
 #, elixir-autogen, elixir-format
@@ -861,8 +854,8 @@ msgstr "Notifiche"
 msgid "Daily Stoic Quote Notifications | Daily Logos"
 msgstr "Notifiche con citazioni stoiche quotidiane | Daily Logos"
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:166
-#: lib/daily_logos_web/components/layouts/app_header.ex:169
+#: lib/daily_logos_web/components/layouts/app_header.ex:161
+#: lib/daily_logos_web/components/layouts/app_header.ex:164
 #, elixir-autogen, elixir-format
 msgid "Open menu"
 msgstr "Apri menu"
@@ -872,14 +865,14 @@ msgstr "Apri menu"
 msgid "Permanently delete account"
 msgstr "Elimina definitivamente l'account"
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:44
-#: lib/daily_logos_web/components/layouts/main_menu.ex:75
+#: lib/daily_logos_web/components/layouts/app_header.ex:45
+#: lib/daily_logos_web/components/layouts/main_menu.ex:76
 #, elixir-autogen, elixir-format
 msgid "Primary navigation"
 msgstr "Navigazione principale"
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:105
-#: lib/daily_logos_web/components/layouts/main_menu.ex:94
+#: lib/daily_logos_web/components/layouts/app_header.ex:101
+#: lib/daily_logos_web/components/layouts/main_menu.ex:95
 #: lib/daily_logos_web/controllers/user_privacy_html/edit.html.heex:4
 #, elixir-autogen, elixir-format
 msgid "Privacy"
@@ -901,7 +894,7 @@ msgid "Switch language to Italian"
 msgstr "Passa all'italiano"
 
 #: lib/daily_logos_web/components/common/theme_toggle.ex:14
-#: lib/daily_logos_web/components/layouts/main_menu.ex:157
+#: lib/daily_logos_web/components/layouts/main_menu.ex:158
 #, elixir-autogen, elixir-format
 msgid "Theme"
 msgstr "Tema"
@@ -934,8 +927,8 @@ msgstr "Non è stato possibile eliminare l'account. Riprova."
 msgid "Your account has been permanently deleted."
 msgstr "L'account è stato eliminato definitivamente."
 
-#: lib/daily_logos_web/components/layouts/app_header.ex:170
-#: lib/daily_logos_web/components/layouts/main_menu.ex:67
+#: lib/daily_logos_web/components/layouts/app_header.ex:165
+#: lib/daily_logos_web/components/layouts/main_menu.ex:68
 #, elixir-autogen, elixir-format
 msgid "Close menu"
 msgstr "Chiudi menu"
@@ -969,11 +962,6 @@ msgstr "Ultimo aggiornamento: ottobre 2026"
 #, elixir-autogen, elixir-format
 msgid "Review how Daily Logos handles session, remember-me, consent, analytics, and embedded-content cookies."
 msgstr "Consulta come Daily Logos gestisce cookie di sessione, accesso persistente, consenso, analytics e contenuti incorporati."
-
-#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:65
-#, elixir-autogen, elixir-format
-msgid "Session cookie storing authentication and locale state until the browser session ends."
-msgstr "Cookie di sessione: conserva dati di autenticazione e lingua fino alla fine della sessione del browser."
 
 #: lib/daily_logos_web/controllers/page_html/privacy.html.heex:90
 #, elixir-autogen, elixir-format
@@ -1009,3 +997,89 @@ msgstr "Cookie temporaneo usato solo per trasferire un messaggio flash durante u
 #, elixir-autogen, elixir-format
 msgid "Create an account and be ready to choose when and how to receive your daily quote."
 msgstr "Crea un account e preparati a scegliere quando e come ricevere la citazione quotidiana."
+
+#: lib/daily_logos_web/controllers/oauth_controller.ex:123
+#, elixir-autogen, elixir-format
+msgid "Confirm your email using the link we sent before signing in."
+msgstr "Conferma l'indirizzo email usando il link che ti abbiamo inviato prima di accedere."
+
+#: lib/daily_logos_web/components/oauth_providers.ex:61
+#, elixir-autogen, elixir-format
+msgid "Connect %{provider}"
+msgstr "Collega %{provider}"
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:70
+#, elixir-autogen, elixir-format
+msgid "Connect a provider to use it for future sign-ins."
+msgstr "Collega un provider per usarlo nei prossimi accessi."
+
+#: lib/daily_logos_web/components/oauth_providers.ex:51
+#, elixir-autogen, elixir-format
+msgid "Connected"
+msgstr "Collegato"
+
+#: lib/daily_logos_web/components/oauth_providers.ex:22
+#, elixir-autogen, elixir-format
+msgid "Continue with %{provider}"
+msgstr "Continua con %{provider}"
+
+#: lib/daily_logos_web/controllers/oauth_controller.ex:152
+#, elixir-autogen, elixir-format
+msgid "Create and verify an account with your email before connecting this provider."
+msgstr "Crea e verifica un account con la tua email prima di collegare questo provider."
+
+#: lib/daily_logos_web/components/oauth_providers.ex:29
+#, elixir-autogen, elixir-format
+msgid "Last used"
+msgstr "Usato di recente"
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:76
+#, elixir-autogen, elixir-format
+msgid "No sign-in providers are currently available."
+msgstr "Al momento non ci sono provider di accesso disponibili."
+
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:65
+#, elixir-autogen, elixir-format
+msgid "Session cookie storing authentication, locale, and last-used sign-in provider preference until the browser session ends."
+msgstr "Cookie di sessione: conserva i dati di autenticazione, la lingua e la preferenza dell'ultimo provider di accesso fino alla fine della sessione del browser."
+
+#: lib/daily_logos_web/controllers/oauth_controller.ex:164
+#, elixir-autogen, elixir-format
+msgid "Sign-in provider connected."
+msgstr "Provider di accesso collegato."
+
+#: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:68
+#, elixir-autogen, elixir-format
+msgid "Sign-in providers"
+msgstr "Provider di accesso"
+
+#: lib/daily_logos_web/controllers/oauth_controller.ex:186
+#, elixir-autogen, elixir-format
+msgid "This sign-in provider is not available."
+msgstr "Questo provider di accesso non è disponibile."
+
+#: lib/daily_logos_web/controllers/oauth_controller.ex:19
+#: lib/daily_logos_web/controllers/oauth_controller.ex:108
+#, elixir-autogen, elixir-format
+msgid "Use the account settings to connect a sign-in provider."
+msgstr "Per collegare un provider di accesso, usa le impostazioni account."
+
+#: lib/daily_logos_web/controllers/oauth_controller.ex:196
+#, elixir-autogen, elixir-format
+msgid "We could not complete sign-in with that provider."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:47
+#, elixir-autogen, elixir-format
+msgid "or continue with"
+msgstr "oppure continua con"
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:55
+#, elixir-autogen, elixir-format
+msgid "or use email"
+msgstr "oppure usa l'email"
+
+#: lib/daily_logos_web/controllers/page_html/privacy.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Functional preferences such as language selection."
+msgstr ""

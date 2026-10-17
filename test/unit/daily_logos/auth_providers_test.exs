@@ -55,6 +55,20 @@ defmodule DailyLogos.AuthProvidersTest do
     assert AuthProviders.configured?("google")
   end
 
+  test "lists only providers with both credentials configured" do
+    Application.put_env(:ueberauth, Ueberauth.Strategy.Google.OAuth,
+      client_id: "google-client",
+      client_secret: "google-secret"
+    )
+
+    Application.put_env(:ueberauth, Ueberauth.Strategy.Github.OAuth,
+      client_id: "github-client",
+      client_secret: ""
+    )
+
+    assert AuthProviders.available_providers() == [%{id: "google", label: "Google"}]
+  end
+
   test "returns the configured strategy with a canonical callback path" do
     assert {:ok, {Ueberauth.Strategy.Google, options}} = AuthProviders.strategy("google")
     assert options[:default_scope] == "openid email"

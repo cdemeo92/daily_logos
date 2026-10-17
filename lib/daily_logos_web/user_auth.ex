@@ -149,12 +149,20 @@ defmodule DailyLogosWeb.UserAuth do
   defp renew_session(conn, _user) do
     delete_csrf_token()
     locale = get_session(conn, :locale)
+    last_oauth_provider = get_session(conn, :last_oauth_provider)
 
     conn
     |> configure_session(renew: true)
     |> clear_session()
     |> put_session(:locale, locale)
+    |> maybe_put_last_oauth_provider(last_oauth_provider)
   end
+
+  defp maybe_put_last_oauth_provider(conn, provider)
+       when provider in ["google", "github", "facebook"],
+       do: put_session(conn, :last_oauth_provider, provider)
+
+  defp maybe_put_last_oauth_provider(conn, _provider), do: conn
 
   defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}, _),
     do: write_remember_me_cookie(conn, token)

@@ -62,6 +62,31 @@
           {gettext("Save Password")}
         </.button>
       </.form>
+
+      <section id="oauth-settings" class="space-y-3 border-t border-base-300 pt-6">
+        <header class="space-y-1">
+          <h2 class="text-lg font-semibold">{gettext("Sign-in providers")}</h2>
+          <p class="text-sm text-base-content/60">
+            {gettext("Connect a provider to use it for future sign-ins.")}
+          </p>
+        </header>
+
+        <%= if @oauth_providers == [] do %>
+          <p class="py-3 text-sm text-base-content/60">
+            {gettext("No sign-in providers are currently available.")}
+          </p>
+        <% else %>
+          <div>
+            <.oauth_provider_settings_row
+              :for={provider <- @oauth_providers}
+              provider={provider.id}
+              label={provider.label}
+              connected?={provider.id in @connected_oauth_providers}
+              form={@oauth_form}
+            />
+          </div>
+        <% end %>
+      </section>
     </section>
   </div>
 </Layouts.app>

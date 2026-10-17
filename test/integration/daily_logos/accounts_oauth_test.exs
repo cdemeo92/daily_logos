@@ -79,6 +79,14 @@ defmodule DailyLogos.AccountsOAuthTest do
 
       assert Accounts.get_user_by_oauth_identity("google", "google-user-1").id == original.user_id
     end
+
+    test "lists identities linked to a user in provider order" do
+      user = user_fixture()
+      {:ok, _google} = Accounts.link_oauth_identity(user, "google", "google-user-1")
+      {:ok, _github} = Accounts.link_oauth_identity(user, "github", "github-user-1")
+
+      assert Enum.map(Accounts.list_user_identities(user), & &1.provider) == ["github", "google"]
+    end
   end
 
   defp oauth_identity_attrs(attrs) do

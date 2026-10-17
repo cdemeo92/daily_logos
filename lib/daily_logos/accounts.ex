@@ -40,6 +40,14 @@ defmodule DailyLogos.Accounts do
   end
 
   @doc """
+  Lists the OAuth identities linked to a local user.
+  """
+  def list_user_identities(%User{id: user_id}) do
+    Repo.all_by(UserIdentity, user_id: user_id)
+    |> Enum.sort_by(& &1.provider)
+  end
+
+  @doc """
   Registers a user and provider identity atomically.
 
   Provider-verified emails create confirmed users. Other emails remain
