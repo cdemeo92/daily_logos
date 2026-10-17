@@ -1067,7 +1067,7 @@ msgstr "Per collegare un provider di accesso, usa le impostazioni account."
 #: lib/daily_logos_web/controllers/oauth_controller.ex:196
 #, elixir-autogen, elixir-format
 msgid "We could not complete sign-in with that provider."
-msgstr ""
+msgstr "Non è stato possibile completare l'accesso con questo provider."
 
 #: lib/daily_logos_web/controllers/user_session_html/new.html.heex:47
 #, elixir-autogen, elixir-format
@@ -1082,4 +1082,4 @@ msgstr "oppure usa l'email"
 #: lib/daily_logos_web/controllers/page_html/privacy.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Functional preferences such as language selection."
-msgstr ""
+msgstr "Preferenze funzionali, come la selezione della lingua."
