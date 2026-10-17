@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/cdemeo92/daily_logos/compare/v1.25.0...v1.26.0) (2026-10-17)
+
+
+### Features
+
+* enhance OAuth functionality and localization support ([c1b2b7c](https://github.com/cdemeo92/daily_logos/commit/c1b2b7cc5b59b3e75b9e12d59f88d2fd710c7048))
+
 # [1.25.0](https://github.com/cdemeo92/daily_logos/compare/v1.24.0...v1.25.0) (2026-10-17)
 
 
