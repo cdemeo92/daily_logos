@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/cdemeo92/daily_logos/compare/v1.26.0...v1.26.1) (2026-10-17)
+
+
+### Bug Fixes
+
+* fix dates ([c4e4b4f](https://github.com/cdemeo92/daily_logos/commit/c4e4b4f6ab874c94a8fa6932bd4c161739c0826e))
+
 # [1.26.0](https://github.com/cdemeo92/daily_logos/compare/v1.25.0...v1.26.0) (2026-10-17)
 
 
