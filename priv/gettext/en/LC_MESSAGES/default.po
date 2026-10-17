@@ -405,51 +405,51 @@ msgstr ""
 msgid "Back to home"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_controller.ex:124
+#: lib/daily_logos_web/controllers/page_controller.ex:126
 #: lib/daily_logos_web/controllers/page_html/not_found.html.heex:5
 #: lib/daily_logos_web/plugs/invalid_locale_prefix.ex:25
 #, elixir-autogen, elixir-format
 msgid "Page Not Found"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_controller.ex:125
+#: lib/daily_logos_web/controllers/page_controller.ex:127
 #: lib/daily_logos_web/controllers/page_html/not_found.html.heex:8
 #: lib/daily_logos_web/plugs/invalid_locale_prefix.ex:26
 #, elixir-autogen, elixir-format
 msgid "The page you requested does not exist."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_controller.ex:89
+#: lib/daily_logos_web/controllers/page_controller.ex:90
 #, elixir-autogen, elixir-format
 msgid "\"%{topic}\" — %{author} | Daily Logos"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/show.html.heex:82
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:81
 #, elixir-autogen, elixir-format
 msgid "Today's quote"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_controller.ex:92
+#: lib/daily_logos_web/controllers/page_controller.ex:93
 #, elixir-autogen, elixir-format
 msgid "stoic quote %{author}, %{topic}, daily stoic, stoicism"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/show.html.heex:47
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/show.html.heex:45
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "Next day"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/show.html.heex:34
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "Previous"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/page_html/show.html.heex:31
+#: lib/daily_logos_web/controllers/page_html/show.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Previous day"
 msgstr ""
@@ -522,8 +522,8 @@ msgid "Don't have an account?"
 msgstr ""
 
 #: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:24
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:34
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:65
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:52
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:70
 #: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Email"
@@ -564,19 +564,14 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:78
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:83
 #, elixir-autogen, elixir-format
 msgid "Log in and stay logged in"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:81
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:86
 #, elixir-autogen, elixir-format
 msgid "Log in only this time"
-msgstr ""
-
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:41
-#, elixir-autogen, elixir-format
-msgid "Log in with email"
 msgstr ""
 
 #: lib/daily_logos_web/controllers/user_session_html/confirm.html.heex:63
@@ -617,7 +612,7 @@ msgstr ""
 msgid "New password"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:73
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:78
 #, elixir-autogen, elixir-format
 msgid "Password"
 msgstr ""
@@ -699,11 +694,6 @@ msgstr ""
 #: lib/daily_logos_web/controllers/user_session_html/new.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "for an account now."
-msgstr ""
-
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:57
-#, elixir-autogen, elixir-format
-msgid "or"
 msgstr ""
 
 #: lib/daily_logos_web/controllers/user_session_html/new.html.heex:24
@@ -1069,17 +1059,27 @@ msgstr ""
 msgid "We could not complete sign-in with that provider."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:47
-#, elixir-autogen, elixir-format
-msgid "or continue with"
-msgstr ""
-
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:55
-#, elixir-autogen, elixir-format
-msgid "or use email"
-msgstr ""
-
 #: lib/daily_logos_web/controllers/page_html/privacy.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Functional preferences such as language selection."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:63
+#, elixir-autogen, elixir-format
+msgid "or use password"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:59
+#, elixir-autogen, elixir-format
+msgid "Send passwordless sign-in link"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:43
+#, elixir-autogen, elixir-format
+msgid "We’ll send a one-time sign-in link. No password needed."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:40
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Passwordless sign-in"
 msgstr ""

@@ -14,7 +14,9 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
       response = html_response(conn, 200)
       assert response =~ "Log in"
       assert response =~ ~p"/users/register"
-      assert response =~ "Log in with email"
+      assert response =~ "Passwordless sign-in"
+      refute response =~ "Passwordless email sign-in"
+      assert response =~ "Send passwordless sign-in link"
     end
 
     test "renders login page with email filled in (sudo mode)", %{conn: conn, user: user} do
@@ -26,7 +28,9 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
 
       assert html =~ "You need to reauthenticate"
       refute html =~ "Register"
-      assert html =~ "Log in with email"
+      assert html =~ "Passwordless sign-in"
+      refute html =~ "Passwordless email sign-in"
+      assert html =~ "Send passwordless sign-in link"
 
       assert html =~
                ~s(<input type="email" name="user[email]" id="login_form_magic_email" value="#{user.email}")
@@ -37,7 +41,9 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
       response = html_response(conn, 200)
       assert response =~ "Log in"
       assert response =~ ~p"/users/register"
-      assert response =~ "Log in with email"
+      assert response =~ "Passwordless sign-in"
+      refute response =~ "Passwordless email sign-in"
+      assert response =~ "Send passwordless sign-in link"
     end
 
     test "preserves the Notifications destination through login", %{conn: conn, user: user} do

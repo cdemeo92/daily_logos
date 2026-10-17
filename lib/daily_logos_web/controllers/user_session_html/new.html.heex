@@ -26,6 +26,24 @@
         </div>
       </div>
 
+      <%= if @oauth_providers != [] do %>
+        <div class="space-y-2">
+          <.oauth_login_button
+            :for={provider <- @oauth_providers}
+            provider={provider.id}
+            label={provider.label}
+            last_used?={provider.id == @last_oauth_provider}
+          />
+        </div>
+      <% end %>
+
+      <div class="divider">{gettext("Passwordless sign-in")}</div>
+      <div>
+        <p class="text-sm text-base-content/60">
+          {gettext("We’ll send a one-time sign-in link. No password needed.")}
+        </p>
+      </div>
+
       <.form :let={f} for={@form} as={:user} id="login_form_magic" action={~p"/users/log-in"}>
         <.input
           readonly={!!@current_scope}
@@ -38,24 +56,11 @@
           phx-mounted={JS.focus()}
         />
         <.button class="btn btn-primary w-full">
-          {gettext("Log in with email")} <span aria-hidden="true">→</span>
+          {gettext("Send passwordless sign-in link")} <span aria-hidden="true">→</span>
         </.button>
       </.form>
 
-      <%= if @oauth_providers != [] do %>
-        <div class="space-y-2">
-          <div class="divider">{gettext("or continue with")}</div>
-          <.oauth_login_button
-            :for={provider <- @oauth_providers}
-            provider={provider.id}
-            label={provider.label}
-            last_used?={provider.id == @last_oauth_provider}
-          />
-        </div>
-        <div class="divider">{gettext("or use email")}</div>
-      <% else %>
-        <div class="divider">{gettext("or")}</div>
-      <% end %>
+      <div class="divider">{gettext("or use password")}</div>
 
       <.form :let={f} for={@form} as={:user} id="login_form_password" action={~p"/users/log-in"}>
         <.input
