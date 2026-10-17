@@ -48,6 +48,18 @@ config :daily_logos,
        :mailer_from,
        System.get_env("MAILER_FROM") || "no-reply@mail.daily-logos.com"
 
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: System.get_env("GITHUB_CLIENT_ID"),
+  client_secret: System.get_env("GITHUB_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
+  client_id: System.get_env("FACEBOOK_CLIENT_ID"),
+  client_secret: System.get_env("FACEBOOK_CLIENT_SECRET")
+
 if config_env() == :prod do
   config :daily_logos, DailyLogos.Mailer,
     adapter: Swoosh.Adapters.Resend,
