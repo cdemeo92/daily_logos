@@ -469,11 +469,6 @@ msgstr ""
 msgid "Already registered?"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_registration_controller.ex:30
-#, elixir-autogen, elixir-format
-msgid "An email was sent to %{email}, please access it to confirm your account."
-msgstr ""
-
 #: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Change Email"
@@ -506,12 +501,12 @@ msgstr ""
 msgid "Confirming..."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:32
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "Create an account"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:31
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:41
 #, elixir-autogen, elixir-format
 msgid "Creating account..."
 msgstr ""
@@ -521,9 +516,9 @@ msgstr ""
 msgid "Don't have an account?"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:24
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:52
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:70
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:34
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:53
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:71
 #: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Email"
@@ -564,12 +559,12 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:83
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:84
 #, elixir-autogen, elixir-format
 msgid "Log in and stay logged in"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:86
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:87
 #, elixir-autogen, elixir-format
 msgid "Log in only this time"
 msgstr ""
@@ -612,7 +607,7 @@ msgstr ""
 msgid "New password"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:78
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:79
 #, elixir-autogen, elixir-format
 msgid "Password"
 msgstr ""
@@ -988,12 +983,12 @@ msgstr ""
 msgid "Create an account and be ready to choose when and how to receive your daily quote."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/oauth_controller.ex:123
+#: lib/daily_logos_web/controllers/oauth_controller.ex:125
 #, elixir-autogen, elixir-format
 msgid "Confirm your email using the link we sent before signing in."
 msgstr ""
 
-#: lib/daily_logos_web/components/oauth_providers.ex:61
+#: lib/daily_logos_web/components/oauth_providers.ex:65
 #, elixir-autogen, elixir-format
 msgid "Connect %{provider}"
 msgstr ""
@@ -1003,22 +998,22 @@ msgstr ""
 msgid "Connect a provider to use it for future sign-ins."
 msgstr ""
 
-#: lib/daily_logos_web/components/oauth_providers.ex:51
+#: lib/daily_logos_web/components/oauth_providers.ex:55
 #, elixir-autogen, elixir-format
 msgid "Connected"
 msgstr ""
 
-#: lib/daily_logos_web/components/oauth_providers.ex:22
+#: lib/daily_logos_web/components/oauth_providers.ex:25
 #, elixir-autogen, elixir-format
 msgid "Continue with %{provider}"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/oauth_controller.ex:152
+#: lib/daily_logos_web/controllers/oauth_controller.ex:172
 #, elixir-autogen, elixir-format
 msgid "Create and verify an account with your email before connecting this provider."
 msgstr ""
 
-#: lib/daily_logos_web/components/oauth_providers.ex:29
+#: lib/daily_logos_web/components/oauth_providers.ex:32
 #, elixir-autogen, elixir-format
 msgid "Last used"
 msgstr ""
@@ -1033,7 +1028,7 @@ msgstr ""
 msgid "Session cookie storing authentication, locale, and last-used sign-in provider preference until the browser session ends."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/oauth_controller.ex:164
+#: lib/daily_logos_web/controllers/oauth_controller.ex:183
 #, elixir-autogen, elixir-format
 msgid "Sign-in provider connected."
 msgstr ""
@@ -1043,18 +1038,18 @@ msgstr ""
 msgid "Sign-in providers"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/oauth_controller.ex:186
+#: lib/daily_logos_web/controllers/oauth_controller.ex:205
 #, elixir-autogen, elixir-format
 msgid "This sign-in provider is not available."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/oauth_controller.ex:19
-#: lib/daily_logos_web/controllers/oauth_controller.ex:108
+#: lib/daily_logos_web/controllers/oauth_controller.ex:21
+#: lib/daily_logos_web/controllers/oauth_controller.ex:110
 #, elixir-autogen, elixir-format
 msgid "Use the account settings to connect a sign-in provider."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/oauth_controller.ex:196
+#: lib/daily_logos_web/controllers/oauth_controller.ex:215
 #, elixir-autogen, elixir-format
 msgid "We could not complete sign-in with that provider."
 msgstr ""
@@ -1064,22 +1059,47 @@ msgstr ""
 msgid "Functional preferences such as language selection."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:63
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:64
 #, elixir-autogen, elixir-format
 msgid "or use password"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:59
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:60
 #, elixir-autogen, elixir-format
 msgid "Send passwordless sign-in link"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:43
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "We’ll send a one-time sign-in link. No password needed."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:40
+#: lib/daily_logos_web/controllers/user_session_html/new.html.heex:41
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Passwordless sign-in"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/verify_email.html.heex:25
+#, elixir-autogen, elixir-format
+msgid "Back to log in"
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/verify_email.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "If you cannot find it, check your spam folder or request a new sign-in link."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/verify_email.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Verify your email to sign in"
+msgstr ""
+
+#: lib/daily_logos_web/email_verification.ex:29
+#, elixir-autogen, elixir-format
+msgid "We could not send the email. Please request another sign-in link."
+msgstr ""
+
+#: lib/daily_logos_web/controllers/user_registration_html/verify_email.html.heex:12
+#, elixir-autogen, elixir-format
+msgid "We sent you a one-time link. Follow the instructions in your email to confirm your account and sign in."
 msgstr ""

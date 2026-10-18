@@ -32,6 +32,7 @@
             :for={provider <- @oauth_providers}
             provider={provider.id}
             label={provider.label}
+            locale={@locale}
             last_used?={provider.id == @last_oauth_provider}
           />
         </div>

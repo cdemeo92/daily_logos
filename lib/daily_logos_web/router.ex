@@ -50,6 +50,7 @@ defmodule DailyLogosWeb.Router do
     get "/notifications", PageController, :notifications
 
     get "/users/log-in", UserSessionController, :new
+    get "/users/verify-email", UserRegistrationController, :verify_email
     get "/users/log-in/:token", UserSessionController, :confirm
     post "/users/log-in", UserSessionController, :create
     delete "/users/log-out", UserSessionController, :delete
@@ -145,6 +146,7 @@ defmodule DailyLogosWeb.Router do
     get "/notifications", PageController, :notifications
 
     get "/users/log-in", UserSessionController, :new
+    get "/users/verify-email", UserRegistrationController, :verify_email
     get "/users/log-in/:token", UserSessionController, :confirm
     get "/auth/:provider", OAuthController, :request
   end

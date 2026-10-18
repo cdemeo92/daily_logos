@@ -17,9 +17,19 @@
         </p>
       </header>
 
-      <.form :let={f} for={@changeset} action={~p"/users/register"}>
+      <div :if={@oauth_providers != []} id="registration-providers" class="space-y-2">
+        <.oauth_login_button
+          :for={provider <- @oauth_providers}
+          provider={provider.id}
+          label={provider.label}
+          locale={@locale}
+          last_used?={provider.id == @last_oauth_provider}
+        />
+      </div>
+
+      <.form for={@form} id="registration-form" action={~p"/users/register"}>
         <.input
-          field={f[:email]}
+          field={@form[:email]}
           type="email"
           label={gettext("Email")}
           autocomplete="username"

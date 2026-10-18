@@ -4,6 +4,8 @@ defmodule DailyLogosWeb.OAuthController do
   alias DailyLogos.Accounts
   alias DailyLogos.Accounts.User
   alias DailyLogos.AuthProviders
+  alias DailyLogosWeb.EmailVerification
+  alias DailyLogosWeb.LocalePaths
   alias DailyLogosWeb.Plugs.InvalidLocalePrefix
   alias DailyLogosWeb.UserAuth
   alias Ueberauth.Auth
@@ -146,13 +148,30 @@ defmodule DailyLogosWeb.OAuthController do
         {:error, _changeset} -> authentication_failed(conn)
       end
     else
-      put_flash_and_redirect(
-        conn,
-        :info,
-        gettext("Create and verify an account with your email before connecting this provider."),
-        registration_path(conn)
-      )
+      register_unverified_email(conn, email)
     end
+  end
+
+  defp register_unverified_email(conn, email) when is_binary(email) and email != "" do
+    case Accounts.get_user_by_email(email) do
+      nil ->
+        case Accounts.register_user(%{email: email}) do
+          {:ok, user} -> EmailVerification.deliver_and_redirect(conn, user)
+          {:error, _changeset} -> authentication_failed(conn)
+        end
+
+      _existing_user ->
+        authentication_failed(conn)
+    end
+  end
+
+  defp register_unverified_email(conn, _email) do
+    put_flash_and_redirect(
+      conn,
+      :info,
+      gettext("Create and verify an account with your email before connecting this provider."),
+      registration_path(conn)
+    )
   end
 
   defp link_identity(conn, user, provider, provider_uid) do
@@ -212,10 +231,7 @@ defmodule DailyLogosWeb.OAuthController do
   end
 
   defp store_locale(conn) do
-    case conn.assigns[:locale] do
-      locale when locale in ["en", "it"] -> put_session(conn, :locale, locale)
-      _ -> conn
-    end
+    put_session(conn, :locale, conn.assigns[:locale] || Gettext.get_locale(DailyLogosWeb.Gettext))
   end
 
   defp provider_matches?(provider_atom, provider) when is_atom(provider_atom),
@@ -241,8 +257,7 @@ defmodule DailyLogosWeb.OAuthController do
   defp registration_path(conn), do: localized_path(conn, ~p"/users/register")
   defp settings_path(conn), do: localized_path(conn, ~p"/users/settings")
 
-  defp localized_path(%{assigns: %{locale: "it"}}, path), do: "/it" <> path
-  defp localized_path(_conn, path), do: path
+  defp localized_path(conn, path), do: LocalePaths.localized_path(path, conn.assigns[:locale])
 
   defp fallback_path(conn) do
     case current_user(conn) do

@@ -6,14 +6,17 @@ defmodule DailyLogosWeb.Components.OAuthProviders do
 
   import DailyLogosWeb.CoreComponents, only: [button: 1]
 
+  alias DailyLogosWeb.LocalePaths
+
   attr :provider, :string, required: true, values: ~w(google github facebook)
   attr :label, :string, required: true
   attr :last_used?, :boolean, default: false
+  attr :locale, :string, default: nil
 
   def oauth_login_button(assigns) do
     ~H"""
     <.link
-      href={"/auth/#{@provider}"}
+      href={LocalePaths.localized_path("/auth/#{@provider}", @locale)}
       id={"oauth-login-#{@provider}"}
       class="btn btn-outline flex min-h-12 w-full items-center justify-between gap-3"
     >
@@ -36,6 +39,7 @@ defmodule DailyLogosWeb.Components.OAuthProviders do
   attr :label, :string, required: true
   attr :connected?, :boolean, default: false
   attr :form, :map, required: true
+  attr :locale, :string, default: nil
 
   def oauth_provider_settings_row(assigns) do
     ~H"""
@@ -54,7 +58,7 @@ defmodule DailyLogosWeb.Components.OAuthProviders do
         :if={!@connected?}
         for={@form}
         id={"oauth-connect-form-#{@provider}"}
-        action={"/users/settings/identities/#{@provider}"}
+        action={LocalePaths.localized_path("/users/settings/identities/#{@provider}", @locale)}
         method="post"
       >
         <.button class="btn btn-outline min-h-11 w-full sm:w-auto">

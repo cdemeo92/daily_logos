@@ -4,7 +4,7 @@ defmodule DailyLogosWeb.OAuthControllerTest do
   import DailyLogos.AccountsFixtures
 
   alias DailyLogos.Accounts
-  alias DailyLogos.Accounts.{User, UserIdentity}
+  alias DailyLogos.Accounts.{User, UserIdentity, UserToken}
   alias DailyLogos.Repo
   alias Ueberauth.Auth
   alias Ueberauth.Auth.{Extra, Info}
@@ -197,9 +197,80 @@ defmodule DailyLogosWeb.OAuthControllerTest do
       conn = conn |> Plug.Conn.assign(:ueberauth_auth, auth) |> get("/auth/facebook/callback")
 
       refute get_session(conn, :user_token)
-      assert redirected_to(conn) == "/users/register"
-      refute Accounts.get_user_by_email(email)
+      assert redirected_to(conn) == "/users/verify-email"
+      user = Accounts.get_user_by_email(email)
+      refute user.confirmed_at
+      assert Repo.get_by(UserToken, user_id: user.id, context: "login")
       refute Repo.get_by(UserIdentity, provider: "facebook", provider_uid: "facebook-new-user")
+
+      conn = conn |> recycle() |> get("/users/verify-email")
+      document = conn |> html_response(200) |> LazyHTML.from_document()
+      assert Enum.count(LazyHTML.query(document, "#email-verification-status")) == 1
+      conn = conn |> recycle() |> get("/users/verify-email")
+      assert html_response(conn, 200) =~ "Verify your email to sign in"
+
+      token = extract_user_token(&Accounts.deliver_login_instructions(user, &1))
+      conn = post(conn, "/users/log-in", %{"user" => %{"token" => token}})
+      assert get_session(conn, :user_token)
+      assert Accounts.get_user!(user.id).confirmed_at
+      refute Accounts.get_user_by_oauth_identity("facebook", "facebook-new-user")
+    end
+
+    test "registration reuses the social controls", %{conn: conn} do
+      document =
+        conn |> get("/it/users/register") |> html_response(200) |> LazyHTML.from_document()
+
+      assert Enum.count(LazyHTML.query(document, "#oauth-login-google")) == 1
+      assert Enum.count(LazyHTML.query(document, "#oauth-login-github")) == 1
+
+      assert LazyHTML.attribute(LazyHTML.query(document, "#oauth-login-google"), "href") == [
+               "/it/auth/google"
+             ]
+    end
+
+    test "does not register or link an existing email without local authentication", %{conn: conn} do
+      user = unconfirmed_user_fixture()
+      auth = oauth_auth(:facebook, "untrusted-existing-email", user.email, false)
+      conn = conn |> assign(:ueberauth_auth, auth) |> get("/auth/facebook/callback")
+      assert redirected_to(conn) == "/users/log-in"
+      refute get_session(conn, :user_token)
+      refute Repo.get_by(UserToken, user_id: user.id)
+      refute Repo.get_by(UserIdentity, user_id: user.id)
+    end
+
+    test "uses the selected locale for local verification after OAuth", %{conn: conn} do
+      auth = oauth_auth(:facebook, "italian-new-user", unique_user_email(), false)
+
+      conn =
+        conn
+        |> init_test_session(%{locale: "it"})
+        |> assign(:ueberauth_auth, auth)
+        |> get("/auth/facebook/callback")
+
+      assert redirected_to(conn) == "/it/users/verify-email"
+      conn = conn |> recycle() |> get("/it/users/verify-email")
+      document = conn |> html_response(200) |> LazyHTML.from_document()
+      assert Enum.count(LazyHTML.query(document, "#email-verification-status")) == 1
+
+      assert LazyHTML.attribute(LazyHTML.query(document, "#verification-back-to-login"), "href") ==
+               ["/it/users/log-in"]
+    end
+
+    test "registration hides unconfigured social providers on initial and invalid submissions", %{
+      conn: conn
+    } do
+      Application.put_env(:ueberauth, Ueberauth.Strategy.Google.OAuth,
+        client_id: "",
+        client_secret: ""
+      )
+
+      conn = get(conn, "/users/register")
+      document = conn |> html_response(200) |> LazyHTML.from_document()
+      assert Enum.empty?(LazyHTML.query(document, "#oauth-login-google"))
+      conn = post(conn, "/users/register", %{"user" => %{"email" => "invalid"}})
+      document = conn |> html_response(200) |> LazyHTML.from_document()
+      assert Enum.empty?(LazyHTML.query(document, "#oauth-login-google"))
+      assert Enum.count(LazyHTML.query(document, "#oauth-login-github")) == 1
     end
 
     test "requires a local account when the provider omits email", %{conn: conn} do
@@ -212,6 +283,13 @@ defmodule DailyLogosWeb.OAuthControllerTest do
 
       assert redirected_to(conn) == "/users/register"
       refute get_session(conn, :pending_oauth_identity)
+      refute Accounts.get_user_by_oauth_identity("google", "google-without-email")
+
+      conn = conn |> recycle() |> get("/it/users/register")
+      email = unique_user_email()
+      conn = post(conn, "/users/register", %{"user" => %{"email" => email}})
+      assert redirected_to(conn) == "/it/users/verify-email"
+      refute Accounts.get_user_by_email(email).confirmed_at
       refute Accounts.get_user_by_oauth_identity("google", "google-without-email")
     end
 

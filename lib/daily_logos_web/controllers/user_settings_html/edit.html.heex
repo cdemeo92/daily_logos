@@ -81,6 +81,7 @@
               :for={provider <- @oauth_providers}
               provider={provider.id}
               label={provider.label}
+              locale={@locale}
               connected?={provider.id in @connected_oauth_providers}
               form={@oauth_form}
             />

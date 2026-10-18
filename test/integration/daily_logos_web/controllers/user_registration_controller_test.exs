@@ -48,10 +48,10 @@ defmodule DailyLogosWeb.UserRegistrationControllerTest do
         })
 
       refute get_session(conn, :user_token)
-      assert redirected_to(conn) == ~p"/users/log-in"
-
-      assert conn.assigns.flash["info"] =~
-               ~r/An email was sent to .*, please access it to confirm your account/
+      assert redirected_to(conn) == ~p"/users/verify-email"
+      conn = conn |> recycle() |> get("/users/verify-email")
+      document = conn |> html_response(200) |> LazyHTML.from_document()
+      assert Enum.count(LazyHTML.query(document, "#email-verification-status")) == 1
     end
 
     @tag :capture_log
@@ -67,7 +67,7 @@ defmodule DailyLogosWeb.UserRegistrationControllerTest do
           "user" => valid_user_attributes(email: email)
         })
 
-      assert redirected_to(conn) == ~p"/users/log-in"
+      assert redirected_to(conn) == ~p"/users/verify-email"
       user = Accounts.get_user_by_email(email)
 
       token =
