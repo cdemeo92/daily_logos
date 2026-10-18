@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/cdemeo92/daily_logos/compare/v1.28.0...v1.29.0) (2026-10-18)
+
+
+### Features
+
+* update links to use localized paths and enhance session locale handling ([c496bed](https://github.com/cdemeo92/daily_logos/commit/c496bed4a6409df3e4cb9ee1c3dfc45c1c518130))
+
 # [1.28.0](https://github.com/cdemeo92/daily_logos/compare/v1.27.3...v1.28.0) (2026-10-18)
 
 
