@@ -1,3 +1,10 @@
+## [1.27.1](https://github.com/cdemeo92/daily_logos/compare/v1.27.0...v1.27.1) (2026-10-18)
+
+
+### Bug Fixes
+
+* add redirect for recently authenticated users and update login routes ([ebeb461](https://github.com/cdemeo92/daily_logos/commit/ebeb46128a70453a03dc6c2f25c2104033266650))
+
 # [1.27.0](https://github.com/cdemeo92/daily_logos/compare/v1.26.2...v1.27.0) (2026-10-18)
 
 
