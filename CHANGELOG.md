@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/cdemeo92/daily_logos/compare/v1.26.2...v1.27.0) (2026-10-18)
+
+
+### Features
+
+* Implement email verification flow for OAuth registration ([c72525c](https://github.com/cdemeo92/daily_logos/commit/c72525ce227d740135707ada4721507cea53a373))
+
 ## [1.26.2](https://github.com/cdemeo92/daily_logos/compare/v1.26.1...v1.26.2) (2026-10-17)
 
 
