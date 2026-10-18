@@ -201,6 +201,31 @@ defmodule DailyLogosWeb.UserAuth do
   end
 
   @doc """
+  Redirects recently authenticated users away from login while allowing sudo reauthentication.
+  """
+  def redirect_if_recently_authenticated(
+        %{assigns: %{invalid_locale_prefix: true}} = conn,
+        _opts
+      ),
+      do: conn
+
+  def redirect_if_recently_authenticated(conn, _opts) do
+    case conn.assigns.current_scope do
+      %{user: %{confirmed_at: confirmed_at} = user} when not is_nil(confirmed_at) ->
+        if Accounts.sudo_mode?(user, -10) do
+          conn
+          |> redirect(to: DailyLogosWeb.LocalePaths.localized_path(~p"/", conn.assigns[:locale]))
+          |> halt()
+        else
+          conn
+        end
+
+      _ ->
+        conn
+    end
+  end
+
+  @doc """
   Plug for routes that require the user to not be authenticated.
   """
   def redirect_if_user_is_authenticated(%{assigns: %{invalid_locale_prefix: true}} = conn, _opts),

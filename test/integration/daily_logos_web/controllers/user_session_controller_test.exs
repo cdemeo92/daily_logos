@@ -20,9 +20,11 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
     end
 
     test "renders login page with email filled in (sudo mode)", %{conn: conn, user: user} do
+      authenticated_at = DateTime.add(DateTime.utc_now(:second), -11, :minute)
+
       html =
         conn
-        |> log_in_user(user)
+        |> log_in_user(user, token_authenticated_at: authenticated_at)
         |> get(~p"/users/log-in")
         |> html_response(200)
 
@@ -34,6 +36,26 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
 
       assert html =~
                ~s(<input type="email" name="user[email]" id="login_form_magic_email" value="#{user.email}")
+    end
+
+    test "redirects a recently authenticated user away from the login page", %{
+      conn: conn,
+      user: user
+    } do
+      conn = conn |> log_in_user(user) |> get("/users/log-in")
+      assert redirected_to(conn) == "/"
+    end
+
+    test "redirects an authenticated user to the localized home", %{conn: conn, user: user} do
+      conn = conn |> log_in_user(user) |> get("/it/users/log-in")
+      assert redirected_to(conn) == "/it/"
+    end
+
+    test "keeps unsupported locale prefixes as 404 for authenticated users", %{
+      conn: conn,
+      user: user
+    } do
+      assert conn |> log_in_user(user) |> get("/fr/users/log-in") |> response(404)
     end
 
     test "renders login page (email + password)", %{conn: conn} do

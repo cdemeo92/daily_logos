@@ -49,7 +49,6 @@ defmodule DailyLogosWeb.Router do
     get "/privacy", PageController, :privacy
     get "/notifications", PageController, :notifications
 
-    get "/users/log-in", UserSessionController, :new
     get "/users/verify-email", UserRegistrationController, :verify_email
     get "/users/log-in/:token", UserSessionController, :confirm
     post "/users/log-in", UserSessionController, :create
@@ -64,6 +63,12 @@ defmodule DailyLogosWeb.Router do
   end
 
   ## Authentication routes
+
+  scope "/", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo, :redirect_if_recently_authenticated]
+
+    get "/users/log-in", UserSessionController, :new
+  end
 
   scope "/", DailyLogosWeb do
     pipe_through [:browser, :locale_redirect, :seo, :redirect_if_user_is_authenticated]
@@ -145,10 +150,15 @@ defmodule DailyLogosWeb.Router do
     get "/privacy", PageController, :privacy
     get "/notifications", PageController, :notifications
 
-    get "/users/log-in", UserSessionController, :new
     get "/users/verify-email", UserRegistrationController, :verify_email
     get "/users/log-in/:token", UserSessionController, :confirm
     get "/auth/:provider", OAuthController, :request
+  end
+
+  scope "/:locale_prefix", DailyLogosWeb do
+    pipe_through [:browser, :locale_redirect, :seo, :redirect_if_recently_authenticated]
+
+    get "/users/log-in", UserSessionController, :new
   end
 
   scope "/:locale_prefix", DailyLogosWeb do

@@ -187,6 +187,11 @@ defmodule DailyLogosWeb.OAuthControllerTest do
 
       assert %UserIdentity{provider_uid: "google-new-user"} =
                DailyLogos.Repo.get_by!(UserIdentity, provider: "google")
+
+      conn = conn |> recycle() |> get("/users/settings")
+      document = conn |> html_response(200) |> LazyHTML.from_document()
+      assert Enum.count(LazyHTML.query(document, "#oauth-settings-google .badge")) == 1
+      assert Enum.empty?(LazyHTML.query(document, "#oauth-connect-form-google"))
     end
 
     test "requires local email verification before using an unverified provider email", %{
