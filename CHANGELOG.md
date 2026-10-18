@@ -1,3 +1,10 @@
+## [1.29.1](https://github.com/cdemeo92/daily_logos/compare/v1.29.0...v1.29.1) (2026-10-18)
+
+
+### Bug Fixes
+
+* improve mobile menu layout and accessibility features ([d570f4d](https://github.com/cdemeo92/daily_logos/commit/d570f4d6fdfb77e83225fc7ac8da5ee04e903807))
+
 # [1.29.0](https://github.com/cdemeo92/daily_logos/compare/v1.28.0...v1.29.0) (2026-10-18)
 
 
