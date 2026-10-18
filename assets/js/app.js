@@ -29,6 +29,17 @@ import { initCookieConsent } from "./cookieconsent-config";
 initCookieConsent();
 
 document.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-dismiss-flash]");
+  if (!button) return;
+
+  const flash = document.getElementById(button.dataset.dismissFlash);
+  if (!flash) return;
+
+  flash.hidden = true;
+  flash.classList.add("hidden");
+});
+
+document.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-password-target]");
   if (!button) return;
 

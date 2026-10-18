@@ -64,7 +64,7 @@ defmodule DailyLogosWeb.CoreComponents do
       id={@id}
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
-      class="toast toast-top toast-end z-50"
+      class="toast toast-top toast-end top-20! z-50"
       {@rest}
     >
       <div class={[
@@ -79,7 +79,12 @@ defmodule DailyLogosWeb.CoreComponents do
           <p>{msg}</p>
         </div>
         <div class="flex-1" />
-        <button type="button" class="group self-start cursor-pointer" aria-label={gettext("close")}>
+        <button
+          type="button"
+          data-dismiss-flash={@id}
+          class="group self-start cursor-pointer"
+          aria-label={gettext("close")}
+        >
           <.icon name="hero-x-mark" class="size-5 opacity-40 group-hover:opacity-70" />
         </button>
       </div>

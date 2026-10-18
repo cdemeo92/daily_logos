@@ -1,8 +1,25 @@
 defmodule DailyLogosWeb.CoreComponentsTest do
   use ExUnit.Case, async: true
 
+  require Phoenix.LiveViewTest
+
   alias DailyLogos.Accounts.User
   alias DailyLogosWeb.CoreComponents
+
+  test "flash notices expose a native dismiss control outside LiveView and leave the header clear" do
+    html =
+      Phoenix.LiveViewTest.render_component(&CoreComponents.flash/1,
+        kind: :info,
+        flash: %{"info" => "Account deleted"}
+      )
+
+    document = LazyHTML.from_fragment(html)
+    button = LazyHTML.query(document, "#flash-info button[data-dismiss-flash]")
+    assert LazyHTML.attribute(button, "data-dismiss-flash") == ["flash-info"]
+
+    assert LazyHTML.attribute(LazyHTML.query(document, "#flash-info"), "class")
+           |> Enum.any?(&String.contains?(&1, "top-20!"))
+  end
 
   test "translates password confirmation errors in Italian" do
     changeset =
