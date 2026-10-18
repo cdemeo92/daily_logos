@@ -33,7 +33,7 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
 
     <div
       id="mobile-menu"
-      class="fixed top-0 right-0 h-screen w-[min(20rem,calc(100vw-2rem))] bg-base-100 shadow-lg transform translate-x-full transition-transform duration-300 motion-reduce:transition-none z-50 lg:hidden overflow-y-auto flex flex-col"
+      class="fixed top-0 right-0 h-dvh w-[min(20rem,calc(100vw-2rem))] bg-base-100 shadow-lg transform translate-x-full transition-transform duration-300 motion-reduce:transition-none z-50 lg:hidden overflow-y-auto overscroll-contain touch-pan-y flex flex-col"
       role="dialog"
       aria-modal="true"
       aria-label={gettext("Mobile navigation")}
@@ -41,7 +41,7 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
       inert
       tabindex="-1"
     >
-      <div class="border-b border-base-300 dark:border-neutral-content/10 p-4 flex items-center justify-between">
+      <div class="sticky top-0 z-10 shrink-0 bg-base-100 border-b border-base-300 dark:border-neutral-content/10 p-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <a
             href={DailyLogosWeb.LocalePaths.localized_path("/")}
@@ -72,7 +72,7 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
         </div>
       </div>
 
-      <div class="flex min-h-0 flex-1 flex-col overflow-y-auto">
+      <div class="flex flex-1 flex-col">
         <nav aria-label={gettext("Primary navigation")} class="p-4">
           <ul>
             <%= if @current_scope && @current_scope.user do %>
@@ -152,7 +152,7 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
         </nav>
       </div>
 
-      <div class="border-t border-base-300 space-y-6 p-4">
+      <div class="shrink-0 border-t border-base-300 space-y-6 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
         <div>
           <p id="mobile-theme-label" class="text-xs font-semibold text-base-content/60 mb-3">
             {gettext("Theme")}
