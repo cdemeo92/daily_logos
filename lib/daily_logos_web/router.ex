@@ -5,6 +5,7 @@ defmodule DailyLogosWeb.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
+    plug :prevent_session_page_cache
     plug :fetch_session
     plug :fetch_current_scope_for_user
     plug DailyLogosWeb.Plugs.SetLocale
@@ -33,6 +34,9 @@ defmodule DailyLogosWeb.Router do
 
   defp put_robots_noindex(conn, _opts),
     do: Plug.Conn.put_resp_header(conn, "x-robots-tag", "noindex, nofollow")
+
+  defp prevent_session_page_cache(conn, _opts),
+    do: Plug.Conn.put_resp_header(conn, "cache-control", "no-store, private")
 
   pipeline :api do
     plug :accepts, ["json"]

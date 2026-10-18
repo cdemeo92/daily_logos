@@ -3,6 +3,21 @@ defmodule DailyLogosWeb.PageControllerIntegrationTest do
 
   import DailyLogos.QuotesFixtures
 
+  test "does not cache session-dependent HTML or replay consumed flash messages", %{conn: conn} do
+    conn =
+      conn
+      |> init_test_session(%{"phoenix_flash" => %{"info" => "Account deleted"}})
+      |> get("/")
+
+    assert get_resp_header(conn, "cache-control") == ["no-store, private"]
+    document = conn |> html_response(200) |> LazyHTML.from_document()
+    assert Enum.count(LazyHTML.query(document, "#flash-info")) == 1
+
+    conn = conn |> recycle() |> get("/")
+    document = conn |> html_response(200) |> LazyHTML.from_document()
+    assert Enum.empty?(LazyHTML.query(document, "#flash-info"))
+  end
+
   describe "GET /:month/:day" do
     test "renders quote page for the 1st of January", %{conn: conn} do
       quote_fixture(%{day: 1, month: 1})

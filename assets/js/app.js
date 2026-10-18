@@ -28,6 +28,10 @@ import { initCookieConsent } from "./cookieconsent-config";
 
 initCookieConsent();
 
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) window.location.reload();
+});
+
 document.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-dismiss-flash]");
   if (!button) return;
