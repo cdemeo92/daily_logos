@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/cdemeo92/daily_logos/compare/v1.27.3...v1.28.0) (2026-10-18)
+
+
+### Features
+
+* trigger pipeline ([63cb03e](https://github.com/cdemeo92/daily_logos/commit/63cb03eba70f8486fca12df70afb6641b245658b))
+
 ## [1.27.3](https://github.com/cdemeo92/daily_logos/compare/v1.27.2...v1.27.3) (2026-10-18)
 
 
