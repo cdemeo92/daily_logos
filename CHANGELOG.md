@@ -1,3 +1,10 @@
+## [1.27.2](https://github.com/cdemeo92/daily_logos/compare/v1.27.1...v1.27.2) (2026-10-18)
+
+
+### Bug Fixes
+
+* add dismiss functionality for flash messages and update tests ([7f855b1](https://github.com/cdemeo92/daily_logos/commit/7f855b1bcd1b09be33db736e0caf784f5e115665))
+
 ## [1.27.1](https://github.com/cdemeo92/daily_logos/compare/v1.27.0...v1.27.1) (2026-10-18)
 
 
