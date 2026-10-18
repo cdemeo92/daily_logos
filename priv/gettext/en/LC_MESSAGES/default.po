@@ -501,12 +501,12 @@ msgstr ""
 msgid "Confirming..."
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:42
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Create an account"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:41
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:45
 #, elixir-autogen, elixir-format
 msgid "Creating account..."
 msgstr ""
@@ -516,7 +516,7 @@ msgstr ""
 msgid "Don't have an account?"
 msgstr ""
 
-#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:34
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:38
 #: lib/daily_logos_web/controllers/user_session_html/new.html.heex:53
 #: lib/daily_logos_web/controllers/user_session_html/new.html.heex:71
 #: lib/daily_logos_web/controllers/user_settings_html/edit.html.heex:23
@@ -1074,6 +1074,7 @@ msgstr ""
 msgid "We’ll send a one-time sign-in link. No password needed."
 msgstr ""
 
+#: lib/daily_logos_web/controllers/user_registration_html/new.html.heex:31
 #: lib/daily_logos_web/controllers/user_session_html/new.html.heex:41
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Passwordless sign-in"

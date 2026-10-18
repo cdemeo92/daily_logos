@@ -27,6 +27,10 @@
         />
       </div>
 
+      <div :if={@oauth_providers != []} id="registration-email-divider" class="divider">
+        {gettext("Passwordless sign-in")}
+      </div>
+
       <.form for={@form} id="registration-form" action={~p"/users/register"}>
         <.input
           field={@form[:email]}
