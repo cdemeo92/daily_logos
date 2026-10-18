@@ -44,7 +44,7 @@ defmodule DailyLogosWeb.Layouts.MainMenu do
       <div class="border-b border-base-300 dark:border-neutral-content/10 p-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <a
-            href="/"
+            href={DailyLogosWeb.LocalePaths.localized_path("/")}
             class="flex min-h-11 items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
             <img src="/images/logo.svg" width="32" alt="Daily Logos" />

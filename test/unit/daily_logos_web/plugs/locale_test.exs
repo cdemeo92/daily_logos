@@ -15,6 +15,7 @@ defmodule DailyLogosWeb.Plugs.LocaleTest do
     conn = SetLocale.call(conn, SetLocale.init([]))
 
     assert conn.assigns.locale == "it"
+    assert get_session(conn, :locale) == "it"
     assert Gettext.get_locale(DailyLogosWeb.Gettext) == "it"
     refute conn.halted
   end

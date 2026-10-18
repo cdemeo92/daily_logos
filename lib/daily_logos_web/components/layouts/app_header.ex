@@ -27,7 +27,10 @@ defmodule DailyLogosWeb.Layouts.AppHeader do
     <header class="fixed inset-x-0 top-0 z-30 h-16 bg-base-100/95 backdrop-blur px-4 sm:px-6 lg:px-8 border-b border-base-300 dark:border-neutral-content/10">
       <div class="navbar mx-auto max-w-7xl">
         <div class="flex-1 lg:flex-none">
-          <a href="/" class="flex-1 flex w-fit items-center gap-2">
+          <a
+            href={DailyLogosWeb.LocalePaths.localized_path("/")}
+            class="flex-1 flex w-fit items-center gap-2"
+          >
             <img src="/images/logo.svg" width="36" alt="Daily Logos" />
             <span class="text-sm font-semibold">v{Application.spec(:daily_logos, :vsn)}</span>
           </a>

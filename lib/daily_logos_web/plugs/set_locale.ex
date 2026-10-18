@@ -16,7 +16,9 @@ defmodule DailyLogosWeb.Plugs.SetLocale do
   def call(conn, _opts) do
     case locale_from_path(conn) do
       locale when locale in @locales ->
-        set_locale(conn, locale)
+        conn
+        |> set_locale(locale)
+        |> put_session(:locale, locale)
 
       nil ->
         set_locale(

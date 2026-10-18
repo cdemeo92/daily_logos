@@ -3,6 +3,22 @@ defmodule DailyLogosWeb.PageControllerIntegrationTest do
 
   import DailyLogos.QuotesFixtures
 
+  test "localized home persists the language and both logos link to that home", %{conn: conn} do
+    conn = conn |> init_test_session(%{locale: "en"}) |> get("/it")
+    document = conn |> html_response(200) |> LazyHTML.from_document()
+    assert get_session(conn, :locale) == "it"
+
+    for selector <- [
+          "header a:has(img[alt='Daily Logos'])",
+          "#mobile-menu a:has(img[alt='Daily Logos'])"
+        ] do
+      assert LazyHTML.attribute(LazyHTML.query(document, selector), "href") == ["/it/"]
+    end
+
+    conn = conn |> recycle() |> get("/")
+    assert redirected_to(conn) == "/it"
+  end
+
   test "does not cache session-dependent HTML or replay consumed flash messages", %{conn: conn} do
     conn =
       conn
