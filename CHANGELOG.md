@@ -1,3 +1,10 @@
+## [1.27.3](https://github.com/cdemeo92/daily_logos/compare/v1.27.2...v1.27.3) (2026-10-18)
+
+
+### Bug Fixes
+
+* prevent session page caching and update integration tests for flash messages ([8191f37](https://github.com/cdemeo92/daily_logos/commit/8191f378a2a7d134378fa6045895265a7d092f52))
+
 ## [1.27.2](https://github.com/cdemeo92/daily_logos/compare/v1.27.1...v1.27.2) (2026-10-18)
 
 
