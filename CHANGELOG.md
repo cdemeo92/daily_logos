@@ -1,3 +1,10 @@
+## [1.29.3](https://github.com/cdemeo92/daily_logos/compare/v1.29.2...v1.29.3) (2026-10-22)
+
+
+### Bug Fixes
+
+* update base image in Dockerfile from debian to ubuntu ([ed51307](https://github.com/cdemeo92/daily_logos/commit/ed51307101f212d39435747ccd34d9e1769bab32))
+
 ## [1.29.2](https://github.com/cdemeo92/daily_logos/compare/v1.29.1...v1.29.2) (2026-10-22)
 
 
