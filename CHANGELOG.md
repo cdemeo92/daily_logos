@@ -1,3 +1,10 @@
+## [1.29.2](https://github.com/cdemeo92/daily_logos/compare/v1.29.1...v1.29.2) (2026-10-22)
+
+
+### Bug Fixes
+
+* correct date calculation for quotes retrieval in show action ([e1158cd](https://github.com/cdemeo92/daily_logos/commit/e1158cd472c0323bfe7fec762d8dac5d8f57fdc5))
+
 ## [1.29.1](https://github.com/cdemeo92/daily_logos/compare/v1.29.0...v1.29.1) (2026-10-18)
 
 
