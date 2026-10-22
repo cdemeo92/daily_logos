@@ -77,8 +77,8 @@ defmodule DailyLogosWeb.PageController do
     with {month, ""} <- Integer.parse(month_str),
          {day, ""} <- Integer.parse(day_str),
          true <- month in 1..12 and day in 1..31,
-         {:ok, date} <- Date.new(Date.utc_today().year, month, day),
          quote when not is_nil(quote) <- DailyLogos.Quotes.get_quote_by_day_month(day, month) do
+      date = Date.new!(2000, month, 1) |> Date.add(day - 1)
       locale = Gettext.get_locale(DailyLogosWeb.Gettext)
 
       text = Map.get(quote, :"text_#{locale}") || quote.text_en || ""

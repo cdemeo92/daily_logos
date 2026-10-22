@@ -47,18 +47,34 @@ defmodule DailyLogosWeb.PageControllerIntegrationTest do
       assert html_response(conn, 200) =~ "Daily Logos"
     end
 
-    test "renders leap day only when it exists in the current year", %{conn: conn} do
+    test "renders leap day and includes it in calendar navigation", %{conn: conn} do
       quote_fixture(%{day: 29, month: 2})
       conn = get(conn, "/2/29")
+      document = conn |> html_response(200) |> LazyHTML.from_document()
 
-      case Date.new(Date.utc_today().year, 2, 29) do
-        {:ok, _date} -> assert html_response(conn, 200) =~ "Daily Logos"
-        {:error, :invalid_date} -> assert conn.status == 404
-      end
+      assert document
+             |> LazyHTML.query("a[aria-label='Previous day'][href='/2/28']")
+             |> Enum.any?()
+
+      assert document
+             |> LazyHTML.query("a[aria-label='Next day'][href='/3/1']")
+             |> Enum.any?()
+
+      quote_fixture(%{day: 28, month: 2})
+      document = get(conn, "/2/28") |> html_response(200) |> LazyHTML.from_document()
+
+      assert document
+             |> LazyHTML.query("a[aria-label='Next day'][href='/2/29']")
+             |> Enum.any?()
     end
 
     test "returns 404 when no quote exists for the given day", %{conn: conn} do
       conn = get(conn, "/13/41")
+      assert conn.status == 404
+    end
+
+    test "returns 404 when no quote exists for a valid calendar date", %{conn: conn} do
+      conn = get(conn, "/2/29")
       assert conn.status == 404
     end
   end
