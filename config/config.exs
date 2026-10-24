@@ -83,6 +83,8 @@ config :ueberauth, Ueberauth,
     facebook: {Ueberauth.Strategy.Facebook, [default_scope: "email", profile_fields: "id,email"]}
   ]
 
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
