@@ -112,6 +112,8 @@ Choose the quote using the occurrence's local date, not the worker's execution d
 
 ### 5. Queues, Workers, and Channel Adapters
 
+Use a ports-and-adapters (hexagonal) architecture for channel delivery. Application use cases depend on a delivery port expressed as an Elixir behaviour, implemented by provider-specific adapters. Keep scheduling and business rules independent of provider APIs, credentials, and payload formats. See [ADR-05: Notification Channel Integrations with Ports and Adapters](adr-05-notification-channel-integrations.md) for channel contracts and supported delivery modes.
+
 Use independent Oban queues for channels, such as `notifications_email`, `notifications_telegram`, and `notifications_slack`.
 
 Each job processes one delivery through the relevant adapter. Configure concurrency per queue so a slow provider does not consume all delivery capacity.
