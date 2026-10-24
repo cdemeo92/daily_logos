@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/cdemeo92/daily_logos/compare/v1.29.3...v1.30.0) (2026-10-24)
+
+
+### Features
+
+* add notification subscriptions with validation and timezone support ([f589ef3](https://github.com/cdemeo92/daily_logos/commit/f589ef3c7af223ad85bf198eb3d2bcfbe812780d))
+
 ## [1.29.3](https://github.com/cdemeo92/daily_logos/compare/v1.29.2...v1.29.3) (2026-10-22)
 
 
