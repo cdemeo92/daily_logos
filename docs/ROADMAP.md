@@ -90,33 +90,6 @@ After Phase 2.
 
 ## Current Status
 
-**Active**: MVP (Phase 1)
+**Active**: MVP (Phase 2)
 
-Start here if you're new to the project:
-
-1. Read [docs/ARCHITECTURE.md](ARCHITECTURE.md) to understand the system design
-2. Examine the Quote schema and seed data
-3. Review the home page implementation
-4. Run tests to verify everything works: `mix test`
-
-## How to Contribute
-
-At each phase, we prioritize:
-
-1. **Code Quality** - Readability, maintainability, test coverage
-2. **Architectural Clarity** - Following hexagonal architecture principles
-3. **User Experience** - Clean, intuitive interfaces
-4. **Documentation** - Clear code and architectural docs
-
-See [README.md](../README.md) for contribution guidelines and setup instructions.
-
----
-
-## Success Metrics (Future)
-
-- ✨ Daily active users
-- 📊 Quote delivery success rate
-- 💬 Community engagement
-- 🎯 User retention
-
-_Last Updated: 2026-09-12_
+_Last Updated: 2026-09-24_
