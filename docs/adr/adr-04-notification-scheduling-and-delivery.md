@@ -23,13 +23,13 @@ Create a future Oban job for each subscription. Each execution schedules the nex
 - Requires reconciliation to detect subscriptions left without a future job.
 - Risks coupling future scheduling to the success of the previous delivery.
 
-### Option B: Shared Hourly Dispatcher and Persistent Subscriptions (Chosen)
+### Option B: Shared 15-Minute Dispatcher and Persistent Subscriptions (Chosen)
 
 Run one recurring dispatcher that finds due subscriptions and creates independent delivery jobs.
 
 - Centralizes recurrence logic without replaying missed slots.
 - Keeps scheduling independent of provider failures.
-- Supports shared whole-hour slots without maintaining a recurring job per user.
+- Supports whole-hour local schedules, including half-hour and quarter-hour UTC offsets, without maintaining a recurring job per user.
 - Requires indexed subscription queries and bounded batching, but no persistent dispatch progress.
 
 ### Option C: PubSub or an External Message Broker
@@ -42,7 +42,7 @@ Publish time-slot events to subscribers through Phoenix.PubSub or an external br
 
 ## Decision
 
-Choose **Option B**: persistent subscriptions, one shared hourly Oban dispatcher, and independent delivery jobs in channel-specific Oban queues backed by PostgreSQL.
+Choose **Option B**: persistent subscriptions, one shared Oban dispatcher running every 15 minutes, and independent delivery jobs in channel-specific Oban queues backed by PostgreSQL.
 
 Do not introduce Phoenix.PubSub or an external message broker for scheduled notification delivery.
 
@@ -80,23 +80,23 @@ Local hour, weekdays, and IANA timezone are the source of truth. Do not replace 
 
 Calculate UTC occurrences for specific dates using a maintained timezone database compatible with Elixir, such as `tzdata`. This preserves the selected local hour across daylight saving changes and handles UTC/local date boundaries.
 
-Initially, support only timezones whose offsets remain aligned with whole UTC hours over the supported scheduling horizon. Validate this against timezone data, not only the offset on the date the subscription is created.
+Support IANA timezones with whole-hour, half-hour, and quarter-hour UTC offsets. The dispatcher runs every 15 minutes so a selected whole local hour can fall on UTC minute 00, 15, 30, or 45. Users still select whole local hours only; this does not introduce minute-level schedule controls.
 
-To support fractional-offset timezones precisely, increase the frequency of the same dispatcher; the subscription and delivery architecture does not need to change.
+Validate timezone identifiers against the maintained timezone database. Do not restrict choices to whole-hour UTC offsets or introduce a 12-month whole-hour-offset eligibility scan. The timezone database is still required to convert local calendars to UTC and handle daylight saving changes.
 
 If the selected local hour does not exist during a daylight saving transition, skip that local date. If it occurs twice, use the first UTC occurrence only; do not send again at the repeated hour. Test both policies.
 
 Use the same backend calendar logic for dispatch and the UI's next-delivery calculation. Calculating the next occurrence does not require a delivery record.
 
-### 3. Hourly Dispatcher
+### 3. 15-Minute Dispatcher
 
-Use Oban's Cron plugin to enqueue one shared recurring dispatcher at the start of each UTC hour. This is one logical recurring task, not one task per user, timezone, or channel.
+Use Oban's Cron plugin with `*/15 * * * *` to enqueue one shared recurring dispatcher at UTC minutes 00, 15, 30, and 45. This is one logical recurring task, not one task per user, timezone, or channel, with 96 scheduled executions per day.
 
 The dispatcher:
 
-1. Determines the current UTC whole-hour slot and checks that it is within the configured dispatch lateness tolerance.
+1. Determines the current UTC quarter-hour slot and checks that it is within the configured dispatch lateness tolerance.
 2. Resolves that slot against the local calendars of active subscriptions, including the daylight saving policy above.
-3. Finds matching enabled subscriptions by local weekday, hour, and timezone.
+3. Finds matching enabled subscriptions by local weekday, hour, and timezone. Only enqueue when the resolved occurrence equals the UTC slot: the selected local hour starts at minute and second zero, not at every quarter-hour within that hour.
 4. Selects the occurrence's quote and enqueues independent Oban delivery jobs in bounded batches.
 
 Use indexed queries and bounded batches rather than loading all subscribers into memory. Coordinate concurrent dispatcher executions and configure occurrence-based Oban job uniqueness to reduce duplicate enqueueing. Do not assume job uniqueness guarantees exactly-once external sending.
@@ -159,7 +159,7 @@ Monitor queue backlog, delivery delay relative to `scheduled_for`, retry counts,
 
 ### Negative / Risks
 
-- Whole-hour dispatch initially restricts supported timezones.
+- The dispatcher runs four times per hour instead of once, increasing lookup frequency while keeping one shared recurring task.
 - Scheduling accuracy depends on dispatcher availability and queue capacity; exact-time delivery is not guaranteed.
 - Missed slots, partial dispatch batches, and exhausted or expired sends are intentionally not recovered.
 - Delivery history is limited to retained Oban jobs and telemetry; there is no durable application audit ledger.
@@ -168,9 +168,9 @@ Monitor queue backlog, delivery delay relative to `scheduled_for`, retry counts,
 
 ## Verification Criteria
 
-- Unit tests cover local weekday/date boundaries, daylight saving transitions, timezone eligibility, and quote selection for the occurrence date.
+- Unit tests cover local weekday/date boundaries, daylight saving transitions, invalid timezone identifiers, whole-hour local occurrences in half-hour and quarter-hour offset zones, and quote selection for the occurrence date.
 - Integration tests cover multiple subscriptions per provider, one email subscription per user, disabled incomplete schedules, concurrent enqueueing, and subscription changes.
-- Dispatcher tests cover bounded batching, delayed ticks, missed slots without replay, and partial failures without catch-up requirements.
+- Dispatcher tests cover exact occurrence matching without additional sends on adjacent quarter-hour ticks, bounded batching, delayed ticks, missed slots without replay, and partial failures without catch-up requirements.
 - Worker tests cover channel routing, transient and permanent failures, short bounded retries, expiry before the first attempt and after downtime, and provider idempotency where supported.
 - Tests use controlled time and adapter responses rather than real provider calls or sleeps.
 
@@ -185,7 +185,7 @@ Separate destination tables, delivery ledgers, and dispatcher checkpoints are no
 
 ## Alternative Revisit Triggers
 
-- Fractional-offset timezone support requires a more frequent dispatcher.
+- Scheduling precision finer than 15 UTC minutes requires a more frequent dispatcher.
 - Users need multiple schedules per channel or minute-level scheduling.
 - Measured fan-out, queue delay, or database contention exceeds the capacity of this design.
 - Provider constraints require different batching or delivery infrastructure.

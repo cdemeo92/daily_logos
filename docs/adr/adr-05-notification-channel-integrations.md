@@ -18,7 +18,7 @@ This ADR covers channel operation, authorization, destination modeling, and port
 
 ## Relationship to ADR-04
 
-[ADR-04](adr-04-notification-scheduling-and-delivery.md) remains authoritative for hourly dispatch, occurrence generation, Oban delivery jobs, short bounded retries, and expiry. Missed slots are not recovered.
+[ADR-04](adr-04-notification-scheduling-and-delivery.md) remains authoritative for dispatch every 15 minutes, occurrence generation, Oban delivery jobs, short bounded retries, and expiry. Missed slots are not recovered; user-selected delivery times remain whole local hours.
 
 Subscriptions target individual connected destinations, not just providers. Destination configuration and its single calendar share one `notification_subscriptions` row. There are no separate destination, delivery-ledger, or dispatcher-progress tables. Provider queues are email, Slack, and Discord.
 
