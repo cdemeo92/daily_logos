@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/cdemeo92/daily_logos/compare/v1.30.0...v1.31.0) (2026-10-24)
+
+
+### Features
+
+* implement notifications context with subscription management and validation ([54dc2ae](https://github.com/cdemeo92/daily_logos/commit/54dc2ae1c8e0aa9d92b974b80c38a28982768df0))
+
 # [1.30.0](https://github.com/cdemeo92/daily_logos/compare/v1.29.3...v1.30.0) (2026-10-24)
 
 
