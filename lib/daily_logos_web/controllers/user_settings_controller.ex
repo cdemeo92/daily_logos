@@ -7,10 +7,7 @@ defmodule DailyLogosWeb.UserSettingsController do
   alias DailyLogosWeb.Plugs.SeoMeta
   alias DailyLogosWeb.UserAuth
 
-  import DailyLogosWeb.UserAuth, only: [require_sudo_mode: 2]
-
   plug InvalidLocalePrefix when action == :edit
-  plug :require_sudo_mode
   plug :assign_email_and_password_changesets
 
   def edit(conn, _params) do

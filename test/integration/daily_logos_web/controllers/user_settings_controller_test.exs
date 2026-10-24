@@ -7,12 +7,11 @@ defmodule DailyLogosWeb.UserSettingsControllerTest do
   setup :register_and_log_in_user
 
   describe "GET /notifications" do
-    test "shows the coming soon state to authenticated users", %{conn: conn} do
-      response = conn |> get("/notifications") |> html_response(200)
+    test "shows the email notification form to authenticated users", %{conn: conn} do
+      document = conn |> get("/notifications") |> html_response(200) |> LazyHTML.from_document()
 
-      assert response =~ "Notifications"
-      assert response =~ "Coming soon"
-      assert response =~ "Notification settings are not available yet."
+      assert Enum.any?(LazyHTML.query(document, "#email-notification-form"))
+      assert Enum.empty?(LazyHTML.query(document, "#notifications-coming-soon"))
     end
 
     test "shows the notification signup landing to anonymous users" do
@@ -73,12 +72,11 @@ defmodule DailyLogosWeb.UserSettingsControllerTest do
     end
 
     @tag token_authenticated_at: DateTime.add(DateTime.utc_now(:second), -11, :minute)
-    test "redirects if user is not in sudo mode", %{conn: conn} do
-      conn = get(conn, ~p"/users/settings")
-      assert redirected_to(conn) == ~p"/users/log-in"
+    test "renders settings page without recent authentication", %{conn: conn} do
+      document =
+        conn |> get(~p"/users/settings") |> html_response(200) |> LazyHTML.from_document()
 
-      assert Phoenix.Flash.get(conn.assigns.flash, :error) ==
-               "You must re-authenticate to access this page."
+      assert Enum.any?(LazyHTML.query(document, "#update_password_password-toggle"))
     end
   end
 
@@ -101,6 +99,7 @@ defmodule DailyLogosWeb.UserSettingsControllerTest do
       assert Accounts.get_user!(user.id).hashed_password == nil
     end
 
+    @tag token_authenticated_at: DateTime.add(DateTime.utc_now(:second), -11, :minute)
     test "updates the user password and resets tokens", %{conn: conn, user: user} do
       new_password_conn =
         put(conn, ~p"/users/settings", %{
@@ -148,6 +147,7 @@ defmodule DailyLogosWeb.UserSettingsControllerTest do
 
   describe "PUT /users/settings (change email form)" do
     @tag :capture_log
+    @tag token_authenticated_at: DateTime.add(DateTime.utc_now(:second), -11, :minute)
     test "updates the user email", %{conn: conn, user: user} do
       conn =
         put(conn, ~p"/users/settings", %{
