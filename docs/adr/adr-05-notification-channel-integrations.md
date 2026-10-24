@@ -18,9 +18,11 @@ This ADR covers channel operation, authorization, destination modeling, and port
 
 ## Relationship to ADR-04
 
-[ADR-04](adr-04-notification-scheduling-and-delivery.md) remains authoritative for hourly dispatch, occurrence generation, persistent delivery jobs, recovery, and transactional enqueueing.
+[ADR-04](adr-04-notification-scheduling-and-delivery.md) remains authoritative for hourly dispatch, occurrence generation, Oban delivery jobs, short bounded retries, and expiry. Missed slots are not recovered.
 
-This ADR supersedes its one-subscription-per-`(user_id, channel)` restriction and its illustrative inclusion of a Telegram queue. Subscriptions target individual connected destinations, not just providers. Provider queues are email, Slack, and Discord.
+Subscriptions target individual connected destinations, not just providers. Destination configuration and its single calendar share one `notification_subscriptions` row. There are no separate destination, delivery-ledger, or dispatcher-progress tables. Provider queues are email, Slack, and Discord.
+
+[Notifications UI](../NOTIFICATIONS_UI.md) defines manual webhook entry instead of OAuth installation for this implementation. OAuth provisioning and shared-installation infrastructure are not required.
 
 ## Options Considered
 
@@ -49,7 +51,7 @@ Use a pragmatic hexagonal architecture with application use cases, explicit port
 
 Use the existing Swoosh mailer for personal email and official Slack and Discord incoming webhooks through Req for shared channels. Do not implement bot-based sending or personal Slack/Discord conversations.
 
-Daily Logos owns and configures the provider applications once. Users authorize those applications and grant webhook access to destinations. Users do not need to create developer applications, install bots, or supply bot tokens.
+Users supply supported incoming-webhook URLs through the Notifications page. Daily Logos does not implement an OAuth installation flow or need provider applications merely to execute these webhooks. Users do not supply bot tokens or install bots for notification delivery. Creating a webhook on the provider side remains subject to provider setup and permissions.
 
 ## Decision Details
 
@@ -57,33 +59,35 @@ Daily Logos owns and configures the provider applications once. Users authorize 
 
 Distinguish these concepts:
 
-| Concept      | Responsibility                                                                         |
-| ------------ | -------------------------------------------------------------------------------------- |
-| Provider     | Email, Slack, or Discord                                                               |
-| Integration  | Authorized connection and credential lifecycle, such as a Slack workspace installation |
-| Destination  | A verified email address or a specific shared Slack or Discord channel                 |
-| Subscription | Local calendar settings for a connected destination                                    |
+| Concept      | Responsibility                                                                 |
+| ------------ | ------------------------------------------------------------------------------ |
+| Provider     | Email, Slack, or Discord                                                       |
+| Integration  | Provider connection, protected webhook configuration, and credential lifecycle |
+| Destination  | A verified email address or a specific shared Slack or Discord channel         |
+| Subscription | Local calendar settings for a connected destination                            |
 
 A user can connect multiple destinations for the same provider, including channels across different workspaces or servers. Start with one subscription per destination connected by that user, rather than one subscription per provider.
 
-Each delivery identifies its destination as well as its subscription and occurrence. Keep provider channel identity separate from authorization credentials: different webhooks may address the same external channel.
+These are domain concepts, not a requirement for separate tables. Store the destination, protected connection configuration, and calendar in one `notification_subscriptions` row. Resolve email from the verified account rather than duplicating its address. Connection edits and calendar edits use separate application operations and changesets even though they update the same row.
 
-Slack installations can be shared infrastructure for multiple user connections within a workspace. Removing one user's subscription must not revoke a workspace installation used by others. The exact ownership and authorization model must be established before implementation.
+Each Oban delivery job identifies the subscription and occurrence; the adapter resolves the current destination through that subscription. Keep provider channel identity separate from authorization credentials: different webhooks may address the same external channel.
+
+Subscriptions and their stored webhook configuration belong to the authenticated user. Deleting a subscription removes its local configuration, not the external webhook or another user's connection. Shared OAuth installations and their lifecycle are outside this implementation.
 
 ### 2. Ports and Adapters
 
 - **Domain:** destination and subscription eligibility, occurrence rules, and provider-independent delivery concepts. No dependency on Phoenix, Oban, Req, Swoosh, or provider payloads.
 - **Application:** use cases for connecting destinations, verifying access, disconnecting integrations, and delivering an occurrence. These orchestrate domain rules and ports.
-- **Inbound adapters:** controllers, OAuth callbacks, incoming provider events, and Oban workers. They authenticate or validate input and invoke application use cases.
+- **Inbound adapters:** authenticated notification forms and Oban workers. They authenticate or validate input and invoke application use cases.
 - **Outbound adapters:** Ecto/PostgreSQL persistence, Oban enqueueing, Swoosh email, Slack APIs, and Discord APIs.
 
 Express suitable port contracts with Elixir behaviours and select implementations at the application composition boundary. Do not introduce wrappers that add no meaningful boundary.
 
 The delivery port accepts a provider-independent message and destination reference, and returns normalized outcomes: provider acceptance, transient failure, rate limiting with retry guidance, or permanent failure. Provider adapters resolve credentials and construct provider-specific payloads.
 
-Keep integration authorization and provisioning separate from delivery. Email verification, OAuth, and webhook creation do not need to implement an identical contract.
+Keep connection configuration separate from delivery. Account email verification and manual webhook configuration do not need to implement an identical contract.
 
-Persistence and enqueueing boundaries must preserve ADR-04's atomic creation of a delivery and its Oban job in a single PostgreSQL transaction.
+Enqueue Oban delivery jobs directly as described in ADR-04. Do not add a delivery-record/job transaction, a separate delivery ledger, or a dispatcher checkpoint. Those mechanisms belong to the superseded recovery design, not this best-effort implementation.
 
 ### 3. Email
 
@@ -94,22 +98,21 @@ Persistence and enqueueing boundaries must preserve ADR-04's atomic creation of 
 
 ### 4. Slack Shared Channels
 
-- Use a Slack App with incoming webhooks enabled.
-- Authorize access through the OAuth installation flow with the `incoming-webhook` scope.
-- The authorizing user selects a workspace and channel. Slack returns a webhook URL associated with that destination.
+- Accept an official incoming-webhook URL obtained by the user through Slack's webhook setup.
+- Collect the URL and a user-defined destination name; do not promise workspace or channel-name discovery from the URL.
+- Do not implement OAuth installation or request provider tokens in Daily Logos.
 - Send messages by HTTPS POST to the stored webhook URL.
 - Configure a separate webhook for each connected channel. Private channels require appropriate membership and authorization.
 - The webhook URL is a credential, not the channel's ordinary URL. Protect it accordingly.
 
-The application must support installation in external workspaces, not just its development workspace. Workspace policies, administrator approval, and free-plan integration limits may prevent installation; report these restrictions without requiring a paid upgrade.
+Accept supported webhook URLs for external workspaces, not just the development workspace. Workspace policies, administrator approval, and free-plan integration limits may prevent users from creating a webhook; explain these restrictions without requiring a paid upgrade.
 
 Do not request `im:write`, `chat:write`, or message-history permissions for this webhook-only integration.
 
 ### 5. Discord Shared Channels
 
-- Use Discord's OAuth authorization code flow with the `webhook.incoming` scope.
-- The authorizing user selects a server and channel where they have the required permissions.
-- Discord creates a webhook and returns its identity and credentials.
+- Accept an official incoming-webhook URL created and copied by a user with the required Discord channel permissions.
+- Collect the URL and a user-defined destination name; do not implement OAuth provisioning in Daily Logos.
 - Send messages through the execute-webhook API, using `wait=true` to obtain confirmation and the created message when successful.
 - No server bot installation is required for this mode.
 
@@ -119,14 +122,14 @@ Do not request bot installation or personal-conversation access. Users do not ne
 
 ### 6. Credential and Connection Lifecycle
 
-- Bind OAuth authorization to the initiating authenticated account using validated state. Use short-lived, single-use codes for any account-linking handshakes.
-- Verify access to the destination instead of accepting arbitrary external identifiers.
-- Encrypt persisted provider credentials and webhook secrets. Keep application OAuth credentials in protected runtime configuration.
+- Bind connection creation, edits, and deletion to the authenticated account using the current scope.
+- Accept only supported HTTPS provider hosts and webhook paths; reject provider mismatches and do not follow redirects to untrusted hosts. A webhook is not an arbitrary server-side HTTP destination.
+- Syntactic validation does not prove delivery access. Do not send test messages automatically when saving or label a saved webhook as delivery-verified.
+- Encrypt persisted webhook secrets and redact them from inspected structures.
 - Never expose credentials in job arguments, client responses, logs, or delivery metadata.
-- Request minimum permissions and implement token refresh where required.
-- Validate incoming event authenticity using the provider's supported mechanism.
-- Track whether a connection is usable, revoked, or requires reauthorization; recheck eligibility before sending pending deliveries.
-- Distinguish disconnecting an individual destination from revoking credentials shared by multiple destinations or users.
+- Never return an existing webhook secret for editing; replacements accept a new URL without redisplaying the old one.
+- Track known unusable or revoked connections and recheck eligibility before sending pending jobs.
+- Distinguish deleting local subscription configuration from revoking an external webhook that may have other consumers.
 
 ### 7. Throughput and Delivery Outcomes
 
@@ -136,7 +139,7 @@ Use the channel queues and delivery lifecycle from ADR-04. Apply rate limits at 
 - Discord exposes per-route and webhook-resource quotas through `X-RateLimit-*` headers. Requests without an `Authorization` header are also subject to an IP-based global limit; webhook destinations must not be treated as unlimited independent capacity.
 - One publication reaches all members of a shared channel. Different channels still require separate requests, so a large number of destinations scheduled for the same hour can introduce queue delay.
 
-Queue concurrency is not a rate limiter. Respect provider retry guidance and defer work through Oban rather than sleeping in workers. Confirm free-tier peak capacity against expected subscriber volumes before release.
+Queue concurrency is not a rate limiter. Respect provider retry guidance and defer work through Oban rather than sleeping in workers. If provider guidance would delay a send beyond its expiry, discard it instead of retrying early or extending the deadline. Confirm free-tier peak capacity against expected subscriber volumes before release.
 
 Keep provider acceptance distinct from recipient receipt or a device push notification. The user's provider notification settings remain outside Daily Logos' control. Do not promise exactly-once external sending where the provider does not support idempotency.
 
@@ -149,7 +152,7 @@ For shared channels, identify the destination using provider and external worksp
 ### Positive
 
 - Provider-specific authorization and sending stay outside scheduling rules.
-- Users can connect multiple shared channels without creating developer applications or installing bots; personal delivery remains available through email.
+- Users can connect multiple shared channels through manually configured webhooks without bot-based delivery or a Daily Logos OAuth installation flow; personal delivery remains available through email.
 - Provider adapters can be tested and changed independently.
 - No additional external broker or paid messaging integration is introduced.
 
@@ -157,25 +160,27 @@ For shared channels, identify the destination using provider and external worksp
 
 - Free provider limits still constrain throughput and installation availability.
 - Workspace/server permissions, installation policies, and revoked webhooks can block otherwise valid subscriptions.
-- Shared installations and shared-channel destinations require explicit ownership and deduplication rules.
+- Shared-channel destinations require explicit duplicate-prevention rules even though local subscriptions are user-owned.
 - Ports add contracts that must remain small and aligned with actual capabilities.
 
 ## Verification Criteria
 
 - Unit tests exercise application cases with substitute ports, without network calls.
 - Adapter contract tests cover message formatting and normalized acceptance, transient errors, permanent errors, and rate-limit outcomes.
-- Integration tests cover OAuth state validation, verified identity mapping, credential protection, revocation, and destination ownership.
-- Tests cover multiple destinations per provider, independent schedules, and safe disconnection of shared integrations.
+- Integration tests cover provider URL validation, unsafe host and redirect rejection, credential protection, unusable connections, and subscription ownership.
+- Tests cover multiple destinations per provider, independent calendar and connection edits on the same subscription row, and deletion without revoking externally shared webhooks.
 - Shared-channel tests cover duplicate connections without unintentionally suppressing distinct intended publications.
-- Validate Slack external-workspace installation and Discord channel authorization with real test environments before release.
-- Verify that Slack and Discord integrations do not request bot or DM permissions and reject unsupported destination types.
+- Validate user-supplied Slack and Discord incoming webhooks with controlled real test environments before release; form saves do not automatically send messages.
+- Verify that Slack and Discord integrations do not require an application OAuth flow, bot tokens, or DM permissions and reject unsupported destination types.
+- Worker tests verify that rate-limit deferrals and retries respect ADR-04's short expiry window; expired or exhausted sends are not recovered.
 - Measure peak throughput using only the supported free provider limits.
 
 ## Open Decisions Before Release
 
-- Ownership and authorization rules for shared installations and destinations
 - Exact shared-channel duplicate-prevention semantics
 - Expected peak volumes, acceptable delivery delay, and provider rate-limit configuration
+
+Separate destination tables, shared OAuth installation infrastructure, delivery ledgers, and dispatcher recovery are not pending implementation tasks. Reconsider them only after an explicit requirements change and ADR revision.
 
 ## References
 

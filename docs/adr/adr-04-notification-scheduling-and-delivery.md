@@ -8,7 +8,7 @@ Accepted
 
 Daily Logos needs to deliver daily quotes through user-selected channels on selected weekdays and at a selected local hour. A user can have different notification settings for each channel.
 
-The application already uses Phoenix, Ecto, PostgreSQL, and Swoosh. Notification scheduling and delivery must survive application restarts, support retries, and scale without introducing a recurring process or recurring job for every user.
+The application already uses Phoenix, Ecto, PostgreSQL, and Swoosh. Subscriptions and enqueued jobs must survive application restarts, support short bounded retries, and scale without introducing a recurring process or recurring job for every user. Notifications are best-effort: missed slots and sends that expire or exhaust their attempts may be lost.
 
 This decision covers backend scheduling and delivery architecture. Settings UI, channel connection flows, and provider selection are outside its scope.
 
@@ -27,17 +27,17 @@ Create a future Oban job for each subscription. Each execution schedules the nex
 
 Run one recurring dispatcher that finds due subscriptions and creates independent delivery jobs.
 
-- Centralizes recurrence and recovery logic.
+- Centralizes recurrence logic without replaying missed slots.
 - Keeps scheduling independent of provider failures.
 - Supports shared whole-hour slots without maintaining a recurring job per user.
-- Requires indexed subscription queries, batching, and persistent dispatch progress.
+- Requires indexed subscription queries and bounded batching, but no persistent dispatch progress.
 
 ### Option C: PubSub or an External Message Broker
 
 Publish time-slot events to subscribers through Phoenix.PubSub or an external broker.
 
 - Phoenix.PubSub alone does not provide durable delivery, replay, or persistent subscriptions.
-- An external broker adds infrastructure without removing the need for persistent calendar and delivery state.
+- An external broker adds infrastructure without removing the need for persistent subscriptions and queued jobs.
 - Oban already provides the persistent queue required for this workload.
 
 ## Decision
@@ -46,23 +46,33 @@ Choose **Option B**: persistent subscriptions, one shared hourly Oban dispatcher
 
 Do not introduce Phoenix.PubSub or an external message broker for scheduled notification delivery.
 
+Store destination configuration and calendar settings together in `notification_subscriptions`. Use Oban jobs directly for delivery execution, with no separate `notification_deliveries` table or dispatcher checkpoint table. Do not recover slots missed during downtime or retry notifications beyond a short expiry window.
+
+These simplifications replace the earlier delivery-ledger and checkpoint-recovery design. They are intentional reductions in delivery guarantees, not deferred implementation tasks.
+
 ## Decision Details
 
 ### 1. Subscription Model
 
-Store subscriptions in `notification_subscriptions`, with one subscription per user and channel, enforced by a unique constraint on `(user_id, channel)`.
+Store destination configuration and its one calendar together in `notification_subscriptions`. Each row belongs to a user and represents one email, Slack, or Discord destination. Do not introduce a separate destinations table for this one-to-one relationship.
+
+Allow one email subscription per user, enforced by a partial unique index on `user_id` where `provider = 'email'`. Allow multiple Slack or Discord subscriptions per user, each with its own schedule. Shared-channel duplicate-prevention rules remain part of ADR-05; a unique constraint on `(user_id, provider)` would incorrectly prevent multiple destinations.
 
 Each subscription contains:
 
 - `user_id`
-- `channel`
+- `provider`, restricted to email, Slack, or Discord
+- User-defined destination name for shared channels
+- Protected destination configuration and connection usability information where required; never plaintext webhook secrets
 - `weekdays`, using ISO weekday numbers from 1 (Monday) to 7 (Sunday)
 - `local_hour`, restricted to whole hours from 0 to 23
 - `timezone`, an IANA identifier such as `Europe/Rome`
 - `enabled`
 - Persisted notification locale, validated against the application's configured locales
 
-Whole-hour slots are allowed values, not separate schedule records or processes. Channel destinations and credentials belong to the channel integration, rather than the calendar definition.
+Whole-hour slots are allowed values, not separate schedule records or processes. Destination and calendar remain distinct domain concerns, but do not require separate tables. Use separate application operations and changesets to save connection settings and schedule settings independently. Resolve the email address from the user's verified account rather than storing a duplicate address.
+
+New subscriptions are disabled. Disabled subscriptions may have incomplete calendar settings; enabling requires at least one weekday, a valid hour, a supported timezone, a configured locale, and a usable destination.
 
 ### 2. Local Calendar Semantics
 
@@ -74,7 +84,9 @@ Initially, support only timezones whose offsets remain aligned with whole UTC ho
 
 To support fractional-offset timezones precisely, increase the frequency of the same dispatcher; the subscription and delivery architecture does not need to change.
 
-The policy for nonexistent and repeated local hours during daylight saving transitions must be defined and tested before implementation is released.
+If the selected local hour does not exist during a daylight saving transition, skip that local date. If it occurs twice, use the first UTC occurrence only; do not send again at the repeated hour. Test both policies.
+
+Use the same backend calendar logic for dispatch and the UI's next-delivery calculation. Calculating the next occurrence does not require a delivery record.
 
 ### 3. Hourly Dispatcher
 
@@ -82,43 +94,41 @@ Use Oban's Cron plugin to enqueue one shared recurring dispatcher at the start o
 
 The dispatcher:
 
-1. Reads persistent dispatch progress and determines the interval to process.
-2. Resolves local calendar slots within that interval for the timezones used by active subscriptions.
+1. Determines the current UTC whole-hour slot and checks that it is within the configured dispatch lateness tolerance.
+2. Resolves that slot against the local calendars of active subscriptions, including the daylight saving policy above.
 3. Finds matching enabled subscriptions by local weekday, hour, and timezone.
-4. Creates deliveries and their Oban jobs in bounded batches.
-5. Records progress only after the corresponding work is durably committed.
+4. Selects the occurrence's quote and enqueues independent Oban delivery jobs in bounded batches.
 
-Use indexed queries and bounded batches rather than loading all subscribers into memory. Coordinate concurrent dispatcher executions through database-backed locking or equivalent serialization.
+Use indexed queries and bounded batches rather than loading all subscribers into memory. Coordinate concurrent dispatcher executions and configure occurrence-based Oban job uniqueness to reduce duplicate enqueueing. Do not assume job uniqueness guarantees exactly-once external sending.
 
-Do not rely on the dispatcher starting at the exact scheduled second, or on Cron replaying ticks missed during downtime. Run the same recovery path after application startup as well as on hourly ticks.
+Do not rely on the dispatcher starting at the exact scheduled second or on Cron replaying ticks missed during downtime. Do not replay previous slots or run startup catch-up. A delayed dispatcher outside the current slot's lateness tolerance does no work. If dispatch stops partway through batching, unqueued notifications may be lost; no checkpoint or reconciliation process is required.
 
-### 4. Delivery Records and Atomic Enqueueing
+### 4. Delivery Jobs Instead of Delivery Records
 
-Store individual occurrences in `notification_deliveries`, including:
+Use Oban's persistent jobs as the execution records. Do not create a separate `notification_deliveries` table. Each job contains only the non-secret data needed to identify and preserve its occurrence:
 
-- Subscription reference
+- `subscription_id`
 - `scheduled_for`, the intended UTC instant
 - Local occurrence date
 - Selected quote reference and notification locale
-- Delivery status and relevant provider outcome metadata
+- `expires_at`, the latest instant at which a send attempt may start
 
-Enforce uniqueness on `(subscription_id, scheduled_for)` to prevent repeated dispatch attempts from generating the same occurrence twice.
+Configure delivery-job uniqueness using the subscription and scheduled instant, with a uniqueness period and job states covering the dispatch and retry windows. Validate the chosen Oban mechanism under concurrent enqueueing; it is not a replacement for provider idempotency or a permanent occurrence ledger.
 
-Create each delivery and its Oban job in the same database transaction. Jobs receive a `delivery_id`, rather than credentials or the entire subscription.
+There is no delivery-record/job pair to create atomically. Enqueue jobs directly in bounded batches. Keep credentials and the full subscription out of job arguments; workers resolve the current destination configuration through the subscription.
 
-If dispatch progress is committed per batch, it must identify the last durably processed batch. Otherwise, advance the interval checkpoint only after every batch is committed. A retry can revisit committed batches safely through delivery uniqueness; progress must never skip uncommitted work.
-
-Choose the quote using the occurrence's local date, not the worker's execution date. Persist the quote reference and locale so retries do not select a different day's quote or inherit a process-default language.
+Choose the quote using the occurrence's local date, not the worker's execution date. Persist the quote reference and locale in job arguments so retries do not select another quote or inherit a process-default language.
 
 ### 5. Queues, Workers, and Channel Adapters
 
 Use a ports-and-adapters (hexagonal) architecture for channel delivery. Application use cases depend on a delivery port expressed as an Elixir behaviour, implemented by provider-specific adapters. Keep scheduling and business rules independent of provider APIs, credentials, and payload formats. See [ADR-05: Notification Channel Integrations with Ports and Adapters](adr-05-notification-channel-integrations.md) for channel contracts and supported delivery modes.
 
-Use independent Oban queues for channels, such as `notifications_email`, `notifications_telegram`, and `notifications_slack`.
+Use independent Oban queues: `notifications_email`, `notifications_slack`, and `notifications_discord`.
 
 Each job processes one delivery through the relevant adapter. Configure concurrency per queue so a slow provider does not consume all delivery capacity.
 
-- Retry transient failures with bounded backoff.
+- Retry transient failures a limited number of times with short backoff, within a seconds-to-minutes delivery window rather than on the following day. Configure both attempt limits and an expiry deadline; attempt count alone does not bound elapsed time.
+- Check `expires_at` before every send attempt, including the first. Discard expired work without sending, even if it remained queued during downtime. Exhausted or expired notifications are lost, with no compensating resend.
 - Treat permanent destination or authorization failures separately from transient errors.
 - Respect provider rate limits and retry guidance across all worker instances; queue concurrency alone is not rate limiting.
 - Recheck subscription eligibility before sending, so disabled or changed subscriptions do not blindly send stale pending deliveries.
@@ -126,17 +136,17 @@ Each job processes one delivery through the relevant adapter. Configure concurre
 - Use Req for HTTP-based channel integrations.
 - Keep provider credentials out of job arguments and logs.
 
-Provider acceptance is distinct from confirmed recipient delivery. Record only states supported by provider evidence, using webhooks where available.
+Provider acceptance is distinct from confirmed recipient delivery. Report only outcomes supported by provider evidence. Job execution state and non-secret telemetry are sufficient for the initial implementation; there is no separate application delivery history or recipient-receipt tracking.
 
-Delivery uniqueness prevents duplicate occurrence creation, but does not guarantee exactly-once external sending. A provider may accept a request before the worker loses its response. Use a stable delivery-based idempotency key where the provider supports it; otherwise acknowledge the residual duplicate risk.
+Oban job uniqueness does not guarantee exactly-once external sending. A provider may accept a request before the worker loses its response. Use a stable subscription-and-occurrence idempotency key where the provider supports it; otherwise accept the residual duplicate risk.
 
-### 6. Recovery and Observability
+### 6. Missed Sends and Observability
 
-Persist dispatch progress so restarts do not lose unprocessed intervals. Apply a bounded recovery window rather than sending an unlimited backlog of old quotes.
+Accept the loss of notifications whose slots were missed during downtime, whose dispatch batches were not enqueued, or whose jobs expire or exhaust attempts. Do not persist dispatcher progress, scan historical intervals, or create replacement jobs for lost notifications.
 
-The recovery window and handling of expired occurrences must be agreed before release. Recovery must also respect subscription creation and modification times rather than creating retroactive notifications for newly configured settings.
+Already enqueued jobs survive restarts through Oban, but may only send before their original expiry. Avoid creating retroactive occurrences for newly created or edited subscriptions. Exact pending-job invalidation rules remain to be defined before release.
 
-Monitor queue backlog, delivery delay relative to `scheduled_for`, retry counts, permanent failures, and dispatcher progress. Define retention and pruning for Oban jobs and delivery records before production rollout.
+Monitor queue backlog, delivery delay relative to `scheduled_for`, retry counts, permanent failures, expired jobs, and dispatcher execution. Define retention and pruning for Oban jobs before production rollout; job history is not a permanent delivery audit trail.
 
 ## Consequences
 
@@ -145,29 +155,33 @@ Monitor queue backlog, delivery delay relative to `scheduled_for`, retry counts,
 - Uses the existing PostgreSQL infrastructure without a separate broker.
 - Keeps recurring scheduling centralized and independent of individual delivery outcomes.
 - Supports channel isolation, controlled concurrency, and additional worker instances.
-- Preserves users' local calendar intent and provides an auditable delivery history.
+- Preserves users' local calendar intent without separate destination, delivery-ledger, or dispatch-progress tables.
 
 ### Negative / Risks
 
 - Whole-hour dispatch initially restricts supported timezones.
 - Scheduling accuracy depends on dispatcher availability and queue capacity; exact-time delivery is not guaranteed.
-- Checkpointing, batch recovery, and subscription changes require careful transactional behavior.
+- Missed slots, partial dispatch batches, and exhausted or expired sends are intentionally not recovered.
+- Delivery history is limited to retained Oban jobs and telemetry; there is no durable application audit ledger.
+- Subscription edits, expiry checks, and concurrent enqueueing still require careful handling.
 - Daylight saving transitions and external-provider idempotency remain explicit correctness concerns.
 
 ## Verification Criteria
 
 - Unit tests cover local weekday/date boundaries, daylight saving transitions, timezone eligibility, and quote selection for the occurrence date.
-- Integration tests cover atomic delivery/job creation, uniqueness under retries and concurrent dispatchers, checkpoint recovery after partial batches, and subscription changes.
-- Worker tests cover channel routing, transient and permanent failures, provider idempotency where supported, and independent retries.
+- Integration tests cover multiple subscriptions per provider, one email subscription per user, disabled incomplete schedules, concurrent enqueueing, and subscription changes.
+- Dispatcher tests cover bounded batching, delayed ticks, missed slots without replay, and partial failures without catch-up requirements.
+- Worker tests cover channel routing, transient and permanent failures, short bounded retries, expiry before the first attempt and after downtime, and provider idempotency where supported.
 - Tests use controlled time and adapter responses rather than real provider calls or sleeps.
 
 ## Open Decisions Before Release
 
-- Maximum recovery delay and treatment of expired occurrences
-- Behavior for nonexistent and repeated local hours
+- Dispatch lateness tolerance, short delivery expiry window, maximum attempts, and backoff values
 - Exact invalidation rules for pending deliveries after subscription edits
 - Provider-specific rate limits, channel connection verification, and credential storage
-- Delivery history retention period
+- Oban job retention period and uniqueness configuration
+
+Separate destination tables, delivery ledgers, and dispatcher checkpoints are not open implementation decisions. Reintroduce them only after an explicit requirements change and ADR revision.
 
 ## Alternative Revisit Triggers
 
@@ -175,3 +189,4 @@ Monitor queue backlog, delivery delay relative to `scheduled_for`, retry counts,
 - Users need multiple schedules per channel or minute-level scheduling.
 - Measured fan-out, queue delay, or database contention exceeds the capacity of this design.
 - Provider constraints require different batching or delivery infrastructure.
+- Requirements change to demand missed-slot recovery, longer-lived retries, a durable delivery audit, or multiple schedules per destination. Only then reconsider the deliberately omitted tables and recovery mechanisms.
