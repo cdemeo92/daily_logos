@@ -22,7 +22,7 @@ defmodule DailyLogos.Notifications.SubscriptionTest do
   end
 
   setup do
-    %{scope: Scope.for_user(%User{id: 1})}
+    %{scope: Scope.for_user(%User{id: 1, confirmed_at: ~U[2026-10-24 00:00:00Z]})}
   end
 
   describe "changeset/3" do
@@ -181,6 +181,74 @@ defmodule DailyLogos.Notifications.SubscriptionTest do
         changeset = Subscription.changeset(%Subscription{}, attrs, scope)
 
         assert_error(changeset, :local_hour, :number)
+      end
+    end
+  end
+
+  describe "schedule_changeset/3" do
+    test "ignores connection and ownership attributes", %{scope: scope} do
+      subscription = %Subscription{
+        provider: "email",
+        user_id: scope.user.id,
+        enabled: false
+      }
+
+      attrs = %{
+        provider: "slack",
+        name: "Another channel",
+        user_id: 999,
+        local_hour: 10
+      }
+
+      changeset = Subscription.schedule_changeset(subscription, attrs, scope)
+
+      assert changeset.valid?
+      assert Ecto.Changeset.get_field(changeset, :provider) == "email"
+      assert Ecto.Changeset.get_field(changeset, :name) == nil
+      assert Ecto.Changeset.get_field(changeset, :user_id) == scope.user.id
+      assert Ecto.Changeset.get_field(changeset, :local_hour) == 10
+    end
+
+    test "validates enabled schedule values", %{scope: scope} do
+      subscription = %Subscription{provider: "email", user_id: scope.user.id}
+      attrs = %{@schedule | local_hour: 24, weekdays: [8]}
+      changeset = Subscription.schedule_changeset(subscription, attrs, scope)
+
+      assert_error(changeset, :local_hour, :number)
+      assert_error(changeset, :weekdays, :subset)
+    end
+
+    test "requires a verified email for creation and schedule activation" do
+      scope = Scope.for_user(%User{id: 1})
+      subscription = %Subscription{provider: "email", user_id: scope.user.id}
+
+      created = Subscription.changeset(%Subscription{}, @schedule, scope)
+      updated = Subscription.schedule_changeset(subscription, @schedule, scope)
+
+      assert_error(created, :enabled, :email_confirmation)
+      assert_error(updated, :enabled, :email_confirmation)
+    end
+
+    test "allows an unverified user to disable email notifications" do
+      scope = Scope.for_user(%User{id: 1})
+      subscription = %Subscription{provider: "email", enabled: true, user_id: scope.user.id}
+      changeset = Subscription.schedule_changeset(subscription, %{enabled: false}, scope)
+
+      assert changeset.valid?
+    end
+
+    test "does not require account email verification for shared-channel schedules" do
+      scope = Scope.for_user(%User{id: 1})
+
+      for provider <- ["slack", "discord"] do
+        subscription = %Subscription{
+          provider: provider,
+          name: "Daily quotes",
+          user_id: scope.user.id
+        }
+
+        changeset = Subscription.schedule_changeset(subscription, @schedule, scope)
+        assert changeset.valid?
       end
     end
   end
