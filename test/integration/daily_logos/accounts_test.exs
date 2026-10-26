@@ -419,14 +419,23 @@ defmodule DailyLogos.AccountsTest do
       assert update_email.subject == "Istruzioni per aggiornare l'indirizzo email"
       assert update_email.text_body =~ "Puoi aggiornare il tuo indirizzo email"
       assert update_email.text_body =~ update_email_url
+      assert update_email.html_body =~ update_email_url
+      assert update_email.html_body =~ "Conferma la modifica dell&#39;email"
+      assert update_email.html_body =~ "background-color:#252525"
 
       assert login.subject == "Istruzioni per l'accesso"
       assert login.text_body =~ "Puoi accedere al tuo account"
       assert login.text_body =~ login_url
+      assert login.html_body =~ login_url
+      assert login.html_body =~ "Accedi al tuo account"
+      assert login.html_body =~ "background-color:#252525"
 
       assert confirmation.subject == "Istruzioni per la conferma dell'account"
       assert confirmation.text_body =~ "Puoi confermare il tuo account"
       assert confirmation.text_body =~ confirmation_url
+      assert confirmation.html_body =~ confirmation_url
+      assert confirmation.html_body =~ "Conferma il tuo account"
+      assert confirmation.html_body =~ "background-color:#252525"
     end
   end
 

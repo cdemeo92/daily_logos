@@ -7,6 +7,7 @@ defmodule DailyLogos.Notifications.EmailWorker do
   import Ecto.Query
 
   alias DailyLogos.Accounts.User
+  alias DailyLogos.EmailTemplate
   alias DailyLogos.Mailer
   alias DailyLogos.Notifications.Subscription
   alias DailyLogos.Quotes
@@ -132,7 +133,7 @@ defmodule DailyLogos.Notifications.EmailWorker do
          manage_notifications_url,
          delete_account_url
        ) do
-    quote_text = text |> escape_html() |> String.replace(~r/\r\n?|\n/, "<br>\n")
+    quote_text = text |> EmailTemplate.escape_html() |> String.replace(~r/\r\n?|\n/, "<br>\n")
 
     support_section =
       if buy_me_coffee_url do
@@ -140,12 +141,12 @@ defmodule DailyLogos.Notifications.EmailWorker do
         <tr>
           <td style="padding:24px 32px 28px;border-top:1px solid #e8e4dc;text-align:center;">
             <p style="margin:0 0 8px;color:#252525;font-size:16px;font-weight:700;">
-              #{escape_html(translations.support_prompt)}
+              #{EmailTemplate.escape_html(translations.support_prompt)}
             </p>
             <p style="margin:0 0 16px;color:#62605a;font-size:14px;line-height:1.5;">
-              #{escape_html(translations.support_copy)}
+              #{EmailTemplate.escape_html(translations.support_copy)}
             </p>
-            <a href="#{escape_html(buy_me_coffee_url)}" target="_blank" rel="noopener noreferrer">
+            <a href="#{EmailTemplate.escape_html(buy_me_coffee_url)}" target="_blank" rel="noopener noreferrer">
               <img
                 src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
                 alt="Buy Me a Coffee"
@@ -161,79 +162,53 @@ defmodule DailyLogos.Notifications.EmailWorker do
         ""
       end
 
+    content_html = """
+    <p style="margin:0 0 20px;color:#55534e;font-size:15px;line-height:1.6;">
+      #{EmailTemplate.escape_html(translations.introduction)}
+    </p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background-color:#f8f7f4;border-left:4px solid #e7a83e;">
+      <tr>
+        <td style="padding:22px 24px;">
+          <p style="margin:0;color:#252525;font-family:Georgia,'Times New Roman',serif;font-size:21px;line-height:1.55;">
+            #{quote_text}
+          </p>
+        </td>
+      </tr>
+    </table>
+    <p style="margin:18px 0 0;color:#252525;font-size:14px;font-weight:700;">
+      #{EmailTemplate.escape_html(translations.author)}
+    </p>
+    <p style="margin:6px 0 0;color:#77736b;font-size:13px;line-height:1.5;">
+      #{EmailTemplate.escape_html(translations.source)}
+    </p>
+    <p style="margin:4px 0 0;color:#77736b;font-size:13px;line-height:1.5;">
+      #{EmailTemplate.escape_html(translations.theme)}
+    </p>
     """
-    <!doctype html>
-    <html lang="#{escape_html(language)}">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>#{escape_html(translations.subject)}</title>
-      </head>
-      <body style="margin:0;padding:0;background-color:#f2f1ed;color:#252525;font-family:Arial,Helvetica,sans-serif;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background-color:#f2f1ed;">
-          <tr>
-            <td align="center" style="padding:32px 16px;">
-              <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;border-collapse:separate;border-spacing:0;background-color:#ffffff;border:1px solid #e2dfd8;border-radius:8px;">
-                <tr>
-                  <td style="padding:28px 32px;background-color:#252525;border-radius:8px 8px 0 0;">
-                    <p style="margin:0 0 12px;color:#f4b942;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">
-                      Daily Logos
-                    </p>
-                    <h1 style="margin:0;color:#ffffff;font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:400;line-height:1.25;">
-                      #{escape_html(translations.subject)}
-                    </h1>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:28px 32px 24px;">
-                    <p style="margin:0 0 20px;color:#55534e;font-size:15px;line-height:1.6;">
-                      #{escape_html(translations.introduction)}
-                    </p>
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background-color:#f8f7f4;border-left:4px solid #e7a83e;">
-                      <tr>
-                        <td style="padding:22px 24px;">
-                          <p style="margin:0;color:#252525;font-family:Georgia,'Times New Roman',serif;font-size:21px;line-height:1.55;">
-                            #{quote_text}
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                    <p style="margin:18px 0 0;color:#252525;font-size:14px;font-weight:700;">
-                      #{escape_html(translations.author)}
-                    </p>
-                    <p style="margin:6px 0 0;color:#77736b;font-size:13px;line-height:1.5;">
-                      #{escape_html(translations.source)}
-                    </p>
-                    <p style="margin:4px 0 0;color:#77736b;font-size:13px;line-height:1.5;">
-                      #{escape_html(translations.theme)}
-                    </p>
-                  </td>
-                </tr>
-                #{support_section}
-                <tr>
-                  <td style="padding:18px 32px;background-color:#f8f7f4;border-radius:0 0 8px 8px;text-align:center;">
-                    <p style="margin:0 0 10px;font-size:13px;line-height:1.5;">
-                      <a href="#{escape_html(manage_notifications_url)}" style="color:#252525;text-decoration:underline;">
-                        #{escape_html(translations.manage_notifications)}
-                      </a>
-                    </p>
-                    <p style="margin:0 0 10px;font-size:13px;line-height:1.5;">
-                      <a href="#{escape_html(delete_account_url)}" style="color:#252525;text-decoration:underline;">
-                        #{escape_html(translations.delete_account)}
-                      </a>
-                    </p>
-                    <p style="margin:0;color:#77736b;font-size:12px;line-height:1.5;">
-                      Daily Logos
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
-    </html>
+
+    footer_links = """
+    <tr>
+      <td style="padding:8px 32px 16px;text-align:center;">
+    <p style="margin:0 0 10px;font-size:13px;line-height:1.5;text-align:center;">
+      <a href="#{EmailTemplate.escape_html(manage_notifications_url)}" style="color:#252525;text-decoration:underline;">
+        #{EmailTemplate.escape_html(translations.manage_notifications)}
+      </a>
+    </p>
+    <p style="margin:0;font-size:13px;line-height:1.5;text-align:center;">
+      <a href="#{EmailTemplate.escape_html(delete_account_url)}" style="color:#252525;text-decoration:underline;">
+        #{EmailTemplate.escape_html(translations.delete_account)}
+      </a>
+    </p>
+      </td>
+    </tr>
     """
+
+    EmailTemplate.render(
+      language,
+      translations.subject,
+      content_html,
+      support_section <> footer_links
+    )
   end
 
   defp localized_endpoint_url(path, language) do
@@ -270,12 +245,6 @@ defmodule DailyLogos.Notifications.EmailWorker do
       url when is_binary(url) and url != "" -> url
       _ -> nil
     end
-  end
-
-  defp escape_html(value) do
-    value
-    |> Phoenix.HTML.html_escape()
-    |> Phoenix.HTML.safe_to_string()
   end
 
   defp quote_translation(quote, field_prefix, language) do

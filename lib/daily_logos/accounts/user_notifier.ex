@@ -7,16 +7,25 @@ defmodule DailyLogos.Accounts.UserNotifier do
   use Gettext, backend: DailyLogosWeb.Gettext
 
   alias DailyLogos.Accounts.User
+  alias DailyLogos.EmailTemplate
   alias DailyLogos.Mailer
 
   # Delivers the email using the application mailer.
-  defp deliver(recipient, subject, body) do
+  defp deliver(recipient, subject, body, action_url, action_label) do
+    language = Gettext.get_locale(DailyLogosWeb.Gettext)
+
+    html_body =
+      body
+      |> account_content_html(action_url, action_label)
+      |> then(&EmailTemplate.render(language, subject, &1))
+
     email =
       new()
       |> to(recipient)
       |> from({"DailyLogos", Application.fetch_env!(:daily_logos, :mailer_from)})
       |> subject(subject)
       |> text_body(body)
+      |> html_body(html_body)
 
     with {:ok, _metadata} <- Mailer.deliver(email) do
       {:ok, email}
@@ -47,7 +56,13 @@ defmodule DailyLogos.Accounts.UserNotifier do
         url: url
       )
 
-    deliver(user.email, gettext("Update email instructions"), body)
+    deliver(
+      user.email,
+      gettext("Update email instructions"),
+      body,
+      url,
+      gettext("Confirm email change")
+    )
   end
 
   @doc """
@@ -81,7 +96,13 @@ defmodule DailyLogos.Accounts.UserNotifier do
         url: url
       )
 
-    deliver(user.email, gettext("Log in instructions"), body)
+    deliver(
+      user.email,
+      gettext("Log in instructions"),
+      body,
+      url,
+      gettext("Log in to your account")
+    )
   end
 
   defp deliver_confirmation_instructions(user, url) do
@@ -105,6 +126,37 @@ defmodule DailyLogos.Accounts.UserNotifier do
         url: url
       )
 
-    deliver(user.email, gettext("Confirmation instructions"), body)
+    deliver(
+      user.email,
+      gettext("Confirmation instructions"),
+      body,
+      url,
+      gettext("Confirm your account")
+    )
+  end
+
+  defp account_content_html(body, action_url, action_label) do
+    body
+    |> String.trim()
+    |> String.split("\n\n", trim: true)
+    |> Enum.reject(&(&1 == "==============================" or &1 == action_url))
+    |> Enum.map_join(fn paragraph ->
+      """
+      <p style="margin:0 0 16px;color:#55534e;font-size:15px;line-height:1.6;">
+        #{EmailTemplate.escape_html(paragraph)}
+      </p>
+      """
+    end)
+    |> Kernel.<>(action_button_html(action_url, action_label))
+  end
+
+  defp action_button_html(action_url, action_label) do
+    """
+    <p style="margin:24px 0;text-align:center;">
+      <a href="#{EmailTemplate.escape_html(action_url)}" style="display:inline-block;padding:13px 20px;border-radius:4px;background-color:#f4b942;color:#252525;font-size:14px;font-weight:700;text-decoration:none;">
+        #{EmailTemplate.escape_html(action_label)}
+      </a>
+    </p>
+    """
   end
 end

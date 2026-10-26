@@ -701,32 +701,32 @@ msgstr "la casella di posta"
 msgid "to your account now."
 msgstr "per accedere al tuo account."
 
-#: lib/daily_logos/accounts/user_notifier.ex:31
+#: lib/daily_logos/accounts/user_notifier.ex:40
 #, elixir-autogen, elixir-format
 msgid "\n==============================\n\nHi %{email},\n\nYou can change your email by visiting the URL below:\n\n%{url}\n\nIf you didn't request this change, please ignore this.\n\n==============================\n"
 msgstr "\n==============================\n\nCiao %{email},\n\nPuoi aggiornare il tuo indirizzo email visitando il link seguente:\n\n%{url}\n\nSe non hai richiesto questa modifica, ignora questa email.\n\n==============================\n"
 
-#: lib/daily_logos/accounts/user_notifier.ex:89
+#: lib/daily_logos/accounts/user_notifier.ex:110
 #, elixir-autogen, elixir-format
 msgid "\n==============================\n\nHi %{email},\n\nYou can confirm your account by visiting the URL below:\n\n%{url}\n\nIf you didn't create an account with us, please ignore this.\n\n==============================\n"
 msgstr "\n==============================\n\nCiao %{email},\n\nPuoi confermare il tuo account visitando il link seguente:\n\n%{url}\n\nSe non hai creato un account, ignora questa email.\n\n==============================\n"
 
-#: lib/daily_logos/accounts/user_notifier.ex:65
+#: lib/daily_logos/accounts/user_notifier.ex:80
 #, elixir-autogen, elixir-format
 msgid "\n==============================\n\nHi %{email},\n\nYou can log into your account by visiting the URL below:\n\n%{url}\n\nIf you didn't request this email, please ignore this.\n\n==============================\n"
 msgstr "\n==============================\n\nCiao %{email},\n\nPuoi accedere al tuo account visitando il link seguente:\n\n%{url}\n\nSe non hai richiesto questa email, ignora questo messaggio.\n\n==============================\n"
 
-#: lib/daily_logos/accounts/user_notifier.ex:108
+#: lib/daily_logos/accounts/user_notifier.ex:131
 #, elixir-autogen, elixir-format
 msgid "Confirmation instructions"
 msgstr "Istruzioni per la conferma dell'account"
 
-#: lib/daily_logos/accounts/user_notifier.ex:84
+#: lib/daily_logos/accounts/user_notifier.ex:101
 #, elixir-autogen, elixir-format
 msgid "Log in instructions"
 msgstr "Istruzioni per l'accesso"
 
-#: lib/daily_logos/accounts/user_notifier.ex:50
+#: lib/daily_logos/accounts/user_notifier.ex:61
 #, elixir-autogen, elixir-format
 msgid "Update email instructions"
 msgstr "Istruzioni per aggiornare l'indirizzo email"
@@ -1101,12 +1101,12 @@ msgstr "Non e stato possibile inviare l'email. Richiedi un nuovo link di accesso
 msgid "We sent you a one-time link. Follow the instructions in your email to confirm your account and sign in."
 msgstr "Ti abbiamo inviato un link monouso. Segui le indicazioni nell'email per confermare il tuo account e accedere."
 
-#: lib/daily_logos/notifications/email_worker.ex:63
+#: lib/daily_logos/notifications/email_worker.ex:64
 #, elixir-autogen, elixir-format
 msgid "A Stoic reflection for %{date}."
 msgstr "Una riflessione stoica per il %{date}."
 
-#: lib/daily_logos/notifications/email_worker.ex:64
+#: lib/daily_logos/notifications/email_worker.ex:65
 #, elixir-autogen, elixir-format
 msgid "By %{author}"
 msgstr "Di %{author}"
@@ -1197,7 +1197,7 @@ msgstr "Seleziona orario"
 msgid "Select time zone"
 msgstr "Seleziona fuso orario"
 
-#: lib/daily_logos/notifications/email_worker.ex:65
+#: lib/daily_logos/notifications/email_worker.ex:66
 #, elixir-autogen, elixir-format
 msgid "Source: %{source}"
 msgstr "Fonte: %{source}"
@@ -1212,7 +1212,7 @@ msgstr "Dom"
 msgid "Sunday"
 msgstr "Domenica"
 
-#: lib/daily_logos/notifications/email_worker.ex:66
+#: lib/daily_logos/notifications/email_worker.ex:67
 #, elixir-autogen, elixir-format
 msgid "Theme: %{topic}"
 msgstr "Tema: %{topic}"
@@ -1262,7 +1262,7 @@ msgstr "Mer"
 msgid "Wednesday"
 msgstr "Mercoledì"
 
-#: lib/daily_logos/notifications/email_worker.ex:61
+#: lib/daily_logos/notifications/email_worker.ex:62
 #, elixir-autogen, elixir-format
 msgid "Your daily Stoic quote"
 msgstr "La tua citazione stoica quotidiana"
@@ -1272,22 +1272,37 @@ msgstr "La tua citazione stoica quotidiana"
 msgid "Your session expired. Please log in again."
 msgstr "La sessione è scaduta. Accedi di nuovo."
 
-#: lib/daily_logos/notifications/email_worker.ex:69
+#: lib/daily_logos/notifications/email_worker.ex:70
 #, elixir-autogen, elixir-format
 msgid "Enjoying your daily reflection?"
 msgstr "Ti piace la tua riflessione quotidiana?"
 
-#: lib/daily_logos/notifications/email_worker.ex:70
+#: lib/daily_logos/notifications/email_worker.ex:71
 #, elixir-autogen, elixir-format
 msgid "Support Daily Logos with a coffee."
 msgstr "Sostieni Daily Logos con un caffè."
 
-#: lib/daily_logos/notifications/email_worker.ex:67
+#: lib/daily_logos/notifications/email_worker.ex:68
 #, elixir-autogen, elixir-format
 msgid "Manage your notification settings"
 msgstr "Gestisci le impostazioni delle notifiche"
 
-#: lib/daily_logos/notifications/email_worker.ex:68
+#: lib/daily_logos/notifications/email_worker.ex:69
 #, elixir-autogen, elixir-format
 msgid "Delete your account"
 msgstr "Elimina il tuo account"
+
+#: lib/daily_logos/accounts/user_notifier.ex:64
+#, elixir-autogen, elixir-format
+msgid "Confirm email change"
+msgstr "Conferma la modifica dell'email"
+
+#: lib/daily_logos/accounts/user_notifier.ex:134
+#, elixir-autogen, elixir-format
+msgid "Confirm your account"
+msgstr "Conferma il tuo account"
+
+#: lib/daily_logos/accounts/user_notifier.ex:104
+#, elixir-autogen, elixir-format
+msgid "Log in to your account"
+msgstr "Accedi al tuo account"
