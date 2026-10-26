@@ -45,4 +45,6 @@ config :phoenix_live_view,
 config :phoenix,
   sort_verified_routes_query_params: true
 
-config :daily_logos, Oban, testing: :manual
+config :daily_logos, Oban,
+  testing: :manual,
+  plugins: []

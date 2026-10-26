@@ -88,7 +88,12 @@ config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 config :daily_logos, Oban,
   repo: DailyLogos.Repo,
   queues: [notifications_email: 10],
-  plugins: []
+  plugins: [
+    {Oban.Cron,
+     crontab: [
+       {"*/15 * * * *", DailyLogos.Notifications.Dispatcher}
+     ]}
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

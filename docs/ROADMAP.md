@@ -63,7 +63,7 @@ After MVP completion.
 
 ### Destination
 
-- [ ] 📧 **Email** - Daily digest via email
+- [x] 📧 **Email** - Daily digest via email
 
 ### Features
 
@@ -73,9 +73,9 @@ After MVP completion.
 
 ### Technical Requirements
 
-- [ ] Background job system with Oban Cron and an email worker
-- [ ] Email delivery through the existing mailer
-- [ ] Notification scheduler and best-effort retry/expiry handling
+- [x] Background job system with Oban Cron and an email worker
+- [x] Email delivery through the existing mailer
+- [x] Notification scheduler and best-effort retry/expiry handling
 - [x] Timezone support
 
 ### Timeline
@@ -86,6 +86,6 @@ After Phase 2.
 
 ## Current Status
 
-**Active**: MVP (Phase 2)
+**Active**: MVP (Phase 3)
 
-_Last Updated: 2026-09-24_
+_Last Updated: 2026-09-26_
