@@ -7,6 +7,7 @@ defmodule DailyLogosWeb.Schemas.ValidationErrorResponse do
 
   def schema do
     %Schema{
+      title: "ValidationErrorResponse",
       type: :object,
       properties: %{
         errors: %Schema{

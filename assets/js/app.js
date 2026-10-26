@@ -25,6 +25,7 @@ import { LiveSocket } from "phoenix_live_view";
 import { hooks as colocatedHooks } from "phoenix-colocated/daily_logos";
 import topbar from "../vendor/topbar";
 import { initCookieConsent } from "./cookieconsent-config";
+import "./notification-form";
 
 initCookieConsent();
 

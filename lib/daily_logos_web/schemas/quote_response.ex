@@ -7,6 +7,7 @@ defmodule DailyLogosWeb.Schemas.QuoteResponse do
 
   def schema do
     %Schema{
+      title: "QuoteResponse",
       type: :object,
       properties: %{
         data: %Schema{

@@ -6,6 +6,10 @@ defmodule DailyLogosWeb.PageHTML do
   """
   use DailyLogosWeb, :html
 
+  import DailyLogosWeb.DropdownSelect
+  import DailyLogosWeb.TimezoneSelect
+  import DailyLogosWeb.WeekdaySelect
+
   embed_templates "page_html/*"
 
   def feedback_form_url("it"), do: configured_url(:feedback_form_url_it)

@@ -81,7 +81,8 @@ defmodule DailyLogosWeb.UserSessionControllerTest do
 
       conn = post(conn, "/users/log-in", %{"user" => %{"token" => token}})
       assert redirected_to(conn) == "/notifications"
-      assert conn |> get("/notifications") |> html_response(200) =~ "Coming soon"
+      document = conn |> get("/notifications") |> html_response(200) |> LazyHTML.from_document()
+      assert Enum.any?(LazyHTML.query(document, "#email-notification-form"))
     end
   end
 

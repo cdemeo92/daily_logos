@@ -7,6 +7,7 @@ defmodule DailyLogosWeb.Schemas.ErrorResponse do
 
   def schema do
     %Schema{
+      title: "ErrorResponse",
       type: :object,
       properties: %{
         errors: %Schema{

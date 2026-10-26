@@ -44,6 +44,14 @@ defmodule DailyLogosWeb.Router do
     plug OpenApiSpex.Plug.PutApiSpec, module: DailyLogosWeb.ApiSpec
   end
 
+  pipeline :api_session do
+    plug :prevent_session_page_cache
+    plug :fetch_session
+    plug :fetch_current_scope_for_user
+    plug DailyLogosWeb.Plugs.RequireAuthenticatedJsonUser
+    plug :protect_from_forgery
+  end
+
   scope "/", DailyLogosWeb do
     pipe_through [:browser, :locale_redirect, :seo]
 
@@ -125,6 +133,13 @@ defmodule DailyLogosWeb.Router do
     scope "/v1", DailyLogosWeb do
       get "/quotes", QuoteController, :show
       get "/healthz", HealthController, :show
+    end
+
+    scope "/v1", DailyLogosWeb do
+      pipe_through :api_session
+
+      post "/notifications", NotificationsController, :create
+      post "/notifications/:id", NotificationsController, :update
     end
   end
 

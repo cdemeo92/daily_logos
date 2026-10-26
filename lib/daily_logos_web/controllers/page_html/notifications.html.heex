@@ -1,14 +1,102 @@
 <Layouts.app flash={@flash} current_scope={@current_scope}>
   <%= if @current_scope && @current_scope.user do %>
-    <section class="mx-auto w-full max-w-2xl space-y-6 py-8">
-      <h1 class="text-2xl font-semibold">{gettext("Notifications")}</h1>
-      <.placeholder
-        id="notifications-coming-soon"
-        icon="hero-bell"
-        title={gettext("Coming soon")}
-        description={gettext("Notification settings are not available yet.")}
-        class="rounded-md"
-      />
+    <section class="mx-auto w-full max-w-2xl space-y-6 py-8" aria-labelledby="notifications-title">
+      <h1 id="notifications-title" class="text-2xl font-semibold">{gettext("Notifications")}</h1>
+      <section
+        id="email-notifications"
+        class="border-y border-base-300 py-6"
+        aria-labelledby="email-notifications-title"
+      >
+        <header class="mb-6 flex items-start gap-3">
+          <.icon name="hero-envelope" class="mt-1 size-5 shrink-0" />
+          <div class="min-w-0">
+            <h2 id="email-notifications-title" class="text-sm font-semibold uppercase">
+              {gettext("Email")}
+            </h2>
+            <p id="notification-email-address" class="break-all text-base">
+              {@current_scope.user.email}
+            </p>
+          </div>
+        </header>
+        <.form
+          for={@notification_form}
+          action={@notification_save_path}
+          method="post"
+          id="email-notification-form"
+          class="space-y-5"
+          data-notification-form
+          data-saving-label={gettext("Saving...")}
+          data-save-label={gettext("Save")}
+          data-error-label={gettext("Could not save changes. Please try again.")}
+          data-unauthenticated-label={gettext("Your session expired. Please log in again.")}
+        >
+          <p
+            id="email-notification-feedback"
+            data-notification-feedback
+            role="status"
+            aria-live="polite"
+            hidden
+            class="text-sm"
+          >
+          </p>
+          <.weekday_select
+            id="notification-weekday"
+            field={@notification_form[:weekdays]}
+            label={gettext("Days")}
+          />
+          <div class="grid gap-4 sm:grid-cols-[10rem_minmax(0,1fr)]">
+            <.dropdown_select
+              field={@notification_form[:local_hour]}
+              label={gettext("Time")}
+              prompt={gettext("Select time")}
+              options={Enum.map(0..23, &{String.pad_leading(to_string(&1), 2, "0") <> ":00", &1})}
+            />
+            <.timezone_select
+              field={@notification_form[:timezone]}
+              timezones={@notification_timezones}
+              suggest_browser={@notification_form.source.action == nil}
+            />
+          </div>
+          <.dropdown_select
+            field={@notification_form[:language]}
+            label={gettext("Language")}
+            prompt={gettext("Select language")}
+            options={@notification_languages}
+            class="sm:max-w-xs"
+          />
+          <div>
+            <.input
+              field={@notification_form[:enabled]}
+              type="checkbox"
+              label={gettext("Enabled")}
+              role="switch"
+              disabled={is_nil(@current_scope.user.confirmed_at)}
+              aria-describedby={
+                is_nil(@current_scope.user.confirmed_at) && "notification-email-verification"
+              }
+              class="size-5 rounded border-base-300 accent-primary"
+            />
+            <p
+              :if={is_nil(@current_scope.user.confirmed_at)}
+              id="notification-email-verification"
+              class="text-sm text-base-content/70"
+            >
+              {gettext("Verify your email to enable notifications.")}
+            </p>
+          </div>
+          <div class="flex justify-end">
+            <button
+              type="submit"
+              id="save-email-notifications"
+              class="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-content transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+              disabled={@notification_form.source.action == nil}
+            >
+              <.icon name="hero-check" class="size-4" />
+              <span data-notification-save-label>{gettext("Save")}</span>
+            </button>
+          </div>
+        </.form>
+      </section>
     </section>
   <% else %>
     <section class="mx-auto w-full max-w-xl space-y-6 py-12" aria-labelledby="notifications-title">

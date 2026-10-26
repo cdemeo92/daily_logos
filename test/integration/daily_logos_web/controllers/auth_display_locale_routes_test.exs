@@ -62,14 +62,13 @@ defmodule DailyLogosWeb.AuthDisplayLocaleRoutesTest do
       assert conn.assigns.locale == "it"
     end
 
-    test "renders Notifications coming soon for an authenticated user", %{conn: conn} do
+    test "renders the Notifications email form for an authenticated user", %{conn: conn} do
       user = user_fixture()
       conn = conn |> log_in_user(user) |> get("/it/notifications")
-      response = html_response(conn, 200)
+      document = conn |> html_response(200) |> LazyHTML.from_document()
 
-      assert response =~ "Notifiche"
-      assert response =~ "In arrivo"
-      assert response =~ "Le impostazioni delle notifiche non sono ancora disponibili."
+      assert Enum.any?(LazyHTML.query(document, "#email-notification-form"))
+      assert Enum.empty?(LazyHTML.query(document, "#notifications-coming-soon"))
       assert conn.assigns.locale == "it"
     end
 

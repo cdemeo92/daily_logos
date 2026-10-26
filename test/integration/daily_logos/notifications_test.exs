@@ -251,40 +251,32 @@ defmodule DailyLogos.NotificationsTest do
     end
   end
 
-  describe "ensure_email_subscription/1" do
-    test "creates a disabled email subscription for an unverified user without opting in" do
+  describe "get_email_subscription/1" do
+    test "returns nil without creating a subscription for an unverified user" do
       scope = user_scope_fixture(unconfirmed_user_fixture())
 
-      assert {:ok, subscription} = Notifications.ensure_email_subscription(scope)
-      assert subscription.provider == "email"
-      assert subscription.user_id == scope.user.id
-      assert subscription.enabled == false
-      assert subscription.weekdays == nil
-      assert subscription.local_hour == nil
-      assert subscription.timezone == nil
-
-      assert subscription.language ==
-               Application.fetch_env!(:daily_logos, :i18n) |> Keyword.fetch!(:default_locale)
-
-      assert Notifications.list_notification_subscriptions(scope) == [subscription]
+      assert Notifications.get_email_subscription(scope) == nil
+      assert Notifications.list_notification_subscriptions(scope) == []
     end
 
     test "repeated calls preserve an existing enabled schedule" do
       scope = user_scope_fixture()
       existing = subscription_fixture(scope)
 
-      assert {:ok, ^existing} = Notifications.ensure_email_subscription(scope)
-      assert {:ok, ^existing} = Notifications.ensure_email_subscription(scope)
+      assert Notifications.get_email_subscription(scope) == existing
+      assert Notifications.get_email_subscription(scope) == existing
       assert Notifications.list_notification_subscriptions(scope) == [existing]
     end
 
-    test "repeated calls create only one row and keep users isolated" do
+    test "returns only the current user's email subscription" do
       scope = user_scope_fixture()
       other_scope = user_scope_fixture()
 
-      assert {:ok, subscription} = Notifications.ensure_email_subscription(scope)
-      assert {:ok, ^subscription} = Notifications.ensure_email_subscription(scope)
-      assert {:ok, other_subscription} = Notifications.ensure_email_subscription(other_scope)
+      subscription = subscription_fixture(scope)
+      assert Notifications.get_email_subscription(other_scope) == nil
+      other_subscription = subscription_fixture(other_scope)
+      assert Notifications.get_email_subscription(scope) == subscription
+      assert Notifications.get_email_subscription(other_scope) == other_subscription
       assert subscription.id != other_subscription.id
       assert Notifications.list_notification_subscriptions(scope) == [subscription]
       assert Notifications.list_notification_subscriptions(other_scope) == [other_subscription]

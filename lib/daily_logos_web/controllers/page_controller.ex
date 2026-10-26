@@ -1,6 +1,8 @@
 defmodule DailyLogosWeb.PageController do
   use DailyLogosWeb, :controller
 
+  alias DailyLogos.Notifications
+  alias DailyLogos.Notifications.Subscription
   alias DailyLogosWeb.Plugs.{InvalidLocalePrefix, SeoMeta}
 
   plug InvalidLocalePrefix
@@ -70,7 +72,41 @@ defmodule DailyLogosWeb.PageController do
     })
     |> assign(:notifications_login_path, login_path)
     |> assign(:notifications_register_path, register_path)
+    |> assign_notification_form()
     |> render(:notifications)
+  end
+
+  defp assign_notification_form(conn) do
+    case conn.assigns.current_scope do
+      %{user: %{}} = scope ->
+        subscription =
+          Notifications.get_email_subscription(scope) ||
+            %Subscription{
+              user_id: scope.user.id,
+              provider: "email",
+              language: conn.assigns.locale,
+              enabled: false
+            }
+
+        changeset = Notifications.change_subscription(scope, subscription)
+
+        conn
+        |> assign(:email_subscription, subscription)
+        |> assign(:notification_form, Phoenix.Component.to_form(changeset))
+        |> assign(:notification_timezones, Enum.sort(Tzdata.zone_list()))
+        |> assign(:notification_languages, Gettext.known_locales(DailyLogosWeb.Gettext))
+        |> assign(
+          :notification_save_path,
+          if(
+            subscription.id,
+            do: ~p"/api/v1/notifications/#{subscription.id}",
+            else: ~p"/api/v1/notifications"
+          )
+        )
+
+      _ ->
+        conn
+    end
   end
 
   def show(conn, %{"month" => month_str, "day" => day_str}) do

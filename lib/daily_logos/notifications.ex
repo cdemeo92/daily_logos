@@ -29,25 +29,10 @@ defmodule DailyLogos.Notifications do
   end
 
   @doc """
-  Ensures the user's email subscription exists without changing an existing schedule.
-  New email subscriptions are disabled and use the configured default language.
+  Returns the user's saved email subscription, or nil without creating one.
   """
-  def ensure_email_subscription(%Scope{} = scope) do
-    attrs = %{
-      provider: "email",
-      enabled: false,
-      language: Application.fetch_env!(:daily_logos, :i18n) |> Keyword.fetch!(:default_locale)
-    }
-
-    changeset = Subscription.changeset(%Subscription{}, attrs, scope)
-
-    with {:ok, _subscription} <-
-           Repo.insert(changeset,
-             on_conflict: :nothing,
-             conflict_target: {:unsafe_fragment, "(user_id) WHERE provider = 'email'"}
-           ) do
-      {:ok, Repo.get_by!(Subscription, user_id: scope.user.id, provider: "email")}
-    end
+  def get_email_subscription(%Scope{} = scope) do
+    Repo.get_by(Subscription, user_id: scope.user.id, provider: "email")
   end
 
   @doc """

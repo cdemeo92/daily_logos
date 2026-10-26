@@ -82,7 +82,8 @@ defmodule DailyLogosWeb.UserRegistrationControllerTest do
         })
 
       assert redirected_to(conn) == "/notifications"
-      assert conn |> get("/notifications") |> html_response(200) =~ "Coming soon"
+      document = conn |> get("/notifications") |> html_response(200) |> LazyHTML.from_document()
+      assert Enum.any?(LazyHTML.query(document, "#email-notification-form"))
     end
 
     test "render errors for invalid data", %{conn: conn} do
