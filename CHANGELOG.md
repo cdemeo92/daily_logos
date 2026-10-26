@@ -1,3 +1,10 @@
+## [1.36.2](https://github.com/cdemeo92/daily_logos/compare/v1.36.1...v1.36.2) (2026-10-26)
+
+
+### Bug Fixes
+
+* update hackney and postgrex dependencies, and configure hackney for test environment ([6f07b9b](https://github.com/cdemeo92/daily_logos/commit/6f07b9bca8728f3247979f81010276ea9a7eb559))
+
 ## [1.36.1](https://github.com/cdemeo92/daily_logos/compare/v1.36.0...v1.36.1) (2026-10-26)
 
 
