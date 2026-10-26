@@ -1,3 +1,10 @@
+# [1.32.0](https://github.com/cdemeo92/daily_logos/compare/v1.31.0...v1.32.0) (2026-10-26)
+
+
+### Features
+
+* add email notification subscription management ([d130c77](https://github.com/cdemeo92/daily_logos/commit/d130c77bc797849ec0a90769971f9b059801b64b))
+
 # [1.31.0](https://github.com/cdemeo92/daily_logos/compare/v1.30.0...v1.31.0) (2026-10-24)
 
 
