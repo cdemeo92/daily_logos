@@ -57,30 +57,26 @@ After MVP completion.
 
 ---
 
-## Phase 3: Multi-Channel Notifications
+## Phase 3: Email Notifications
 
-**Goal**: Deliver daily quotes through user's preferred communication channels.
+**Goal**: Deliver daily quotes to a user's verified email on their chosen schedule.
 
-### Channels
+### Destination
 
 - [ ] 📧 **Email** - Daily digest via email
-- [ ] 💬 **Slack** - Daily quote in Slack workspace
-- [ ] 🤖 **Telegram** - Daily quote via Telegram bot
-- [ ] 🔔 **In-App Notifications** - Browser notifications (future)
 
 ### Features
 
-- [ ] Schedule delivery time based on user timezone
-- [ ] Toggle notifications on/off per channel
-- [ ] Delivery frequency settings (daily, weekly, monthly)
+- [x] Schedule delivery time based on user timezone
+- [x] Toggle email notifications on/off
+- [x] Select delivery weekdays and language
 
 ### Technical Requirements
 
-- [ ] Background job system (likely using Oban)
-- [ ] External service integrations (email, Slack, Telegram APIs)
-- [ ] Notification scheduler
-- [ ] Delivery status tracking and retry logic
-- [ ] Timezone support
+- [ ] Background job system with Oban Cron and an email worker
+- [ ] Email delivery through the existing mailer
+- [ ] Notification scheduler and best-effort retry/expiry handling
+- [x] Timezone support
 
 ### Timeline
 

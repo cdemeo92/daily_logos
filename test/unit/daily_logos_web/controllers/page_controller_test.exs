@@ -44,9 +44,9 @@ defmodule DailyLogosWeb.PageControllerTest do
   test "notifications pages expose indexable localized metadata", %{conn: conn} do
     for {path, title, description} <- [
           {"/notifications", "Daily Stoic Quote Notifications | Daily Logos",
-           "Receive daily Stoic quotes through email, Slack, Telegram and more. Build a daily reflection habit with Daily Logos."},
+           "Receive daily Stoic quotes by email and build a daily reflection habit with Daily Logos."},
           {"/it/notifications", "Notifiche con citazioni stoiche quotidiane | Daily Logos",
-           "Ricevi ogni giorno citazioni stoiche via email, Slack, Telegram e altri canali. Coltiva una riflessione quotidiana con Daily Logos."}
+           "Ricevi ogni giorno citazioni stoiche via email e coltiva una riflessione quotidiana con Daily Logos."}
         ] do
       document = conn |> get(path) |> html_response(200) |> LazyHTML.from_document()
       canonical = DailyLogosWeb.Endpoint.url() <> path

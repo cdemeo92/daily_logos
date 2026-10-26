@@ -59,7 +59,7 @@ Concrete implementations of interfaces:
 
 - **Ecto Repo** (`repo.ex`) - Database adapter
 - **Database Schemas** - Ecto schema definitions
-- External service clients (email, Slack, Telegram - future)
+- External service clients (email notifications)
 - Configuration management
 
 The infrastructure layer is the only part that knows about the database, external APIs, etc.
@@ -214,7 +214,7 @@ test/daily_logos_web/e2e/...
 As the system evolves:
 
 1. **Background Jobs** - Will become a new adapter layer for async task processing
-2. **External Integrations** - Email, Slack, Telegram will be adapters with defined ports
+2. **Email Notifications** - Scheduled email delivery uses the existing mailer and Oban; non-email notification providers are out of scope
 3. **Caching** - Can be added as an adapter without affecting domain logic
 4. **Event System** - For communication between contexts (if needed)
 5. **API Layer** - GraphQL or REST API will follow the same hexagonal pattern

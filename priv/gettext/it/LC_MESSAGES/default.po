@@ -925,8 +925,8 @@ msgstr "Hai già un account?"
 
 #: lib/daily_logos_web/controllers/page_controller.ex:66
 #, elixir-autogen, elixir-format
-msgid "Receive daily Stoic quotes through email, Slack, Telegram and more. Build a daily reflection habit with Daily Logos."
-msgstr "Ricevi ogni giorno citazioni stoiche via email, Slack, Telegram e altri canali. Coltiva una riflessione quotidiana con Daily Logos."
+msgid "Receive daily Stoic quotes by email and build a daily reflection habit with Daily Logos."
+msgstr "Ricevi ogni giorno citazioni stoiche via email e coltiva una riflessione quotidiana con Daily Logos."
 
 #: lib/daily_logos_web/controllers/page_html/notifications.html.heex:20
 #, elixir-autogen, elixir-format

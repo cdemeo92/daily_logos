@@ -66,7 +66,7 @@ defmodule DailyLogosWeb.PageController do
       title: gettext("Daily Stoic Quote Notifications | Daily Logos"),
       description:
         gettext(
-          "Receive daily Stoic quotes through email, Slack, Telegram and more. Build a daily reflection habit with Daily Logos."
+          "Receive daily Stoic quotes by email and build a daily reflection habit with Daily Logos."
         ),
       robots: "index,follow"
     })
