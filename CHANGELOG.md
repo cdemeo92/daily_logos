@@ -1,3 +1,10 @@
+# [1.35.0](https://github.com/cdemeo92/daily_logos/compare/v1.34.0...v1.35.0) (2026-10-26)
+
+
+### Features
+
+* **notifications:** add manage notifications link to email body and translations ([fc740e2](https://github.com/cdemeo92/daily_logos/commit/fc740e2c0bffded588059b8a1b5e9386ace0471c))
+
 # [1.34.0](https://github.com/cdemeo92/daily_logos/compare/v1.33.0...v1.34.0) (2026-10-26)
 
 
