@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/cdemeo92/daily_logos/compare/v1.32.0...v1.33.0) (2026-10-26)
+
+
+### Features
+
+* integrate Oban for job processing ([2fd6ee8](https://github.com/cdemeo92/daily_logos/commit/2fd6ee83028c52c7f24e3288092a0134c36cebde))
+
 # [1.32.0](https://github.com/cdemeo92/daily_logos/compare/v1.31.0...v1.32.0) (2026-10-26)
 
 
