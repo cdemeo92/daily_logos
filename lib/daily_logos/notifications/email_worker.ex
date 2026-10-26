@@ -64,12 +64,16 @@ defmodule DailyLogos.Notifications.EmailWorker do
             author: gettext("By %{author}", author: quote.author),
             source: gettext("Source: %{source}", source: quote.source),
             theme: gettext("Theme: %{topic}", topic: topic),
+            manage_notifications: gettext("Manage your notification settings"),
+            delete_account: gettext("Delete your account"),
             support_prompt: gettext("Enjoying your daily reflection?"),
             support_copy: gettext("Support Daily Logos with a coffee.")
           }
         end)
 
       buy_me_coffee_url = buy_me_coffee_url()
+      manage_notifications_url = localized_endpoint_url("/notifications", language)
+      delete_account_url = localized_endpoint_url("/users/account/privacy", language)
 
       body_sections = [
         translations.introduction,
@@ -87,6 +91,15 @@ defmodule DailyLogos.Notifications.EmailWorker do
           body_sections
         end
 
+      body_sections =
+        body_sections ++
+          [
+            translations.manage_notifications,
+            manage_notifications_url,
+            translations.delete_account,
+            delete_account_url
+          ]
+
       body = Enum.join(body_sections, "\n\n")
 
       html_body =
@@ -94,7 +107,9 @@ defmodule DailyLogos.Notifications.EmailWorker do
           language,
           translations,
           text,
-          buy_me_coffee_url
+          buy_me_coffee_url,
+          manage_notifications_url,
+          delete_account_url
         )
 
       email =
@@ -109,7 +124,14 @@ defmodule DailyLogos.Notifications.EmailWorker do
     end
   end
 
-  defp render_email_html(language, translations, text, buy_me_coffee_url) do
+  defp render_email_html(
+         language,
+         translations,
+         text,
+         buy_me_coffee_url,
+         manage_notifications_url,
+         delete_account_url
+       ) do
     quote_text = text |> escape_html() |> String.replace(~r/\r\n?|\n/, "<br>\n")
 
     support_section =
@@ -190,6 +212,16 @@ defmodule DailyLogos.Notifications.EmailWorker do
                 #{support_section}
                 <tr>
                   <td style="padding:18px 32px;background-color:#f8f7f4;border-radius:0 0 8px 8px;text-align:center;">
+                    <p style="margin:0 0 10px;font-size:13px;line-height:1.5;">
+                      <a href="#{escape_html(manage_notifications_url)}" style="color:#252525;text-decoration:underline;">
+                        #{escape_html(translations.manage_notifications)}
+                      </a>
+                    </p>
+                    <p style="margin:0 0 10px;font-size:13px;line-height:1.5;">
+                      <a href="#{escape_html(delete_account_url)}" style="color:#252525;text-decoration:underline;">
+                        #{escape_html(translations.delete_account)}
+                      </a>
+                    </p>
                     <p style="margin:0;color:#77736b;font-size:12px;line-height:1.5;">
                       Daily Logos
                     </p>
@@ -202,6 +234,35 @@ defmodule DailyLogos.Notifications.EmailWorker do
       </body>
     </html>
     """
+  end
+
+  defp localized_endpoint_url(path, language) do
+    endpoint_config = Application.fetch_env!(:daily_logos, DailyLogosWeb.Endpoint)
+    url_config = Keyword.fetch!(endpoint_config, :url)
+
+    scheme =
+      Keyword.get(
+        url_config,
+        :scheme,
+        if(Keyword.has_key?(endpoint_config, :https), do: "https", else: "http")
+      )
+
+    transport = if scheme == "https", do: :https, else: :http
+
+    port =
+      Keyword.get(url_config, :port) ||
+        endpoint_config
+        |> Keyword.get(transport, [])
+        |> Keyword.get(:port, URI.default_port(scheme))
+
+    path = DailyLogosWeb.LocalePaths.localized_path(path, language)
+
+    URI.to_string(%URI{
+      scheme: to_string(scheme),
+      host: Keyword.fetch!(url_config, :host),
+      port: port,
+      path: path
+    })
   end
 
   defp buy_me_coffee_url do

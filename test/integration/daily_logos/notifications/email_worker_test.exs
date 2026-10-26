@@ -48,9 +48,17 @@ defmodule DailyLogos.Notifications.EmailWorkerIntegrationTest do
       assert email.text_body =~ quote.text_it
       assert email.text_body =~ quote.author
       assert email.text_body =~ "2026-01-12"
+      assert email.text_body =~ "Gestisci le impostazioni delle notifiche"
+      assert email.text_body =~ "Elimina il tuo account"
       assert email.text_body =~ "Sostieni Daily Logos con un caffè."
       assert email.text_body =~ "https://www.buymeacoffee.com/dailylogos"
+      assert email.text_body =~ "http://localhost:4000/it/notifications"
+      assert email.text_body =~ "http://localhost:4000/it/users/account/privacy"
       assert email.html_body =~ "https://www.buymeacoffee.com/dailylogos"
+      assert email.html_body =~ "http://localhost:4000/it/notifications"
+      assert email.html_body =~ "Gestisci le impostazioni delle notifiche"
+      assert email.html_body =~ "http://localhost:4000/it/users/account/privacy"
+      assert email.html_body =~ "Elimina il tuo account"
       assert email.html_body =~ "Sostieni Daily Logos con un caffè."
       assert email.html_body =~ "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
       assert email.html_body =~ "height=\"40\""

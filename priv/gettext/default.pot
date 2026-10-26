@@ -1101,12 +1101,12 @@ msgstr ""
 msgid "We sent you a one-time link. Follow the instructions in your email to confirm your account and sign in."
 msgstr ""
 
-#: lib/daily_logos/notifications/email_worker.ex:61
+#: lib/daily_logos/notifications/email_worker.ex:63
 #, elixir-autogen, elixir-format
 msgid "A Stoic reflection for %{date}."
 msgstr ""
 
-#: lib/daily_logos/notifications/email_worker.ex:62
+#: lib/daily_logos/notifications/email_worker.ex:64
 #, elixir-autogen, elixir-format
 msgid "By %{author}"
 msgstr ""
@@ -1197,7 +1197,7 @@ msgstr ""
 msgid "Select time zone"
 msgstr ""
 
-#: lib/daily_logos/notifications/email_worker.ex:63
+#: lib/daily_logos/notifications/email_worker.ex:65
 #, elixir-autogen, elixir-format
 msgid "Source: %{source}"
 msgstr ""
@@ -1212,7 +1212,7 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: lib/daily_logos/notifications/email_worker.ex:64
+#: lib/daily_logos/notifications/email_worker.ex:66
 #, elixir-autogen, elixir-format
 msgid "Theme: %{topic}"
 msgstr ""
@@ -1262,7 +1262,7 @@ msgstr ""
 msgid "Wednesday"
 msgstr ""
 
-#: lib/daily_logos/notifications/email_worker.ex:59
+#: lib/daily_logos/notifications/email_worker.ex:61
 #, elixir-autogen, elixir-format
 msgid "Your daily Stoic quote"
 msgstr ""
@@ -1272,12 +1272,22 @@ msgstr ""
 msgid "Your session expired. Please log in again."
 msgstr ""
 
-#: lib/daily_logos/notifications/email_worker.ex:65
+#: lib/daily_logos/notifications/email_worker.ex:69
 #, elixir-autogen, elixir-format
 msgid "Enjoying your daily reflection?"
 msgstr ""
 
-#: lib/daily_logos/notifications/email_worker.ex:66
+#: lib/daily_logos/notifications/email_worker.ex:70
 #, elixir-autogen, elixir-format
 msgid "Support Daily Logos with a coffee."
+msgstr ""
+
+#: lib/daily_logos/notifications/email_worker.ex:67
+#, elixir-autogen, elixir-format
+msgid "Manage your notification settings"
+msgstr ""
+
+#: lib/daily_logos/notifications/email_worker.ex:68
+#, elixir-autogen, elixir-format
+msgid "Delete your account"
 msgstr ""
