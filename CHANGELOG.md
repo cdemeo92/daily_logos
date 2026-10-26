@@ -1,3 +1,10 @@
+## [1.36.1](https://github.com/cdemeo92/daily_logos/compare/v1.36.0...v1.36.1) (2026-10-26)
+
+
+### Bug Fixes
+
+* add unnamed prepare option for production database configuration ([e3d7bc8](https://github.com/cdemeo92/daily_logos/commit/e3d7bc8f922b3d77d168721f72c40a2f2d736fe3))
+
 # [1.36.0](https://github.com/cdemeo92/daily_logos/compare/v1.35.0...v1.36.0) (2026-10-26)
 
 
