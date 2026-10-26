@@ -1,3 +1,10 @@
+# [1.34.0](https://github.com/cdemeo92/daily_logos/compare/v1.33.0...v1.34.0) (2026-10-26)
+
+
+### Features
+
+* **notifications:** add scheduled email delivery ([1e8239a](https://github.com/cdemeo92/daily_logos/commit/1e8239ab697c15a6010a7fc67b7b7f6ca5e7fdb2))
+
 # [1.33.0](https://github.com/cdemeo92/daily_logos/compare/v1.32.0...v1.33.0) (2026-10-26)
 
 
