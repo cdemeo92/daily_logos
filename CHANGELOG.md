@@ -1,3 +1,10 @@
+# [1.36.0](https://github.com/cdemeo92/daily_logos/compare/v1.35.0...v1.36.0) (2026-10-26)
+
+
+### Features
+
+* **notifications:** enhance email notifications with HTML support and new templates ([16aebe9](https://github.com/cdemeo92/daily_logos/commit/16aebe9cdc1d53bda01ce3a764d007f4a4c3b707))
+
 # [1.35.0](https://github.com/cdemeo92/daily_logos/compare/v1.34.0...v1.35.0) (2026-10-26)
 
 
