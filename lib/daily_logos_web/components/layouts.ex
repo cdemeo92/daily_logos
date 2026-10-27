@@ -40,7 +40,7 @@ defmodule DailyLogosWeb.Layouts do
                   <%!-- <.ad_slot id="footer" /> --%>
                 </div>
                 <a
-                  href="https://github.com/claudio-demeo/daily_logos"
+                  href="https://github.com/cdemeo92/daily_logos"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-base-content/70 hover:text-base-content transition-colors"
@@ -146,8 +146,7 @@ defmodule DailyLogosWeb.Layouts do
             "height" => 400
           },
           "sameAs" => [
-            "https://github.com/claudio-demeo/daily_logos",
-            "https://twitter.com/daily_logos"
+            "https://github.com/cdemeo92/daily_logos"
           ],
           "contactPoint" => %{
             "@type" => "ContactPoint",
