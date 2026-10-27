@@ -1,3 +1,10 @@
+## [1.36.3](https://github.com/cdemeo92/daily_logos/compare/v1.36.2...v1.36.3) (2026-10-27)
+
+
+### Bug Fixes
+
+* update GitHub URL references in layouts ([ff8666b](https://github.com/cdemeo92/daily_logos/commit/ff8666bb8e6159882080487945e212145d3b3de0))
+
 ## [1.36.2](https://github.com/cdemeo92/daily_logos/compare/v1.36.1...v1.36.2) (2026-10-26)
 
 
