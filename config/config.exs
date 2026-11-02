@@ -89,6 +89,7 @@ config :daily_logos, Oban,
   repo: DailyLogos.Repo,
   queues: [notifications_email: 10],
   plugins: [
+    {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},
     {Oban.Cron,
      crontab: [
        {"*/15 * * * *", DailyLogos.Notifications.Dispatcher}
